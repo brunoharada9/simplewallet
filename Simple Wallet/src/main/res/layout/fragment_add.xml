@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fragment_add_background"
+    android:background="@color/gray"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/fragment_add_text_balance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="35sp"
+        android:textColor="@color/snow"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/fragment_add_text_gain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:textColor="@color/snow"
+        android:layout_below="@+id/fragment_add_text_balance"
+        android:gravity="center"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/fragment_add_text_expense"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:textColor="@color/snow"
+        android:layout_below="@+id/fragment_add_text_gain"
+        android:gravity="center"
+        android:layout_centerHorizontal="true" />
+
+    <!--<ImageView android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/fragment_add_button_add"
+        android:src="@color/gain"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />-->
+
+    <View
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:background="@color/snow"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+
+        />
+
+    <TextView
+        android:id="@+id/fragment_add_button_add"
+        android:layout_width="135dp"
+        android:layout_height="135dp"
+        android:textSize="100sp"
+        android:text="@string/fragment_add_button"
+        android:textColor="@color/snow"
+        android:background="@color/green"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        />
+
+
+</RelativeLayout>

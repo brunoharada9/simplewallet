@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:hint="@string/dialog_add_edittext_description"
+        android:ems="10"
+        android:id="@+id/dialog_add_edittext_description"
+        android:layout_gravity="center_horizontal" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:ems="10"
+        android:id="@+id/dialog_add_edittext_value"
+        android:hint="@string/dialog_add_edittext_value"
+        android:layout_gravity="center_horizontal" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/dialog_add_radiogroup_type"
+        android:gravity="center">
+
+    <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/dialog_add_radiobutton_expense"
+        android:id="@+id/dialog_add_radiobutton_expense"
+        android:checked="true"
+        android:layout_gravity="center_horizontal" />
+
+    <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/dialog_add_radiobutton_gain"
+        android:id="@+id/dialog_add_radiobutton_gain"
+        android:layout_gravity="center_horizontal" />
+
+    </RadioGroup>
+
+    <!--<Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner"
+        android:layout_gravity="center_horizontal" />-->
+
+    <DatePicker
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/dialog_add_datepicker"
+        android:calendarViewShown="false"
+        android:layout_gravity="center_horizontal" />
+
+
+</LinearLayout>
