@@ -1,0 +1,133 @@
+package br.com.tolive.simplewallet.app;
+
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Typeface;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.util.Log;
+import android.util.TypedValue;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.Calendar;
+
+import br.com.tolive.simplewallet.constants.Constantes;
+import br.com.tolive.simplewallet.db.EntryDAO;
+import br.com.tolive.simplewallet.model.Entry;
+import br.com.tolive.simplewallet.utils.DialogAddEntryMaker;
+
+public class AddFragment extends Fragment {
+    public static final String EMPTY = "";
+    public static final int DIALOG_TITLE_SIZE = 25;
+    TextView buttonAdd;
+    TextView textBalance;
+    TextView textGain;
+    TextView textExpense;
+    RelativeLayout background;
+    EntryDAO dao;
+    AlertDialog dialog;
+
+    public AddFragment(){}
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+        View rootView = inflater.inflate(R.layout.fragment_add, container, false);
+
+        dao = EntryDAO.getInstance(getActivity());
+
+        buttonAdd = (TextView) rootView.findViewById(R.id.fragment_add_button_add);
+        textBalance = (TextView) rootView.findViewById(R.id.fragment_add_text_balance);
+        textGain = (TextView) rootView.findViewById(R.id.fragment_add_text_gain);
+        textExpense = (TextView) rootView.findViewById(R.id.fragment_add_text_expense);
+        background = (RelativeLayout) rootView.findViewById(R.id.fragment_add_background);
+
+        Typeface tf = Typeface.createFromAsset(getActivity().getAssets(), Constantes.FONT_PATH_ROBOTO_CONDENSED_BOLD);
+        textBalance.setTypeface(tf);
+        textGain.setTypeface(tf);
+        textExpense.setTypeface(tf);
+
+        Calendar calendar = Calendar.getInstance();
+        int month = calendar.get(Calendar.MONTH);
+
+        refreshBalanceText(month);
+        refreshBackGround(month);
+
+        buttonAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogAddEntryMaker dialogAddEntryMaker = new DialogAddEntryMaker(getActivity());
+                dialogAddEntryMaker.setOnClickOkListener(new DialogAddEntryMaker.OnClickOkListener() {
+                    @Override
+                    public void onClickOk(Entry entry) {
+                        if (dao.insert(entry) != -1) {
+                            Toast.makeText(getActivity(), R.string.dialog_add_sucess, Toast.LENGTH_SHORT).show();
+                            refreshBackGround(entry.getMonth());
+                            refreshBalanceText(entry.getMonth());
+                        } else {
+                            Toast.makeText(getActivity(), R.string.dialog_add_error, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+                dialog = dialogAddEntryMaker.makeAddDialog();
+                dialog.show();
+            }
+        });
+
+        return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Calendar calendar = Calendar.getInstance();
+        int month = calendar.get(Calendar.MONTH);
+        refreshBalanceText(month);
+        refreshBackGround(month);
+    }
+
+    private void refreshBalanceText(int month) {
+        Float balance = new Float(dao.getMonthBalance(month));
+        Float gain = dao.getGain(month);
+        Float expense = dao.getExpense(month);
+        textBalance.setText("Saldo: " + String.format("%.2f", balance));
+        textGain.setText("Ganho: " + String.format("%.2f", gain));
+        textExpense.setText("Despesa: " + String.format("%.2f", expense));
+    }
+
+    private void refreshBackGround(int month){
+
+        Float gain = dao.getGain(month);
+        Float expense = dao.getExpense(month);
+
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constantes.SHARED_PREFERENCES, Context.MODE_PRIVATE);
+        float yellow = sharedPreferences.getFloat(Constantes.SP_KEY_YELLOW, Constantes.SP_YELLOW_DEFAULT);
+        float red = sharedPreferences.getFloat(Constantes.SP_KEY_RED, Constantes.SP_RED_DEFAULT);
+
+        int color;
+        if((gain - expense) < red){
+            color = getActivity().getResources().getColor(R.color.red);
+        } else if((gain - expense) < yellow){
+            color = getActivity().getResources().getColor(R.color.yellow);
+        } else{
+            color = getActivity().getResources().getColor(R.color.green);
+        }
+
+        background.setBackgroundColor(color);
+        buttonAdd.setBackgroundColor(color);
+    }
+
+}
