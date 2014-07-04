@@ -1,0 +1,62 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        android:paddingBottom="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/gray"
+            android:layout_gravity="center_vertical"
+            android:textSize="35sp"
+            android:id="@+id/fragment_about_text_more_apps"
+            android:text="@string/fragment_about_text_more_apps" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:background="@color/gray"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/fragment_about_tolivehealthy">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/green_tolivehealthy"
+                android:layout_gravity="center_vertical"
+                android:textSize="30sp"
+                android:id="@+id/fragment_about_tolivehealthy_text"
+                android:text="@string/fragment_about_tolivehealthy_text" />
+
+            <ImageView
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:src="@drawable/ic_tolivehealthy"
+                android:contentDescription="@android:string/untitled"
+                android:layout_gravity="end"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/gray"
+            />
+
+    </LinearLayout>
+
+</ScrollView>
+

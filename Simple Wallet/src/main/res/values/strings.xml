@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="admob_id">ca-app-pub-4943092531167782/7392281355</string>
+    <string name="app_name">Simple Wallet</string>
+    <string name="title_activity_menu">Wallet</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_filtro">Filtro</string>
+    <string name="action_confirm">Salvar</string>
+    <string name="dialog_add_title">Adicionar</string>
+    <string name="dialog_add_sucess">Despesa adicionada com sucesso</string>
+    <string name="dialog_add_error">Erro ao adicionar despesa :(</string>
+    <string name="dialog_add_no_descripition">Sem descrição</string>
+    <string name="dialog_add_invalid_value">Valor invalido</string>
+    <string name="dialog_add_radiobutton_gain">Ganho</string>
+    <string name="dialog_add_radiobutton_expense">Despesa</string>
+    <string name="dialog_add_edittext_value">Valor</string>
+    <string name="dialog_add_edittext_description">Descrição</string>
+    <string name="dialog_add_text_choose">Outra data</string>
+    <string name="dialog_add_text_ok">Ok</string>
+    <string name="dialog_add_text_cancel">Cancelar</string>
+    <string name="dialog_edit_sucess">Editado com sucesso</string>
+    <string name="dialog_edit_error">Erro na edição</string>
+    <string name="fragment_details_text_value_string">Quanto?</string>
+    <string name="fragment_details_text_date_string">Quando?</string>
+    <string name="fragment_settings_text_color_set">Mudar avisos</string>
+    <string name="fragment_settings_text_color_set_green">Bom $$ :)</string>
+    <string name="fragment_settings_text_color_set_yellow">Atenção...</string>
+    <string name="fragment_settings_text_color_set_red">Quebrado :(</string>
+    <string name="fragment_filtro_text_date">Data</string>
+    <string name="fragment_filtro_text_date_month">Mês</string>
+    <string name="fragment_filtro_text_date_year">Ano</string>
+    <string name="fragment_about_text_more_apps">Mais aplicativos</string>
+    <string name="fragment_about_tolivehealthy_text">ToLive Healthy</string>
+    <string name="title_activity_settings">Configurações</string>
+    <string name="title_activity_filtro">Filtro</string>
+    <string name="title_activity_add">Adicionar</string>
+    <string name="fragment_list_contextmenu_item_edit">Editar</string>
+    <string name="fragment_list_contextmenu_item_delete">Deletar</string>
+    <string name="fragment_list_text_balance">Saldo</string>
+    <string name="fragment_add_button">$</string>
+
+</resources>
