@@ -55,6 +55,7 @@ public class MenuActivity extends ActionBarActivity {
 
         AdRequest request = new AdRequest.Builder()
                 .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .addTestDevice("0422610248")
                 .build();
         AdView adView = (AdView) findViewById(R.id.ad);
         adView.loadAd(request);

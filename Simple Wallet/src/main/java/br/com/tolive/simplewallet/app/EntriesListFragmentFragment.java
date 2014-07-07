@@ -52,6 +52,8 @@ public class EntriesListFragmentFragment extends Fragment implements MenuActivit
     int prevMonth;
     int prevYear;
 
+    int backStackNumber = EMPTY_BACKSTACK;
+
     public EntriesListFragmentFragment() {
     }
 
@@ -105,11 +107,11 @@ public class EntriesListFragmentFragment extends Fragment implements MenuActivit
     @Override
     public void onFiltroApply(ArrayList<Entry> entries) {
         this.entries = entries;
-        if(entries != null){
+        if(entries.size() > 0){
             month = entries.get(FIRST_ELEMENT).getMonth();
         }
         FragmentManager fm = getActivity().getSupportFragmentManager();
-        int backStackNumber = fm.getBackStackEntryCount();
+        //int backStackNumber = fm.getBackStackEntryCount();
         if(backStackNumber > EMPTY_BACKSTACK){
             fm.popBackStack();
         }
