@@ -16,9 +16,12 @@
     <string name="dialog_add_radiobutton_expense">Despesa</string>
     <string name="dialog_add_edittext_value">Valor</string>
     <string name="dialog_add_edittext_description">Descrição</string>
+<<<<<<< HEAD
     <string name="dialog_add_text_choose">Outra data</string>
     <string name="dialog_add_text_ok">Ok</string>
     <string name="dialog_add_text_cancel">Cancelar</string>
+=======
+>>>>>>> 1ed1f099f6b39cf259cf77eed17b012c02a76bf3
     <string name="dialog_edit_sucess">Editado com sucesso</string>
     <string name="dialog_edit_error">Erro na edição</string>
     <string name="fragment_details_text_value_string">Quanto?</string>

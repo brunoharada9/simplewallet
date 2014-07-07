@@ -9,13 +9,19 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+<<<<<<< HEAD
 import android.util.TypedValue;
+=======
+>>>>>>> 1ed1f099f6b39cf259cf77eed17b012c02a76bf3
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
+<<<<<<< HEAD
 import android.widget.LinearLayout;
+=======
+>>>>>>> 1ed1f099f6b39cf259cf77eed17b012c02a76bf3
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -26,18 +32,27 @@ import java.util.Calendar;
 import br.com.tolive.simplewallet.constants.Constantes;
 import br.com.tolive.simplewallet.db.EntryDAO;
 import br.com.tolive.simplewallet.model.Entry;
+<<<<<<< HEAD
 import br.com.tolive.simplewallet.utils.DialogAddEntryMaker;
 
 public class AddFragment extends Fragment {
     public static final String EMPTY = "";
     public static final int DIALOG_TITLE_SIZE = 25;
+=======
+
+public class AddFragment extends Fragment {
+    public static final String EMPTY = "";
+>>>>>>> 1ed1f099f6b39cf259cf77eed17b012c02a76bf3
     TextView buttonAdd;
     TextView textBalance;
     TextView textGain;
     TextView textExpense;
     RelativeLayout background;
     EntryDAO dao;
+<<<<<<< HEAD
     AlertDialog dialog;
+=======
+>>>>>>> 1ed1f099f6b39cf259cf77eed17b012c02a76bf3
 
     public AddFragment(){}
 
@@ -69,6 +84,7 @@ public class AddFragment extends Fragment {
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+<<<<<<< HEAD
                 DialogAddEntryMaker dialogAddEntryMaker = new DialogAddEntryMaker(getActivity());
                 dialogAddEntryMaker.setOnClickOkListener(new DialogAddEntryMaker.OnClickOkListener() {
                     @Override
@@ -83,6 +99,9 @@ public class AddFragment extends Fragment {
                     }
                 });
                 dialog = dialogAddEntryMaker.makeAddDialog();
+=======
+                AlertDialog dialog = makeAddDialog();
+>>>>>>> 1ed1f099f6b39cf259cf77eed17b012c02a76bf3
                 dialog.show();
             }
         });
@@ -99,6 +118,72 @@ public class AddFragment extends Fragment {
         refreshBackGround(month);
     }
 
+<<<<<<< HEAD
+=======
+    private AlertDialog makeAddDialog() {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
+
+        LayoutInflater inflater = (LayoutInflater)   getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final View view = inflater.inflate(R.layout.dialog_add, null);
+
+        dialog
+                .setTitle(R.string.dialog_add_title)
+                .setView(view)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        EditText editTextDescription = (EditText) view.findViewById(R.id.dialog_add_edittext_description);
+                        EditText editTextValue = (EditText) view.findViewById(R.id.dialog_add_edittext_value);
+                        RadioGroup radioGroupType = (RadioGroup) view.findViewById(R.id.dialog_add_radiogroup_type);
+                        DatePicker datePicker = (DatePicker) view.findViewById(R.id.dialog_add_datepicker);
+
+                        if (editTextDescription.getText().toString().equals(EMPTY))
+                            editTextDescription.setText(R.string.dialog_add_no_descripition);
+
+                        String description = editTextDescription.getText().toString();
+                        Float value = Float.parseFloat(editTextValue.getText().toString());
+
+                        int typeRadioButtonId = radioGroupType.getCheckedRadioButtonId();
+                        int type = typeRadioButtonId == R.id.dialog_add_radiobutton_expense ? Entry.TYPE_EXPENSE : Entry.TYPE_GAIN;
+
+                        String category = "default";
+
+                        int month = datePicker.getMonth();
+
+                        String date = datePicker.getDayOfMonth() + "/" + (month + 1) + "/" + datePicker.getYear();
+
+                        if (value.equals(EMPTY)) {
+                            Toast.makeText(getActivity(), R.string.dialog_add_invalid_value, Toast.LENGTH_SHORT).show();
+                        } else {
+                            Entry entry = new Entry();
+                            entry.setDescription(description);
+                            entry.setValue(value);
+                            entry.setType(type);
+                            entry.setCategory(category);
+                            entry.setDate(date);
+                            entry.setMonth(month);
+
+                            if (dao.insert(entry) != -1) {
+                                Toast.makeText(getActivity(), R.string.dialog_add_sucess, Toast.LENGTH_SHORT).show();
+                                refreshBalanceText(month);
+                                refreshBackGround(month);
+                            } else {
+                                Toast.makeText(getActivity(), R.string.dialog_add_error, Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+                })
+                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+
+        return dialog.create();
+    }
+
+>>>>>>> 1ed1f099f6b39cf259cf77eed17b012c02a76bf3
     private void refreshBalanceText(int month) {
         Float balance = new Float(dao.getMonthBalance(month));
         Float gain = dao.getGain(month);
@@ -129,5 +214,8 @@ public class AddFragment extends Fragment {
         background.setBackgroundColor(color);
         buttonAdd.setBackgroundColor(color);
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1ed1f099f6b39cf259cf77eed17b012c02a76bf3
 }
