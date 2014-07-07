@@ -55,9 +55,9 @@ public class MenuActivity extends ActionBarActivity {
 
         AdRequest request = new AdRequest.Builder()
                 .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                .addTestDevice("0422610248")
+                .addTestDevice("E6E54B90007CAC7A62F9EC7857F3A989")
                 .build();
-        AdView adView = (AdView) findViewById(R.id.ad);
+        AdView adView = (AdView) findViewById(R.id.ad_main);
         adView.loadAd(request);
 
         mTitle = mDrawerTitle = getTitle();
@@ -69,13 +69,13 @@ public class MenuActivity extends ActionBarActivity {
 
         // adding nav drawer items to array
         // Add
-        navDrawerItems.add(new NavDrawerItem(Constantes.NAV_DRAWER_ITEMS[0], Constantes.NAV_DRAWER_ICONS[0]));
+        navDrawerItems.add(new NavDrawerItem(Constantes.NAV_DRAWER_ITEMS[Constantes.NAV_DRAWER_INDEX_ADD], Constantes.NAV_DRAWER_ICONS[Constantes.NAV_DRAWER_INDEX_ADD]));
         // List
-        navDrawerItems.add(new NavDrawerItem(Constantes.NAV_DRAWER_ITEMS[1], Constantes.NAV_DRAWER_ICONS[1]));
+        navDrawerItems.add(new NavDrawerItem(Constantes.NAV_DRAWER_ITEMS[Constantes.NAV_DRAWER_INDEX_LIST], Constantes.NAV_DRAWER_ICONS[Constantes.NAV_DRAWER_INDEX_LIST]));
         // Graphs
-        //navDrawerItems.add(new NavDrawerItem(Constantes.NAV_DRAWER_ITEMS[2], Constantes.NAV_DRAWER_ICONS[2]));
+        //navDrawerItems.add(new NavDrawerItem(Constantes.NAV_DRAWER_ITEMS[Constantes.NAV_DRAWER_INDEX_GRAPH], Constantes.NAV_DRAWER_ICONS[Constantes.NAV_DRAWER_INDEX_GRAPH]));
         // About
-        navDrawerItems.add(new NavDrawerItem(Constantes.NAV_DRAWER_ITEMS[2], Constantes.NAV_DRAWER_ICONS[2]));
+        navDrawerItems.add(new NavDrawerItem(Constantes.NAV_DRAWER_ITEMS[Constantes.NAV_DRAWER_INDEX_ABOUT], Constantes.NAV_DRAWER_ICONS[Constantes.NAV_DRAWER_INDEX_ABOUT]));
 
 
         // setting the nav drawer list adapter
@@ -256,6 +256,11 @@ public class MenuActivity extends ActionBarActivity {
     public void setTitle(CharSequence title) {
         mTitle = title;
         getActionBar().setTitle(mTitle);
+        if(title.equals(Constantes.NAV_DRAWER_ITEMS[Constantes.NAV_DRAWER_INDEX_ABOUT])){
+            getActionBar().setIcon(android.R.drawable.ic_menu_agenda);
+        } else {
+            getActionBar().setIcon(R.drawable.ic_launcher);
+        }
     }
 
     /**

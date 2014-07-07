@@ -21,8 +21,8 @@
     <string name="dialog_add_text_cancel">Cancelar</string>
     <string name="dialog_edit_sucess">Editado com sucesso</string>
     <string name="dialog_edit_error">Erro na edição</string>
-    <string name="fragment_details_text_value_string">Quanto?</string>
-    <string name="fragment_details_text_date_string">Quando?</string>
+    <string name="activity_details_text_value_string">Quanto?</string>
+    <string name="activity_details_text_date_string">Quando?</string>
     <string name="fragment_settings_text_color_set">Mudar avisos</string>
     <string name="fragment_settings_text_color_set_green">Bom $$ :)</string>
     <string name="fragment_settings_text_color_set_yellow">Atenção...</string>
@@ -35,6 +35,7 @@
     <string name="title_activity_settings">Configurações</string>
     <string name="title_activity_filtro">Filtro</string>
     <string name="title_activity_add">Adicionar</string>
+    <string name="title_activity_details">Detalhes</string>
     <string name="fragment_list_contextmenu_item_edit">Editar</string>
     <string name="fragment_list_contextmenu_item_delete">Deletar</string>
     <string name="fragment_list_text_balance">Saldo</string>

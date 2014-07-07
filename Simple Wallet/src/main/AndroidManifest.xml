@@ -24,9 +24,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.google.android.gms.ads.AdActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" />
-        <activity
             android:name="br.com.tolive.simplewallet.app.SettingsActivity"
             android:label="@string/title_activity_settings" >
         </activity>
@@ -34,6 +31,13 @@
             android:name="br.com.tolive.simplewallet.app.FiltroActivity"
             android:label="@string/title_activity_filtro" >
         </activity>
+        <activity
+            android:name="br.com.tolive.simplewallet.app.DetailsActivity"
+            android:label="@string/title_activity_details" >
+        </activity>
+        <activity
+            android:name="com.google.android.gms.ads.AdActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" />
     </application>
 
 </manifest>

@@ -1,5 +1,6 @@
 package br.com.tolive.simplewallet.app;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
@@ -9,6 +10,9 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 import br.com.tolive.simplewallet.constants.Constantes;
 
@@ -27,6 +31,13 @@ public class SettingsActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
+        AdRequest request = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .addTestDevice("E6E54B90007CAC7A62F9EC7857F3A989")
+                .build();
+        AdView adView = (AdView) findViewById(R.id.ad_settings);
+        adView.loadAd(request);
+
         editYellow = (EditText) findViewById(R.id.fragment_settings_edit_yellow);
         editRed = (EditText) findViewById(R.id.fragment_settings_edit_red);
         textPercentGreen = (TextView) findViewById(R.id.fragment_settings_text_color_set_percent_green_number);
@@ -40,6 +51,9 @@ public class SettingsActivity extends Activity {
         editRed.setText(String.format("%.0f",red));
 
         setTypeFace();
+        ActionBar actionBar = getActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setIcon(android.R.drawable.ic_menu_revert);
     }
 
     private void setTypeFace() {
@@ -101,6 +115,9 @@ public class SettingsActivity extends Activity {
                     //Toast.makeText(this, MSG_ERROR_INTERVAL, Toast.LENGTH_SHORT).show();
                // }
             }
+        } else if(item.getItemId() == android.R.id.home){
+            finish();
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }

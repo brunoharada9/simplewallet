@@ -2,10 +2,7 @@ package br.com.tolive.simplewallet.utils;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Typeface;
-import android.util.Log;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.DatePicker;
@@ -96,13 +93,13 @@ public class DialogAddEntryMaker {
 
         if(entry != null){
             editTextDescription.setText(entry.getDescription());
-            editTextValue.setText(String.format("%.0f", entry.getValue()));
+            editTextValue.setText(String.format("%.2f", entry.getValue()));
             if (entry.getType() == Entry.TYPE_GAIN) {
-                radioGain.setSelected(true);
-                //radioExpense.setSelected(false);
+                radioGain.setChecked(true);
+                radioExpense.setChecked(false);
             } else {
-                //radioGain.setSelected(false);
-                radioExpense.setSelected(true);
+                radioGain.setChecked(false);
+                radioExpense.setChecked(true);
             }
             String[] split = entry.getDate().split("/");
             datePicker.updateDate(Integer.valueOf(split[DATE_YEAR]), Integer.valueOf(split[DATE_MONTH]) - 1, Integer.valueOf(split[DATE_DAY]));
@@ -133,7 +130,7 @@ public class DialogAddEntryMaker {
                 if (editTextValue.getText().toString().equals(EMPTY)) {
                     Toast.makeText(context, R.string.dialog_add_invalid_value, Toast.LENGTH_SHORT).show();
                 } else {
-                    Float value = Float.parseFloat(editTextValue.getText().toString());
+                    Float value = Float.parseFloat(formatToDot(editTextValue.getText().toString()));
                     if (editTextDescription.getText().toString().equals(EMPTY)){
                         editTextDescription.setText(R.string.dialog_add_no_descripition);
                     }
@@ -180,6 +177,15 @@ public class DialogAddEntryMaker {
         dialog.setView(view);
         return dialog.create();
     }
+
+    private String formatToDot(String number) {
+        if(number.contains(",")){
+            return number.split(",")[0] + "." + number.split(",")[1];
+        } else {
+            return  number;
+        }
+    }
+
 
     public void setOnClickOkListener (OnClickOkListener listener){
         mListener = listener;

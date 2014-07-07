@@ -2,26 +2,19 @@ package br.com.tolive.simplewallet.app;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,6 +33,7 @@ public class EntriesListFragmentFragment extends Fragment implements MenuActivit
     private static final int EMPTY_BACKSTACK = 0;
     private static final int DATE_YEAR = 2;
     private static final int NO_ROWS_AFFECTED = 0;
+    public static final String EXTRA_KEY_ENTRY_DETAILS = "entry_details";
 
     ArrayList<Entry> entries;
     Entry entry;
@@ -92,12 +86,10 @@ public class EntriesListFragmentFragment extends Fragment implements MenuActivit
         entriesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                Fragment fragment = new DetailsFragment(entries.get(position));
-                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                Intent detailsIntent = new Intent(getActivity(), DetailsActivity.class);
+                detailsIntent.putExtra(EXTRA_KEY_ENTRY_DETAILS, entries.get(position));
 
-                ft.replace(R.id.frame_container, fragment);
-                ft.addToBackStack("teste");
-                ft.commit();
+                startActivity(detailsIntent);
             }
         });
 
@@ -109,11 +101,6 @@ public class EntriesListFragmentFragment extends Fragment implements MenuActivit
         this.entries = entries;
         if(entries.size() > 0){
             month = entries.get(FIRST_ELEMENT).getMonth();
-        }
-        FragmentManager fm = getActivity().getSupportFragmentManager();
-        //int backStackNumber = fm.getBackStackEntryCount();
-        if(backStackNumber > EMPTY_BACKSTACK){
-            fm.popBackStack();
         }
         refreshList(entries);
     }

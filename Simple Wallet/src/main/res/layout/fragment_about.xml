@@ -26,18 +26,19 @@
             android:background="@color/gray"
             />
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:id="@+id/fragment_about_tolivehealthy">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:textColor="@color/green_tolivehealthy"
-                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:layout_alignParentLeft="true"
                 android:textSize="30sp"
+                android:layout_marginLeft="10dp"
                 android:id="@+id/fragment_about_tolivehealthy_text"
                 android:text="@string/fragment_about_tolivehealthy_text" />
 
@@ -45,11 +46,13 @@
 
                 android:layout_width="72dp"
                 android:layout_height="72dp"
+                android:layout_alignParentRight="true"
                 android:src="@drawable/ic_tolivehealthy"
+                android:layout_marginRight="10dp"
                 android:contentDescription="@android:string/untitled"
                 android:layout_gravity="end"/>
 
-        </LinearLayout>
+        </RelativeLayout>
 
         <View
             android:layout_width="match_parent"

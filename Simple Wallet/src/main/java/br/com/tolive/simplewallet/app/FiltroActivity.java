@@ -8,6 +8,9 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -26,6 +29,13 @@ public class FiltroActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filtro);
+
+        AdRequest request = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .addTestDevice("E6E54B90007CAC7A62F9EC7857F3A989")
+                .build();
+        AdView adView = (AdView) findViewById(R.id.ad_filtro);
+        adView.loadAd(request);
 
         spinnerMonth = (Spinner) findViewById(R.id.fragment_filtro_spinner_month);
         spinnerYear = (Spinner) findViewById(R.id.fragment_filtro_spinner_year);

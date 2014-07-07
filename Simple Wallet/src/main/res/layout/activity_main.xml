@@ -10,7 +10,7 @@
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="26"
+        android:layout_weight="1"
         android:layout_alignParentTop="true">
 
         <!-- Framelayout to display Fragments -->
@@ -34,10 +34,9 @@
     </android.support.v4.widget.DrawerLayout>
 
     <com.google.android.gms.ads.AdView
-        android:id="@+id/ad"
+        android:id="@+id/ad_main"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="4"
+        android:layout_height="50dp"
         googleads:adSize="SMART_BANNER"
         googleads:adUnitId="@string/admob_id"/>
 
