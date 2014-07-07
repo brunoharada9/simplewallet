@@ -33,23 +33,12 @@ import br.com.tolive.simplewallet.adapter.EntriesListAdapter;
 import br.com.tolive.simplewallet.constants.Constantes;
 import br.com.tolive.simplewallet.db.EntryDAO;
 import br.com.tolive.simplewallet.model.Entry;
-<<<<<<< HEAD
 import br.com.tolive.simplewallet.utils.DialogAddEntryMaker;
 
 public class EntriesListFragmentFragment extends Fragment implements MenuActivity.OnFiltroApplyListener{
     private static final int FIRST_ELEMENT = 0;
     private static final int EMPTY_BACKSTACK = 0;
     private static final int DATE_YEAR = 2;
-=======
-
-public class EntriesListFragmentFragment extends Fragment implements MenuActivity.OnFiltroApplyListener{
-    private static final String EMPTY = "";
-    private static final int FIRST_ELEMENT = 0;
-    private static final int EMPTY_BACKSTACK = 0;
-    private static final int DATE_YEAR = 2;
-    private static final int DATE_MONTH = 1;
-    private static final int DATE_DAY = 0;
->>>>>>> 1ed1f099f6b39cf259cf77eed17b012c02a76bf3
     private static final int NO_ROWS_AFFECTED = 0;
 
     ArrayList<Entry> entries;
@@ -60,12 +49,9 @@ public class EntriesListFragmentFragment extends Fragment implements MenuActivit
     TextView textBalanceNumber;
     int month;
 
-<<<<<<< HEAD
     int prevMonth;
     int prevYear;
 
-=======
->>>>>>> 1ed1f099f6b39cf259cf77eed17b012c02a76bf3
     public EntriesListFragmentFragment() {
     }
 
@@ -116,28 +102,6 @@ public class EntriesListFragmentFragment extends Fragment implements MenuActivit
         return view;
     }
 
-<<<<<<< HEAD
-=======
-    //@Override
-    //public void onListItemClick(ListView l, View v, int position, long id) {
-    //    super.onListItemClick(l, v, position, id);
-//
-    //    Fragment fragment = new DetailsFragment(entries.get(position));
-     //   FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-//
-      //  ft.replace(R.id.frame_container, fragment);
-     //   ft.addToBackStack("teste");
-      //  ft.commit();
-    //}
-
-   // @Override
-    //public void onActivityCreated(Bundle savedInstanceState) {
-    //    super.onActivityCreated(savedInstanceState);
-    //    registerForContextMenu(getListView());
-    //    setLongClick();
-    //}
-
->>>>>>> 1ed1f099f6b39cf259cf77eed17b012c02a76bf3
     @Override
     public void onFiltroApply(ArrayList<Entry> entries) {
         this.entries = entries;
@@ -174,92 +138,6 @@ public class EntriesListFragmentFragment extends Fragment implements MenuActivit
         containerBalance.setBackgroundColor(color);
     }
 
-<<<<<<< HEAD
-=======
-    private AlertDialog makeAddDialog() {
-        AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
-
-        LayoutInflater inflater = (LayoutInflater)   getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.dialog_add, null);
-
-        final EditText editTextDescription = (EditText) view.findViewById(R.id.dialog_add_edittext_description);
-        final EditText editTextValue = (EditText) view.findViewById(R.id.dialog_add_edittext_value);
-        final RadioGroup radioGroupType = (RadioGroup) view.findViewById(R.id.dialog_add_radiogroup_type);
-        final RadioButton radioGain = (RadioButton) view.findViewById(R.id.dialog_add_radiobutton_gain);
-        final RadioButton radioExpense = (RadioButton) view.findViewById(R.id.dialog_add_radiobutton_expense);
-        final DatePicker datePicker = (DatePicker) view.findViewById(R.id.dialog_add_datepicker);
-
-        editTextDescription.setText(entry.getDescription());
-        editTextValue.setText(String.format("%.0f", entry.getValue()));
-        if (entry.getType() == Entry.TYPE_GAIN) {
-            radioGain.setSelected(true);
-            Log.d("teste", "g: " + entry.getType());
-            //radioExpense.setSelected(false);
-        } else {
-            Log.d("teste", "e: " + entry.getType());
-            //radioGain.setSelected(false);
-            radioExpense.setSelected(true);
-        }
-        String[] split = entry.getDate().split("/");
-        final int prevMonth = Integer.valueOf(split[DATE_MONTH]) - 1;
-        final int prevYear = Integer.valueOf(split[DATE_YEAR]);
-        datePicker.updateDate(Integer.valueOf(split[DATE_YEAR]), Integer.valueOf(split[DATE_MONTH]) - 1, Integer.valueOf(split[DATE_DAY]));
-
-        dialog
-                .setTitle(R.string.dialog_add_title)
-                .setView(view)
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                        if (editTextDescription.getText().toString().equals(EMPTY))
-                            editTextDescription.setText(R.string.dialog_add_no_descripition);
-
-                        String description = editTextDescription.getText().toString();
-                        Float value = Float.parseFloat(editTextValue.getText().toString());
-
-                        int typeRadioButtonId = radioGroupType.getCheckedRadioButtonId();
-                        int type = typeRadioButtonId == R.id.dialog_add_radiobutton_expense ? Entry.TYPE_EXPENSE : Entry.TYPE_GAIN;
-
-                        String category = "default";
-
-                        int month = datePicker.getMonth();
-
-                        String date = datePicker.getDayOfMonth() + "/" + (month + 1) + "/" + datePicker.getYear();
-
-                        if (value.equals(EMPTY)) {
-                            Toast.makeText(getActivity(), R.string.dialog_add_invalid_value, Toast.LENGTH_SHORT).show();
-                        } else {
-                            entry.setDescription(description);
-                            entry.setValue(value);
-                            entry.setType(type);
-                            entry.setCategory(category);
-                            entry.setDate(date);
-                            entry.setMonth(month);
-
-                            if (dao.update(entry) > NO_ROWS_AFFECTED) {
-                                Toast.makeText(getActivity(), R.string.dialog_edit_sucess, Toast.LENGTH_SHORT).show();
-                                if (prevMonth != month || prevYear != datePicker.getYear()) {
-                                    entries.remove(entry);
-                                }
-                                refreshList(entries);
-                            } else {
-                                Toast.makeText(getActivity(), R.string.dialog_edit_error, Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    }
-                })
-                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                    }
-                });
-
-        return dialog.create();
-    }
-
->>>>>>> 1ed1f099f6b39cf259cf77eed17b012c02a76bf3
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
@@ -268,7 +146,7 @@ public class EntriesListFragmentFragment extends Fragment implements MenuActivit
 
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-<<<<<<< HEAD
+
                 prevMonth = entry.getMonth();
                 prevYear = Integer.valueOf(entry.getDate().split("/")[DATE_YEAR]);
                 DialogAddEntryMaker dialogAddEntryMaker = new DialogAddEntryMaker(getActivity());
@@ -287,9 +165,6 @@ public class EntriesListFragmentFragment extends Fragment implements MenuActivit
                     }
                 });
                 AlertDialog dialog = dialogAddEntryMaker.makeAddDialog(entry);
-=======
-                AlertDialog dialog = makeAddDialog();
->>>>>>> 1ed1f099f6b39cf259cf77eed17b012c02a76bf3
                 dialog.show();
                 return false;
             }
