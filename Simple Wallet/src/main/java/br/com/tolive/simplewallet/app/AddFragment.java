@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
@@ -33,7 +34,7 @@ public class AddFragment extends Fragment {
     public static final String EMPTY = "";
     public static final int DIALOG_TITLE_SIZE = 25;
 
-    TextView buttonAdd;
+    ImageView buttonAdd;
     TextView textBalance;
     TextView textGain;
     TextView textExpense;
@@ -52,7 +53,7 @@ public class AddFragment extends Fragment {
 
         dao = EntryDAO.getInstance(getActivity());
 
-        buttonAdd = (TextView) rootView.findViewById(R.id.fragment_add_button_add);
+        buttonAdd = (ImageView) rootView.findViewById(R.id.fragment_add_button_add);
         textBalance = (TextView) rootView.findViewById(R.id.fragment_add_text_balance);
         textGain = (TextView) rootView.findViewById(R.id.fragment_add_text_gain);
         textExpense = (TextView) rootView.findViewById(R.id.fragment_add_text_expense);

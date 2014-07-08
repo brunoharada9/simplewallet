@@ -52,14 +52,14 @@
 
         />
 
-    <TextView
+    <ImageView
         android:id="@+id/fragment_add_button_add"
         android:layout_width="135dp"
         android:layout_height="135dp"
-        android:textSize="100sp"
-        android:text="@string/fragment_add_button"
-        android:textColor="@color/snow"
+        android:padding="20dp"
         android:background="@color/green"
+        android:src="@drawable/button_add"
+        android:contentDescription="@android:string/untitled"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:gravity="center"
