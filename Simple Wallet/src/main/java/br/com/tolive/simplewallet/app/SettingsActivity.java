@@ -53,7 +53,7 @@ public class SettingsActivity extends Activity {
         setTypeFace();
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setIcon(android.R.drawable.ic_menu_revert);
+        actionBar.setIcon(R.drawable.ic_back);
     }
 
     private void setTypeFace() {

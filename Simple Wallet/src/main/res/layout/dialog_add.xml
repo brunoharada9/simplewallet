@@ -118,8 +118,8 @@
             android:textColor="@color/snow"
             android:background="@color/gray"
             android:gravity="center"
-            android:id="@+id/dialog_add_text_ok"
-            android:text="@string/dialog_add_text_ok"
+            android:id="@+id/dialog_add_text_cancel"
+            android:text="@string/dialog_add_text_cancel"
             android:layout_margin="1dp"/>
 
         <TextView
@@ -130,9 +130,10 @@
             android:textColor="@color/snow"
             android:background="@color/gray"
             android:gravity="center"
-            android:id="@+id/dialog_add_text_cancel"
-            android:text="@string/dialog_add_text_cancel"
+            android:id="@+id/dialog_add_text_ok"
+            android:text="@string/dialog_add_text_ok"
             android:layout_margin="1dp"/>
+
     </LinearLayout>
 
 </LinearLayout>

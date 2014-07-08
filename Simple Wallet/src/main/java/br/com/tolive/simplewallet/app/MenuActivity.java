@@ -1,6 +1,9 @@
 package br.com.tolive.simplewallet.app;
 
+import android.app.ActionBar;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
@@ -17,9 +20,11 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import br.com.tolive.simplewallet.adapter.NavDrawerListAdapter;
 import br.com.tolive.simplewallet.constants.Constantes;
+import br.com.tolive.simplewallet.db.EntryDAO;
 import br.com.tolive.simplewallet.model.Entry;
 import br.com.tolive.simplewallet.model.NavDrawerItem;
 
@@ -59,6 +64,8 @@ public class MenuActivity extends ActionBarActivity {
                 .build();
         AdView adView = (AdView) findViewById(R.id.ad_main);
         adView.loadAd(request);
+
+        setActionBarIcon();
 
         mTitle = mDrawerTitle = getTitle();
 
@@ -111,6 +118,27 @@ public class MenuActivity extends ActionBarActivity {
             displayView(0);
         }
         mDrawerList.setOnItemClickListener(new SlideMenuClickListener());
+    }
+
+    private void setActionBarIcon() {
+        EntryDAO dao = EntryDAO.getInstance(this);
+        Calendar calendar = Calendar.getInstance();
+        Float gain = dao.getGain(calendar.get(Calendar.MONTH));
+        Float expense = dao.getExpense(calendar.get(Calendar.MONTH));
+
+        SharedPreferences sharedPreferences = getSharedPreferences(Constantes.SHARED_PREFERENCES, Context.MODE_PRIVATE);
+        float yellow = sharedPreferences.getFloat(Constantes.SP_KEY_YELLOW, Constantes.SP_YELLOW_DEFAULT);
+        float red = sharedPreferences.getFloat(Constantes.SP_KEY_RED, Constantes.SP_RED_DEFAULT);
+
+        ActionBar actionBar = getActionBar();
+
+        if((gain - expense) < red){
+            actionBar.setIcon(R.drawable.ic_title_red);
+        } else if((gain - expense) < yellow){
+            actionBar.setIcon(R.drawable.ic_title_yellow);
+        } else{
+            actionBar.setIcon(R.drawable.ic_title_green);
+        }
     }
 
     /**
@@ -256,11 +284,6 @@ public class MenuActivity extends ActionBarActivity {
     public void setTitle(CharSequence title) {
         mTitle = title;
         getActionBar().setTitle(mTitle);
-        if(title.equals(Constantes.NAV_DRAWER_ITEMS[Constantes.NAV_DRAWER_INDEX_ABOUT])){
-            getActionBar().setIcon(android.R.drawable.ic_menu_agenda);
-        } else {
-            getActionBar().setIcon(R.drawable.ic_launcher);
-        }
     }
 
     /**

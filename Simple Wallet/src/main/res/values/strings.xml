@@ -2,8 +2,8 @@
 <resources>
 
     <string name="admob_id">ca-app-pub-4943092531167782/7392281355</string>
-    <string name="app_name">Simple Wallet</string>
-    <string name="title_activity_menu">Wallet</string>
+    <string name="app_name">Gastos Simples</string>
+    <string name="title_activity_menu">Gastos</string>
     <string name="action_settings">Settings</string>
     <string name="action_filtro">Filtro</string>
     <string name="action_confirm">Salvar</string>
@@ -16,7 +16,7 @@
     <string name="dialog_add_radiobutton_expense">Despesa</string>
     <string name="dialog_add_edittext_value">Valor</string>
     <string name="dialog_add_edittext_description">Descrição</string>
-    <string name="dialog_add_text_choose">Outra data</string>
+    <string name="dialog_add_text_choose">Programar</string>
     <string name="dialog_add_text_ok">Ok</string>
     <string name="dialog_add_text_cancel">Cancelar</string>
     <string name="dialog_edit_sucess">Editado com sucesso</string>

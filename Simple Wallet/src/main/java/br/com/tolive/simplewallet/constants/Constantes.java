@@ -1,14 +1,16 @@
 package br.com.tolive.simplewallet.constants;
 
+import br.com.tolive.simplewallet.app.R;
+
 /**
  * Created by bruno.carvalho on 30/06/2014.
  */
 public class Constantes {
     public static final String FONT_PATH_ROBOTO_CONDENSED_BOLD = "fonts/RobotoCondensed-Bold.ttf";
 
-    public static final String NAV_DRAWER_ITEMS[] = { "Adicionar", "Lista", "Mais", "Graficos" };
-    public static final int NAV_DRAWER_ICONS[] = { android.R.drawable.ic_menu_add, android.R.drawable.ic_menu_sort_by_size
-                                                  ,android.R.drawable.ic_menu_info_details, android.R.drawable.ic_menu_info_details };
+    public static final String NAV_DRAWER_ITEMS[] = { "Adicionar", "Lista", "Info", "Graficos" };
+    public static final int NAV_DRAWER_ICONS[] = { R.drawable.ic_add, R.drawable.ic_list
+                                                  ,R.drawable.ic_about, android.R.drawable.ic_menu_info_details };
 
     public static final int NAV_DRAWER_INDEX_ADD = 0;
     public static final int NAV_DRAWER_INDEX_LIST = 1;

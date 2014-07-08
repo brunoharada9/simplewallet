@@ -1,5 +1,6 @@
 package br.com.tolive.simplewallet.app;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -50,6 +51,10 @@ public class FiltroActivity extends Activity {
         adapterYear.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
         spinnerYear.setAdapter(adapterYear);
         spinnerYear.setSelection(getYear(calendar.get(Calendar.YEAR), Constantes.SPINNER_YEARS_ITENS));
+
+        ActionBar actionBar = getActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setIcon(R.drawable.ic_back);
     }
 
     private int getYear(int currentYear, String[] years) {
@@ -83,6 +88,9 @@ public class FiltroActivity extends Activity {
             Intent returnIntent = new Intent();
             returnIntent.putExtra(EXTRA_KEY_FILTRO_ENTRIES, entries);
             setResult(RESULT_OK, returnIntent);
+            finish();
+            return true;
+        } else if(item.getItemId() == android.R.id.home){
             finish();
             return true;
         }

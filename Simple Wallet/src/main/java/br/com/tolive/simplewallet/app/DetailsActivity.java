@@ -58,7 +58,7 @@ public class DetailsActivity extends Activity {
 
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setIcon(android.R.drawable.ic_menu_revert);
+        actionBar.setIcon(R.drawable.ic_back);
     }
 
     @Override

@@ -12,6 +12,7 @@
         android:textSize="35sp"
         android:textColor="@color/snow"
         android:layout_alignParentTop="true"
+        android:paddingTop="15dp"
         android:gravity="center"
         android:layout_centerHorizontal="true" />
 

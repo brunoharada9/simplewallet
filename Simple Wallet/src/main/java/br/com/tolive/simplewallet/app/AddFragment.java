@@ -1,5 +1,6 @@
 package br.com.tolive.simplewallet.app;
 
+import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -121,12 +122,17 @@ public class AddFragment extends Fragment {
         float yellow = sharedPreferences.getFloat(Constantes.SP_KEY_YELLOW, Constantes.SP_YELLOW_DEFAULT);
         float red = sharedPreferences.getFloat(Constantes.SP_KEY_RED, Constantes.SP_RED_DEFAULT);
 
+        ActionBar actionBar = getActivity().getActionBar();
+
         int color;
         if((gain - expense) < red){
+            actionBar.setIcon(R.drawable.ic_title_red);
             color = getActivity().getResources().getColor(R.color.red);
         } else if((gain - expense) < yellow){
+            actionBar.setIcon(R.drawable.ic_title_yellow);
             color = getActivity().getResources().getColor(R.color.yellow);
         } else{
+            actionBar.setIcon(R.drawable.ic_title_green);
             color = getActivity().getResources().getColor(R.color.green);
         }
 
