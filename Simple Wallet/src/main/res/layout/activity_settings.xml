@@ -2,6 +2,7 @@
     android:orientation="vertical"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
+    android:background="@color/snow"
     xmlns:googleads="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     >
@@ -38,6 +39,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="1dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -48,6 +51,7 @@
                     android:background="@color/green"
                     android:layout_gravity=""
                     android:textSize="30sp"
+                    android:paddingLeft="5dp"
                     android:id="@+id/fragment_settings_text_color_set_green"
                     android:text="@string/fragment_settings_text_color_set_green" />
 
@@ -66,15 +70,11 @@
 
             </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@color/gray"
-                />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="1dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -85,6 +85,7 @@
                     android:background="@color/yellow"
                     android:layout_gravity="center_vertical"
                     android:textSize="30sp"
+                    android:paddingLeft="5dp"
                     android:id="@+id/fragment_settings_text_color_set_yellow"
                     android:text="@string/fragment_settings_text_color_set_yellow" />
 
@@ -99,15 +100,11 @@
 
             </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@color/gray"
-                />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="2dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -118,6 +115,7 @@
                     android:background="@color/red"
                     android:layout_gravity="center_vertical"
                     android:textSize="30sp"
+                    android:paddingLeft="5dp"
                     android:id="@+id/fragment_settings_text_color_set_red"
                     android:text="@string/fragment_settings_text_color_set_red" />
 
@@ -131,13 +129,6 @@
                     />
 
             </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@color/gray"
-                />
-
 
         </LinearLayout>
     </ScrollView>
