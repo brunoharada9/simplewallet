@@ -1,1 +1,1 @@
-include ':Simple Wallet'
+include ':Simple Wallet', ':Simple Wallet PRO'

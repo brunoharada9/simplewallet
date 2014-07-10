@@ -180,7 +180,7 @@ public class DialogAddEntryMaker {
 
     private String formatToDot(String number) {
         if(number.contains(",")){
-            return number.split(",")[0] + "." + number.split(",")[1];
+            return number.split(",")[0] + "" + number.split(",")[1];
         } else {
             return  number;
         }

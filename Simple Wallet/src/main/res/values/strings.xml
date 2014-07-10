@@ -41,4 +41,46 @@
     <string name="fragment_list_text_balance">Saldo</string>
     <string name="fragment_add_button">$</string>
 
+    <string-array name="nav_drawer_items">
+        <item>Adicionar</item>
+        <item>Lista</item>
+        <item>Info</item>
+    </string-array>
+
+    <!-- Nav Drawer List Item Icons -->
+    <!-- Keep them in order as the titles are in -->
+    <array name="nav_drawer_icons">
+        <item>@drawable/ic_add</item>
+        <item>@drawable/ic_list</item>
+        <item>@drawable/ic_about</item>
+    </array>
+
+    <string-array name="spinner_months">
+        <item>Jan</item>
+        <item>Fev</item>
+        <item>Mar</item>
+        <item>Abr</item>
+        <item>Mai</item>
+        <item>Jun</item>
+        <item>Jul</item>
+        <item>Ago</item>
+        <item>Set</item>
+        <item>Out</item>
+        <item>Nev</item>
+        <item>Dez</item>
+    </string-array>
+
+    <string-array name="spinner_years">
+        <item>2012</item>
+        <item>2013</item>
+        <item>2014</item>
+        <item>2015</item>
+        <item>2016</item>
+        <item>2017</item>
+        <item>2018</item>
+        <item>2019</item>
+        <item>2020</item>
+    </string-array>
+
+
 </resources>

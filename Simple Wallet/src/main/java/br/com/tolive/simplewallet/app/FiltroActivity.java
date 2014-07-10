@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import com.google.android.gms.ads.AdRequest;
@@ -25,6 +24,8 @@ public class FiltroActivity extends Activity {
     public static final String EXTRA_KEY_FILTRO_ENTRIES = "entries_filtro";
     Spinner spinnerMonth;
     Spinner spinnerYear;
+    private String[] months;
+    private String[] years;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,19 +38,22 @@ public class FiltroActivity extends Activity {
         AdView adView = (AdView) findViewById(R.id.ad_filtro);
         adView.loadAd(request);
 
+        months = getResources().getStringArray(R.array.spinner_months);
+        years = getResources().getStringArray(R.array.spinner_years);
+
         spinnerMonth = (Spinner) findViewById(R.id.fragment_filtro_spinner_month);
         spinnerYear = (Spinner) findViewById(R.id.fragment_filtro_spinner_year);
         Calendar calendar = Calendar.getInstance();
 
-        CustomSpinnerAdapter adapterMonth = new CustomSpinnerAdapter(this, R.layout.simple_spinner_item, Constantes.SPINNER_MONTH_ITENS);
+        CustomSpinnerAdapter adapterMonth = new CustomSpinnerAdapter(this, R.layout.simple_spinner_item, months);
         adapterMonth.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
         spinnerMonth.setAdapter(adapterMonth);
         spinnerMonth.setSelection(calendar.get(Calendar.MONTH));
 
-        CustomSpinnerAdapter adapterYear = new CustomSpinnerAdapter(this, R.layout.simple_spinner_item, Constantes.SPINNER_YEARS_ITENS);
+        CustomSpinnerAdapter adapterYear = new CustomSpinnerAdapter(this, R.layout.simple_spinner_item, years);
         adapterYear.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
         spinnerYear.setAdapter(adapterYear);
-        spinnerYear.setSelection(getYear(calendar.get(Calendar.YEAR), Constantes.SPINNER_YEARS_ITENS));
+        spinnerYear.setSelection(getYear(calendar.get(Calendar.YEAR), years));
 
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);

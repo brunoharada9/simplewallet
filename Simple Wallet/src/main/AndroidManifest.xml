@@ -15,7 +15,7 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name="br.com.tolive.simplewallet.app.MenuActivity"
+            android:name=".MenuActivity"
             android:label="@string/title_activity_menu" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,15 +24,15 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="br.com.tolive.simplewallet.app.SettingsActivity"
+            android:name=".SettingsActivity"
             android:label="@string/title_activity_settings" >
         </activity>
         <activity
-            android:name="br.com.tolive.simplewallet.app.FiltroActivity"
+            android:name=".FiltroActivity"
             android:label="@string/title_activity_filtro" >
         </activity>
         <activity
-            android:name="br.com.tolive.simplewallet.app.DetailsActivity"
+            android:name=".DetailsActivity"
             android:label="@string/title_activity_details" >
         </activity>
         <activity
