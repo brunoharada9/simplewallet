@@ -8,7 +8,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
+        android:inputType="textMultiLine"
         android:hint="@string/dialog_add_edittext_description"
         android:ems="10"
         android:id="@+id/dialog_add_edittext_description"

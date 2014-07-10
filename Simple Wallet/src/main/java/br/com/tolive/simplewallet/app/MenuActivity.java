@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.content.res.TypedArray;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
@@ -35,6 +36,10 @@ public class MenuActivity extends ActionBarActivity {
     private static final int ICON_NONE = 2;
     private static final int REQUEST_SETTINGS = 0;
     private static final int REQUEST_FILTRO = 1;
+    private static final int NAV_ADD = 0;
+    private static final int NAV_LIST = 1;
+    private static final int NAV_ABOUT = 2;
+    private static final int DEFAULT_VALUE = -1;
 
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
@@ -47,6 +52,10 @@ public class MenuActivity extends ActionBarActivity {
 
     // used to store app title
     private CharSequence mTitle;
+
+    // slide menu items
+    private String[] navMenuTitles;
+    private TypedArray navMenuIcons;
 
     private ArrayList<NavDrawerItem> navDrawerItems;
     private NavDrawerListAdapter adapter;
@@ -75,14 +84,16 @@ public class MenuActivity extends ActionBarActivity {
         navDrawerItems = new ArrayList<NavDrawerItem>();
 
         // adding nav drawer items to array
-        // Add
-        navDrawerItems.add(new NavDrawerItem(Constantes.NAV_DRAWER_ITEMS[Constantes.NAV_DRAWER_INDEX_ADD], Constantes.NAV_DRAWER_ICONS[Constantes.NAV_DRAWER_INDEX_ADD]));
-        // List
-        navDrawerItems.add(new NavDrawerItem(Constantes.NAV_DRAWER_ITEMS[Constantes.NAV_DRAWER_INDEX_LIST], Constantes.NAV_DRAWER_ICONS[Constantes.NAV_DRAWER_INDEX_LIST]));
-        // Graphs
-        //navDrawerItems.add(new NavDrawerItem(Constantes.NAV_DRAWER_ITEMS[Constantes.NAV_DRAWER_INDEX_GRAPH], Constantes.NAV_DRAWER_ICONS[Constantes.NAV_DRAWER_INDEX_GRAPH]));
-        // About
-        navDrawerItems.add(new NavDrawerItem(Constantes.NAV_DRAWER_ITEMS[Constantes.NAV_DRAWER_INDEX_ABOUT], Constantes.NAV_DRAWER_ICONS[Constantes.NAV_DRAWER_INDEX_ABOUT]));
+        // add
+        navDrawerItems.add(new NavDrawerItem(navMenuTitles[NAV_ADD], navMenuIcons.getResourceId(NAV_ADD, DEFAULT_VALUE)));
+        // list
+        navDrawerItems.add(new NavDrawerItem(navMenuTitles[NAV_LIST], navMenuIcons.getResourceId(NAV_LIST, DEFAULT_VALUE)));
+        // about
+        navDrawerItems.add(new NavDrawerItem(navMenuTitles[NAV_ABOUT], navMenuIcons.getResourceId(NAV_ABOUT, DEFAULT_VALUE)));
+
+
+        // Recycle the typed array
+        navMenuIcons.recycle();
 
 
         // setting the nav drawer list adapter
