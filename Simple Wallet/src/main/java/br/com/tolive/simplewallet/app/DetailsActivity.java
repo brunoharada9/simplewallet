@@ -25,7 +25,6 @@ public class DetailsActivity extends Activity {
         setContentView(R.layout.activity_details);
 
         AdRequest request = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
                 .addTestDevice("E6E54B90007CAC7A62F9EC7857F3A989")
                 .build();
         AdView adView = (AdView) findViewById(R.id.ad_details);
