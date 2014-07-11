@@ -3,7 +3,6 @@ package br.com.tolive.simplewalletpro.app;
 
 
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,10 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import br.com.tolive.simplewalletpro.R;
 import br.com.tolive.simplewalletpro.constants.Constantes;
+import br.com.tolive.simplewalletpro.views.CustomTextView;
 
 
 /**
@@ -35,13 +34,7 @@ public class AboutFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_about, container, false);
 
-        TextView textMoreApps = (TextView) view.findViewById(R.id.fragment_about_text_more_apps);
-        TextView textToLiveHealthy = (TextView) view.findViewById(R.id.fragment_about_tolivehealthy_text);
         RelativeLayout containerToLiveHealthy = (RelativeLayout) view.findViewById(R.id.fragment_about_tolivehealthy);
-
-        Typeface tf = Typeface.createFromAsset(getActivity().getAssets(), Constantes.FONT_PATH_ROBOTO_CONDENSED_BOLD);
-        textMoreApps.setTypeface(tf);
-        textToLiveHealthy.setTypeface(tf);
 
         containerToLiveHealthy.setOnClickListener(new View.OnClickListener() {
             @Override

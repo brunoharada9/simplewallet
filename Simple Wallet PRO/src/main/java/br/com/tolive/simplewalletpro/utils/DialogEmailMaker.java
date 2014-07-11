@@ -2,17 +2,13 @@ package br.com.tolive.simplewalletpro.utils;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import br.com.tolive.simplewalletpro.R;
 import br.com.tolive.simplewalletpro.adapter.CustomSpinnerAdapter;
-import br.com.tolive.simplewalletpro.constants.Constantes;
+import br.com.tolive.simplewalletpro.views.CustomTextView;
 
 /**
  * Created by bruno.carvalho on 10/07/2014.
@@ -50,18 +46,8 @@ public class DialogEmailMaker {
         LayoutInflater inflater = (LayoutInflater)   context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View view = inflater.inflate(R.layout.dialog_email, null);
 
-        TextView textMonth = (TextView) view.findViewById(R.id.dialog_email_text_date_month);
-        TextView textYear = (TextView) view.findViewById(R.id.dialog_email_text_date_year);
         final Spinner spinnerMonth = (Spinner) view.findViewById(R.id.dialog_email_spinner_month);
         final Spinner spinnerYear = (Spinner) view.findViewById(R.id.dialog_email_spinner_year);
-
-        final TextView textEmail = (TextView) view.findViewById(R.id.dialog_email_text_email);
-        final EditText editEmail = (EditText) view.findViewById(R.id.dialog_email_edit_email);
-
-        Typeface tf = Typeface.createFromAsset(context.getAssets(), Constantes.FONT_PATH_ROBOTO_CONDENSED_BOLD);
-        textMonth.setTypeface(tf);
-        textYear.setTypeface(tf);
-        textEmail.setTypeface(tf);
 
         String[] months = context.getResources().getStringArray(R.array.spinner_email_months);
         String[] years = context.getResources().getStringArray(R.array.spinner_email_years);
@@ -76,31 +62,18 @@ public class DialogEmailMaker {
         spinnerYear.setAdapter(adapterYear);
         spinnerYear.setSelection(SPINNER_SELECTED_DEFAULT);
 
-        TextView okButton = (TextView) view.findViewById(R.id.dialog_email_text_ok);
-        TextView cancelButton = (TextView) view.findViewById(R.id.dialog_email_text_cancel);
-        okButton.setTypeface(tf);
-        cancelButton.setTypeface(tf);
-
-        SharedPreferences sharedPreferences = context.getSharedPreferences(Constantes.SHARED_PREFERENCES, Context.MODE_PRIVATE);
-        String savedEmail = sharedPreferences.getString(Constantes.SP_KEY_EMAIL, Constantes.SP_EMAIL_DEFAULT);
-        textEmail.setText(savedEmail);
+        CustomTextView okButton = (CustomTextView) view.findViewById(R.id.dialog_email_text_ok);
+        CustomTextView cancelButton = (CustomTextView) view.findViewById(R.id.dialog_email_text_cancel);
 
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SharedPreferences sharedPreferences = context.getSharedPreferences(Constantes.SHARED_PREFERENCES, Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-
-                String emailInput = editEmail.getText().toString();
-                editor.putString(Constantes.SP_KEY_EMAIL, emailInput);
-
-                editor.commit();
 
                 if(mListener != null){
                     if(spinnerYear.getSelectedItemPosition() == SPINNER_SELECTED_DEFAULT){
-                        mListener.onClickOk(String.valueOf(spinnerMonth.getSelectedItemPosition()), SPINNER_SELECTED_DEFAULT_STRING, emailInput);
+                        mListener.onClickOk(String.valueOf(spinnerMonth.getSelectedItemPosition()), SPINNER_SELECTED_DEFAULT_STRING);
                     } else {
-                        mListener.onClickOk(String.valueOf(spinnerMonth.getSelectedItemPosition()), (String) spinnerYear.getSelectedItem(), emailInput);
+                        mListener.onClickOk(String.valueOf(spinnerMonth.getSelectedItemPosition()), (String) spinnerYear.getSelectedItem());
                     }
                 }
 
@@ -124,6 +97,6 @@ public class DialogEmailMaker {
     }
 
     public interface OnClickOkListener {
-        public void onClickOk(String month, String year, String email);
+        public void onClickOk(String month, String year);
     }
 }

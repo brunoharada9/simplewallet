@@ -2,7 +2,6 @@ package br.com.tolive.simplewalletpro.utils;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.DatePicker;
@@ -10,7 +9,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Calendar;
@@ -19,6 +17,7 @@ import br.com.tolive.simplewalletpro.R;
 import br.com.tolive.simplewalletpro.constants.Constantes;
 import br.com.tolive.simplewalletpro.db.EntryDAO;
 import br.com.tolive.simplewalletpro.model.Entry;
+import br.com.tolive.simplewalletpro.views.CustomTextView;
 
 /**
  * Created by bruno.carvalho on 04/07/2014.
@@ -72,9 +71,7 @@ public class DialogAddEntryMaker {
         final RadioButton radioExpense = (RadioButton) view.findViewById(R.id.dialog_add_radiobutton_expense);
 
         final LinearLayout containerChooseDate = (LinearLayout) view.findViewById(R.id.dialog_add_container_choose_date);
-        TextView textChooseDate = (TextView) view.findViewById(R.id.dialog_add_text_choose);
-        Typeface tf = Typeface.createFromAsset(context.getAssets(), Constantes.FONT_PATH_ROBOTO_CONDENSED_BOLD);
-        textChooseDate.setTypeface(tf);
+        CustomTextView textChooseDate = (CustomTextView) view.findViewById(R.id.dialog_add_text_choose);
 
         final DatePicker datePicker = (DatePicker) view.findViewById(R.id.dialog_add_datepicker);
 
@@ -86,10 +83,8 @@ public class DialogAddEntryMaker {
             }
         });
 
-        TextView okButton = (TextView) view.findViewById(R.id.dialog_add_text_ok);
-        TextView cancelButton = (TextView) view.findViewById(R.id.dialog_add_text_cancel);
-        okButton.setTypeface(tf);
-        cancelButton.setTypeface(tf);
+        CustomTextView okButton = (CustomTextView) view.findViewById(R.id.dialog_add_text_ok);
+        CustomTextView cancelButton = (CustomTextView) view.findViewById(R.id.dialog_add_text_cancel);
 
         if(entry != null){
             editTextDescription.setText(entry.getDescription());
@@ -135,8 +130,6 @@ public class DialogAddEntryMaker {
                         editTextDescription.setText(R.string.dialog_add_no_descripition);
                     }
 
-                    EntryDAO dao = EntryDAO.getInstance(context);
-
                     if(entry == null) {
                         Entry newEntry = new Entry();
                         newEntry.setDescription(description);
@@ -180,7 +173,7 @@ public class DialogAddEntryMaker {
 
     private String formatToDot(String number) {
         if(number.contains(",")){
-            return number.split(",")[0] + "" + number.split(",")[1];
+            return number.split(",")[0] + "." + number.split(",")[1];
         } else {
             return  number;
         }
@@ -195,8 +188,8 @@ public class DialogAddEntryMaker {
         public void onClickOk(Entry entry);
     }
 
-    /*private TextView getDialogTitleView(Typeface tf) {
-        TextView titleView = new TextView(context);
+    /*private CustomTextView getDialogTitleView(Typeface tf) {
+        CustomTextView titleView = new CustomTextView(context);
         titleView.setLayoutParams(new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         titleView.setTypeface(tf);

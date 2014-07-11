@@ -3,6 +3,7 @@
 
     <string name="admob_id">ca-app-pub-4943092531167782/6318527358</string>
     <string name="app_name">Gastos Simples PRO</string>
+    <string name="app_font">RobotoCondensed-Bold.ttf</string>
     <string name="title_activity_menu">Gastos PRO</string>
     <string name="action_settings">Settings</string>
     <string name="action_filtro">Filtro</string>

@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.ContextMenu;
@@ -16,7 +15,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -29,10 +27,10 @@ import br.com.tolive.simplewalletpro.constants.Constantes;
 import br.com.tolive.simplewalletpro.db.EntryDAO;
 import br.com.tolive.simplewalletpro.model.Entry;
 import br.com.tolive.simplewalletpro.utils.DialogAddEntryMaker;
+import br.com.tolive.simplewalletpro.views.CustomTextView;
 
 public class EntriesListFragmentFragment extends Fragment implements MenuActivity.OnFiltroApplyListener {
     private static final int FIRST_ELEMENT = 0;
-    private static final int EMPTY_BACKSTACK = 0;
     private static final int DATE_YEAR = 2;
     private static final int NO_ROWS_AFFECTED = 0;
     public static final String EXTRA_KEY_ENTRY_DETAILS = "entry_details";
@@ -42,13 +40,11 @@ public class EntriesListFragmentFragment extends Fragment implements MenuActivit
     EntryDAO dao;
     LinearLayout containerBalance;
     ListView entriesList;
-    TextView textBalanceNumber;
+    CustomTextView textBalanceNumber;
     int month;
 
     int prevMonth;
     int prevYear;
-
-    int backStackNumber = EMPTY_BACKSTACK;
 
     public EntriesListFragmentFragment() {
     }
@@ -64,14 +60,9 @@ public class EntriesListFragmentFragment extends Fragment implements MenuActivit
 
         View view = inflater.inflate(R.layout.fragment_list, container, false);
 
-        TextView textBalance = (TextView) view.findViewById(R.id.fragment_list_text_balance);
-        textBalanceNumber = (TextView) view.findViewById(R.id.fragment_list_text_balance_number);
+        textBalanceNumber = (CustomTextView) view.findViewById(R.id.fragment_list_text_balance_number);
         entriesList = (ListView) view.findViewById(R.id.fragment_list_list_entries);
         containerBalance = (LinearLayout) view.findViewById(R.id.fragment_list_container_balance);
-
-        Typeface tf = Typeface.createFromAsset(getActivity().getAssets(), Constantes.FONT_PATH_ROBOTO_CONDENSED_BOLD);
-        textBalance.setTypeface(tf);
-        textBalanceNumber.setTypeface(tf);
 
         registerForContextMenu(entriesList);
 

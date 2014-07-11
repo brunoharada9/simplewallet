@@ -21,7 +21,8 @@
             android:paddingBottom="10dp"
             android:orientation="vertical">
 
-            <TextView
+            <br.com.tolive.simplewalletpro.views.CustomTextView
+                googleads:font="@string/app_font"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/gray"
@@ -41,7 +42,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <TextView
+                <br.com.tolive.simplewalletpro.views.CustomTextView
+                    googleads:font="@string/app_font"
                     android:layout_width="0dp"
                     android:layout_weight="7"
                     android:layout_height="wrap_content"
@@ -73,7 +75,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <TextView
+                <br.com.tolive.simplewalletpro.views.CustomTextView
+                    googleads:font="@string/app_font"
                     android:layout_width="0dp"
                     android:layout_weight="7"
                     android:layout_height="wrap_content"

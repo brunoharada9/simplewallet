@@ -27,4 +27,5 @@ public class Constantes {
     public static final String SPINNER_YEARS_ITENS[] = { "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020" };
 
     public static final String PACKAGE_TOLIVE_HEALTHY = "br.gmob.tolivehealthy";
+    public static final String INSTANCE_SAVE_MENUACTIVITY_ACTIONBARICON = "instance_save_menuactivity_actonBarIcon";
 }

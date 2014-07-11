@@ -2,12 +2,10 @@ package br.com.tolive.simplewalletpro.adapter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +13,7 @@ import java.util.List;
 import br.com.tolive.simplewalletpro.R;
 import br.com.tolive.simplewalletpro.constants.Constantes;
 import br.com.tolive.simplewalletpro.model.Entry;
+import br.com.tolive.simplewalletpro.views.CustomTextView;
 
 /**
  * Created by bruno.carvalho on 27/06/2014.
@@ -52,12 +51,8 @@ public class EntriesListAdapter extends BaseAdapter {
         }
         Entry entry = entries.get(position);
 
-        TextView txtDescription = (TextView) convertView.findViewById(R.id.textView_list_description);
-        TextView txtValue = (TextView) convertView.findViewById(R.id.textView_list_value);
-
-        Typeface tf = Typeface.createFromAsset(context.getAssets(), Constantes.FONT_PATH_ROBOTO_CONDENSED_BOLD);
-        txtDescription.setTypeface(tf);
-        txtValue.setTypeface(tf);
+        CustomTextView txtDescription = (CustomTextView) convertView.findViewById(R.id.textView_list_description);
+        CustomTextView txtValue = (CustomTextView) convertView.findViewById(R.id.textView_list_value);
 
         txtDescription.setText(entry.getDescription());
         txtValue.setText(String.format("%.2f", entry.getValue()));

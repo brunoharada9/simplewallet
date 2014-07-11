@@ -79,19 +79,19 @@ public class EntryDAO {
 
     public ArrayList<Entry> getEntry(String month, String year){
         if(year == null && month == null){
-            String selection = String.format("SELECT * FROM %s DESC", Entry.ENTITY_NAME);
+            String selection = String.format("SELECT * FROM %s", Entry.ENTITY_NAME);
             String[] selectionArgs = {};
             return getEntry(selection, selectionArgs);
         } else if(year == null){
-            String selection = String.format("SELECT * FROM %s WHERE %s LIKE ? DESC", Entry.ENTITY_NAME, Entry.DATE);
+            String selection = String.format("SELECT * FROM %s WHERE %s LIKE ?", Entry.ENTITY_NAME, Entry.DATE);
             String[] selectionArgs = {"%/" + month + "/%"};
             return getEntry(selection, selectionArgs);
         } else if(month == null){
-            String selection = String.format("SELECT * FROM %s WHERE %s LIKE ? DESC", Entry.ENTITY_NAME, Entry.DATE);
+            String selection = String.format("SELECT * FROM %s WHERE %s LIKE ?", Entry.ENTITY_NAME, Entry.DATE);
             String[] selectionArgs = {"%/" + year};
             return getEntry(selection, selectionArgs);
         } else {
-            String selection = String.format("SELECT * FROM %s WHERE %s LIKE ? DESC", Entry.ENTITY_NAME, Entry.DATE);
+            String selection = String.format("SELECT * FROM %s WHERE %s LIKE ?", Entry.ENTITY_NAME, Entry.DATE);
             String[] selectionArgs = {"%" + month + "/" + year};
             return getEntry(selection, selectionArgs);
         }

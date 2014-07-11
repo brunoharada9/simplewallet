@@ -44,7 +44,7 @@ public class CustomSpinnerAdapter extends ArrayAdapter<String> {
         View view = inflater.inflate(R.layout.simple_spinner_item, parent, false);
 
         TextView label        = (TextView) view.findViewById(android.R.id.text1);
-        Typeface tf = Typeface.createFromAsset(context.getAssets(), Constantes.FONT_PATH_ROBOTO_CONDENSED_BOLD);
+        Typeface tf = Typeface.createFromAsset(context.getAssets(), "fonts/" + context.getResources().getString(R.string.app_font));
         label.setTypeface(tf);
 
         label.setText(data[position]);

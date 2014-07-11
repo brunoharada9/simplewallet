@@ -4,7 +4,6 @@ import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -12,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Calendar;
@@ -22,15 +20,16 @@ import br.com.tolive.simplewalletpro.constants.Constantes;
 import br.com.tolive.simplewalletpro.db.EntryDAO;
 import br.com.tolive.simplewalletpro.model.Entry;
 import br.com.tolive.simplewalletpro.utils.DialogAddEntryMaker;
+import br.com.tolive.simplewalletpro.views.CustomTextView;
 
 public class AddFragment extends Fragment {
     public static final String EMPTY = "";
     public static final int DIALOG_TITLE_SIZE = 25;
 
     ImageView buttonAdd;
-    TextView textBalance;
-    TextView textGain;
-    TextView textExpense;
+    CustomTextView textBalance;
+    CustomTextView textGain;
+    CustomTextView textExpense;
     RelativeLayout background;
     EntryDAO dao;
 
@@ -47,15 +46,10 @@ public class AddFragment extends Fragment {
         dao = EntryDAO.getInstance(getActivity());
 
         buttonAdd = (ImageView) rootView.findViewById(R.id.fragment_add_button_add);
-        textBalance = (TextView) rootView.findViewById(R.id.fragment_add_text_balance);
-        textGain = (TextView) rootView.findViewById(R.id.fragment_add_text_gain);
-        textExpense = (TextView) rootView.findViewById(R.id.fragment_add_text_expense);
+        textBalance = (CustomTextView) rootView.findViewById(R.id.fragment_add_text_balance);
+        textGain = (CustomTextView) rootView.findViewById(R.id.fragment_add_text_gain);
+        textExpense = (CustomTextView) rootView.findViewById(R.id.fragment_add_text_expense);
         background = (RelativeLayout) rootView.findViewById(R.id.fragment_add_background);
-
-        Typeface tf = Typeface.createFromAsset(getActivity().getAssets(), Constantes.FONT_PATH_ROBOTO_CONDENSED_BOLD);
-        textBalance.setTypeface(tf);
-        textGain.setTypeface(tf);
-        textExpense.setTypeface(tf);
 
         Calendar calendar = Calendar.getInstance();
         int month = calendar.get(Calendar.MONTH);

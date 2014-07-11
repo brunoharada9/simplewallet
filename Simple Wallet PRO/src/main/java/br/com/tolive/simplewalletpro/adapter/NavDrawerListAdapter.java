@@ -2,19 +2,18 @@ package br.com.tolive.simplewalletpro.adapter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import br.com.tolive.simplewalletpro.R;
 import br.com.tolive.simplewalletpro.constants.Constantes;
 import br.com.tolive.simplewalletpro.model.NavDrawerItem;
+import br.com.tolive.simplewalletpro.views.CustomTextView;
 
 /**
  * Created by bruno.carvalho on 27/06/2014.
@@ -54,10 +53,7 @@ public class NavDrawerListAdapter extends BaseAdapter {
         }
 
         ImageView imgIcon = (ImageView) convertView.findViewById(R.id.icon);
-        TextView txtTitle = (TextView) convertView.findViewById(R.id.title);
-
-        Typeface tf = Typeface.createFromAsset(context.getAssets(), Constantes.FONT_PATH_ROBOTO_CONDENSED_BOLD);
-        txtTitle.setTypeface(tf);
+        CustomTextView txtTitle = (CustomTextView) convertView.findViewById(R.id.title);
 
         imgIcon.setImageResource(navDrawerItems.get(position).getIcon());
         txtTitle.setText(navDrawerItems.get(position).getTitle());

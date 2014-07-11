@@ -14,17 +14,6 @@
         googleads:adSize="SMART_BANNER"
         googleads:adUnitId="@string/admob_id"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="35sp"
-        android:textColor="@color/snow"
-        android:paddingRight="10dp"
-        android:paddingLeft="10dp"
-        android:id="@+id/activity_details_text_description"
-        android:layout_alignParentTop="true"
-        />
-
     <View
         android:id="@+id/activity_details_divider_last"
         android:layout_width="match_parent"
@@ -110,11 +99,30 @@
         android:layout_above="@id/activity_details_layout_date"/>
 
     <View
+        android:id="@+id/activity_details_divider_first"
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"
         android:background="@color/snow"
         android:layout_above="@id/activity_details_layout_value"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_above="@id/activity_details_divider_first">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="35sp"
+            android:textColor="@color/snow"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
+            android:id="@+id/activity_details_text_description"
+            />
+
+    </ScrollView>
 
 </RelativeLayout>

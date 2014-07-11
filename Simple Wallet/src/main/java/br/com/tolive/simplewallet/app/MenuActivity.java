@@ -314,4 +314,16 @@ public class MenuActivity extends ActionBarActivity {
         // Pass any configuration change to the drawer toggls
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putInt(Constantes.INSTANCE_SAVE_MENUACTIVITY_ACTIONBARICON, actionBarIcon);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        actionBarIcon = savedInstanceState.getInt(Constantes.INSTANCE_SAVE_MENUACTIVITY_ACTIONBARICON);
+    }
 }

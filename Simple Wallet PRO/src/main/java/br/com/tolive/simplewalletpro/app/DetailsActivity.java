@@ -2,19 +2,17 @@ package br.com.tolive.simplewalletpro.app;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.app.ActionBar;
 import android.view.MenuItem;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
 import br.com.tolive.simplewalletpro.R;
-import br.com.tolive.simplewalletpro.constants.Constantes;
 import br.com.tolive.simplewalletpro.model.Entry;
+import br.com.tolive.simplewalletpro.views.CustomTextView;
 
 
 public class DetailsActivity extends Activity {
@@ -43,18 +41,13 @@ public class DetailsActivity extends Activity {
             container.setBackgroundColor(getResources().getColor(R.color.red));
         }
 
-        Typeface tf = Typeface.createFromAsset(getAssets(), Constantes.FONT_PATH_ROBOTO_CONDENSED_BOLD);
-
-        TextView txtDescription = (TextView) findViewById(R.id.activity_details_text_description);
-        txtDescription.setTypeface(tf);
+        CustomTextView txtDescription = (CustomTextView) findViewById(R.id.activity_details_text_description);
         txtDescription.setText(entry.getDescription());
 
-        TextView txtValue = (TextView) findViewById(R.id.activity_details_text_value);
-        txtValue.setTypeface(tf);
+        CustomTextView txtValue = (CustomTextView) findViewById(R.id.activity_details_text_value);
         txtValue.setText(String.format("%.2f", entry.getValue()));
 
-        TextView txtDate = (TextView) findViewById(R.id.activity_details_text_date);
-        txtDate.setTypeface(tf);
+        CustomTextView txtDate = (CustomTextView) findViewById(R.id.activity_details_text_date);
         txtDate.setText(entry.getDate());
 
         ActionBar actionBar = getActionBar();

@@ -4,7 +4,6 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Spinner;
@@ -13,7 +12,6 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 
 import br.com.tolive.simplewalletpro.R;
@@ -91,7 +89,6 @@ public class FiltroActivity extends Activity {
         if (id == R.id.action_filtrar) {
             EntryDAO dao = EntryDAO.getInstance(this);
             ArrayList<Entry> entries = dao.getEntry(String.valueOf(spinnerMonth.getSelectedItemPosition()+1), (String) spinnerYear.getSelectedItem());
-            Log.d("teste", entries.toString());
 
             Intent returnIntent = new Intent();
             returnIntent.putExtra(EXTRA_KEY_FILTRO_ENTRIES, entries);
