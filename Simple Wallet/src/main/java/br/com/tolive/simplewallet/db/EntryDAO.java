@@ -79,7 +79,6 @@ public class EntryDAO {
     public ArrayList<Entry> getEntry(String month, String year){
         String selection = String.format("SELECT * FROM %s WHERE %s LIKE ? ", Entry.ENTITY_NAME, Entry.DATE);
         String[] selectionArgs = { "%" + month + "/" + year };
-        Log.d("teste", selectionArgs[0]);
 
         return getEntry(selection, selectionArgs);
     }

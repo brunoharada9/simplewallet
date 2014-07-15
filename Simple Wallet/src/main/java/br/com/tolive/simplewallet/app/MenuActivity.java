@@ -82,6 +82,13 @@ public class MenuActivity extends ActionBarActivity {
 
         navDrawerItems = new ArrayList<NavDrawerItem>();
 
+        // load slide menu items
+        navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);
+
+        // nav drawer icons from resources
+        navMenuIcons = getResources()
+                .obtainTypedArray(R.array.nav_drawer_icons);
+
         // adding nav drawer items to array
         // add
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[NAV_ADD], navMenuIcons.getResourceId(NAV_ADD, DEFAULT_VALUE)));

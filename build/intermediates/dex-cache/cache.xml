@@ -19,5 +19,11 @@
         jumboMode="false"
         revision="19.1.0"
         sha1="7676c0cb230efa6ac41c47867d372ed5913029d4"/>
+    <item
+        dex="C:\Users\Bruno\AndroidStudioProjects\Simple Wallet\Simple Wallet\build\intermediates\pre-dexed\release\classes-d3ff637240eda8d2f0c5b29fd1598fe972c52e36.jar"
+        jar="C:\Users\Bruno\AndroidStudioProjects\Simple Wallet\build\intermediates\exploded-aar\com.google.android.gms\play-services\5.0.77\classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="b6a82434c1eca686607867cd906bcc80ed987837"/>
 
 </pre-dex-items>

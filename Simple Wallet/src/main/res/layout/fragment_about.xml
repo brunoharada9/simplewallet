@@ -33,10 +33,10 @@
             android:id="@+id/fragment_about_tolivehealthy">
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:textColor="@color/green_tolivehealthy"
-                android:gravity="center_vertical"
+                android:layout_centerVertical="true"
                 android:layout_alignParentLeft="true"
                 android:textSize="30sp"
                 android:layout_marginLeft="10dp"
