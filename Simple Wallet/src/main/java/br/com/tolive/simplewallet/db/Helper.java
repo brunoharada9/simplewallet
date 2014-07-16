@@ -37,23 +37,23 @@ public class Helper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         //TODO save user data before destroy the table
-        ArrayList<Entry> entries = saveData();
+        ArrayList<Entry> entries = saveData(db);
         for (String destroyTable : DB_DESTROY_SCRIPT) {
             db.execSQL(destroyTable);
         }
         for (String SQL : DB_CREATE_SCRIPT) {
             db.execSQL(SQL);
         }
-        setData(entries);
+        setData(db, entries);
     }
 
-    private ArrayList<Entry> saveData() {
+    private ArrayList<Entry> saveData(SQLiteDatabase db) {
         ArrayList<Entry> entries = new ArrayList<Entry>();
 
         String selection = String.format("SELECT * FROM %s", Entry.ENTITY_NAME);
         String[] selectionArgs = {};
 
-        SQLiteDatabase db = getReadableDatabase();
+        //SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery(selection, selectionArgs);
 
         while(cursor.moveToNext()){
@@ -71,13 +71,13 @@ public class Helper extends SQLiteOpenHelper {
         }
 
         cursor.close();
-        db.close();
+        //db.close();
 
         return entries;
     }
 
-    public void setData(ArrayList<Entry> entries) {
-        SQLiteDatabase db = getWritableDatabase();
+    public void setData(SQLiteDatabase db, ArrayList<Entry> entries) {
+        //SQLiteDatabase db = getWritableDatabase();
 
         for (Entry entry : entries) {
             ContentValues values = new ContentValues();
@@ -93,6 +93,6 @@ public class Helper extends SQLiteOpenHelper {
             db.insert(Entry.ENTITY_NAME, null, values);
         }
         
-        db.close();
+        //db.close();
     }
 }
