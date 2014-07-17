@@ -3,6 +3,7 @@
 
     <string name="admob_id">ca-app-pub-4943092531167782/7392281355</string>
     <string name="app_name">Gastos Simples</string>
+    <string name="app_font">RobotoCondensed-Bold.ttf</string>
     <string name="title_activity_menu">Gastos</string>
     <string name="action_settings">Settings</string>
     <string name="action_filtro">Filtro</string>
@@ -32,6 +33,12 @@
     <string name="fragment_filtro_text_date_year">Ano</string>
     <string name="fragment_about_text_more_apps">Mais aplicativos</string>
     <string name="fragment_about_tolivehealthy_text">ToLive Healthy</string>
+    <string name="fragment_about_text_remove_ad_title">Ajudar o desenvolvedor</string>
+    <string name="fragment_about_text_remove_ad">Remover anúncios</string>
+    <string name="fragment_about_text_remove_ad_price">$0,99</string>
+    <string name="fragment_about_text_remove_ad_removed">Obrigado :)</string>
+    <string name="fragment_about_text_remove_ad_price_removed">-</string>
+    <string name="fragment_about_toast_remove_ad">Anúncio removido! Obrigado :)</string>
     <string name="title_activity_settings">Configurações</string>
     <string name="title_activity_filtro">Filtro</string>
     <string name="title_activity_add">Adicionar</string>

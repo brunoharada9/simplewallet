@@ -2,10 +2,13 @@ package br.com.tolive.simplewallet.app;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Spinner;
 
 import com.google.android.gms.ads.AdRequest;
@@ -32,11 +35,18 @@ public class FiltroActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filtro);
 
-        AdRequest request = new AdRequest.Builder()
-                .addTestDevice("E6E54B90007CAC7A62F9EC7857F3A989")
-                .build();
-        AdView adView = (AdView) findViewById(R.id.ad_filtro);
-        adView.loadAd(request);
+        SharedPreferences sharedPreferences = getSharedPreferences(Constantes.SHARED_PREFERENCES, Context.MODE_PRIVATE);
+        boolean removeAd = sharedPreferences.getBoolean(Constantes.SP_KEY_REMOVE_AD, Constantes.SP_REMOVE_AD_DEFAULT);
+        if(!removeAd) {
+            AdRequest request = new AdRequest.Builder()
+                    .addTestDevice("E6E54B90007CAC7A62F9EC7857F3A989")
+                    .build();
+            AdView adView = (AdView) findViewById(R.id.ad_filtro);
+            adView.loadAd(request);
+        } else{
+            AdView adView = (AdView) findViewById(R.id.ad_filtro);
+            adView.setVisibility(View.GONE);
+        }
 
         months = getResources().getStringArray(R.array.spinner_months);
         years = getResources().getStringArray(R.array.spinner_years);

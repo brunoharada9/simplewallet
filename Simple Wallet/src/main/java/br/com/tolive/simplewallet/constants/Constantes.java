@@ -7,24 +7,18 @@ import br.com.tolive.simplewallet.app.R;
  */
 public class Constantes {
     public static final String FONT_PATH_ROBOTO_CONDENSED_BOLD = "fonts/RobotoCondensed-Bold.ttf";
+    public static final String BILLING_base64EncodedPublicKey = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAj7xGh5BkgzBm6hbIWG7wvPkBDZuuczGa+lH/vmL8zntMs/yvFTKVfZuIyNSU21BnDym3o3aosFXaaA/HBcua0ZzGkFiId5233JiHQdv+UQnAMl/1gg7plI7q6npvV30/KziRUE6+H2VOEz7XfvQce4wQWVH8GiWwoNbfetaPNY+aMYWTLHQwAOaZO02sQoDlrcoBWewu1Sx2Q66lonjLNXdawLmWTLG+xBQOt00CJeFZFXxLmmQ859YkJE1Wt4mb6XqOCof1q0npbxgPKv/Z1tf3D2P3b/DZV98oRsA23g/7xIHlXUNfX8EPCu4EMAR6iTiXD7wJG0j0Jti9Hd/XVQIDAQAB";
+    public static final String SKU = "br.com.tolive.removead";
 
     public static final String NAV_DRAWER_ITEMS[] = { "Adicionar", "Lista", "Info", "Graficos" };
-    public static final int NAV_DRAWER_ICONS[] = { R.drawable.ic_add, R.drawable.ic_list
-                                                  ,R.drawable.ic_about, android.R.drawable.ic_menu_info_details };
-
-    public static final int NAV_DRAWER_INDEX_ADD = 0;
-    public static final int NAV_DRAWER_INDEX_LIST = 1;
-    public static final int NAV_DRAWER_INDEX_ABOUT = 2;
-    //public static final int NAV_DRAWER_INDEX_GARPH = 0;
 
     public static final String SHARED_PREFERENCES = "preferences";
     public static final String SP_KEY_YELLOW = "yellow";
     public static final String SP_KEY_RED = "red";
     public static final float SP_YELLOW_DEFAULT = 500;
     public static final float SP_RED_DEFAULT = 200;
-
-    public static final String SPINNER_MONTH_ITENS[] = { "Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez" };
-    public static final String SPINNER_YEARS_ITENS[] = { "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020" };
+    public static final String SP_KEY_REMOVE_AD = "remove_ad";
+    public static final boolean SP_REMOVE_AD_DEFAULT = false;
 
     public static final String PACKAGE_TOLIVE_HEALTHY = "br.gmob.tolivehealthy";
     public static final String INSTANCE_SAVE_MENUACTIVITY_ACTIONBARICON = "instance_save_menuactivity_actonBarIcon";

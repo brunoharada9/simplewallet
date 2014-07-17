@@ -67,11 +67,21 @@ public class MenuActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        AdRequest request = new AdRequest.Builder()
-                .addTestDevice("E6E54B90007CAC7A62F9EC7857F3A989")
-                .build();
-        AdView adView = (AdView) findViewById(R.id.ad_main);
-        adView.loadAd(request);
+        SharedPreferences sharedPreferences = getSharedPreferences(Constantes.SHARED_PREFERENCES, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(Constantes.SP_KEY_REMOVE_AD, true);
+        editor.commit();
+        boolean removeAd = sharedPreferences.getBoolean(Constantes.SP_KEY_REMOVE_AD, Constantes.SP_REMOVE_AD_DEFAULT);
+        if(!removeAd) {
+            AdRequest request = new AdRequest.Builder()
+                    .addTestDevice("E6E54B90007CAC7A62F9EC7857F3A989")
+                    .build();
+            AdView adView = (AdView) findViewById(R.id.ad_main);
+            adView.loadAd(request);
+        } else{
+            AdView adView = (AdView) findViewById(R.id.ad_main);
+            adView.setVisibility(View.GONE);
+        }
 
         setActionBarIcon();
 
@@ -332,5 +342,10 @@ public class MenuActivity extends ActionBarActivity {
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         actionBarIcon = savedInstanceState.getInt(Constantes.INSTANCE_SAVE_MENUACTIVITY_ACTIONBARICON);
+    }
+
+    public void removeAd(){
+        AdView adView = (AdView) findViewById(R.id.ad_main);
+        adView.setVisibility(View.GONE);
     }
 }
