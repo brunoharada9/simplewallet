@@ -68,9 +68,9 @@ public class MenuActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
         SharedPreferences sharedPreferences = getSharedPreferences(Constantes.SHARED_PREFERENCES, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean(Constantes.SP_KEY_REMOVE_AD, true);
-        editor.commit();
+        //SharedPreferences.Editor editor = sharedPreferences.edit();
+        //editor.putBoolean(Constantes.SP_KEY_REMOVE_AD, true);
+        //editor.commit();
         boolean removeAd = sharedPreferences.getBoolean(Constantes.SP_KEY_REMOVE_AD, Constantes.SP_REMOVE_AD_DEFAULT);
         if(!removeAd) {
             AdRequest request = new AdRequest.Builder()

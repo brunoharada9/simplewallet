@@ -8,6 +8,12 @@
     android:background="@color/snow"
     android:padding="5dp">
 
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/dialog_add_spinner_category"
+        android:layout_gravity="center_horizontal" />
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -49,12 +55,6 @@
         android:layout_gravity="center_horizontal" />
 
     </RadioGroup>
-
-    <!--<Spinner
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/spinner"
-        android:layout_gravity="center_horizontal" />-->
 
     <DatePicker
         android:layout_width="wrap_content"

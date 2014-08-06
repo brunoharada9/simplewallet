@@ -122,9 +122,14 @@ public class DialogAddEntryMaker {
                     month = datePicker.getMonth();
                     date = datePicker.getDayOfMonth() + "/" + (month + 1) + "/" + datePicker.getYear();
                 } else {
-                    Calendar calendar = Calendar.getInstance();
-                    month = calendar.get(Calendar.MONTH);
-                    date = calendar.get(Calendar.DAY_OF_MONTH) + "/" + (month + 1) + "/" + calendar.get(Calendar.YEAR);
+                    if(entry == null) {
+                        Calendar calendar = Calendar.getInstance();
+                        month = calendar.get(Calendar.MONTH);
+                        date = calendar.get(Calendar.DAY_OF_MONTH) + "/" + (month + 1) + "/" + calendar.get(Calendar.YEAR);
+                    } else{
+                        date = entry.getDate();
+                        month = Integer.valueOf(entry.getDate().split("/")[DATE_MONTH]) - 1;
+                    }
                 }
 
                 if (editTextValue.getText().toString().equals(EMPTY)) {

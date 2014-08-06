@@ -37,7 +37,7 @@ public class DetailsActivity extends Activity {
             adView.loadAd(request);
         } else{
             AdView adView = (AdView) findViewById(R.id.ad_details);
-            adView.setVisibility(View.GONE);
+            adView.setVisibility(View.INVISIBLE);
         }
 
         Intent intent = getIntent();
