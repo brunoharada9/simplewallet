@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/snow">
 
     <LinearLayout
-        android:orientation="horizontal" android:layout_width="match_parent"
-        android:layout_height="75dp" android:id="@+id/fragment_list_container_balance">
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="90dp" android:id="@+id/fragment_list_container_balance">
 
+        <LinearLayout
+            android:orientation="horizontal" android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <TextView
+        <br.com.tolive.simplewallet.views.CustomTextView
+            app:font="@string/app_font"
             android:layout_width="0dp"
             android:layout_weight="2"
             android:layout_height="wrap_content"
@@ -19,10 +24,10 @@
             android:singleLine="true"
             android:textColor="@color/snow"
             android:layout_gravity="center_vertical"
-            android:text="@string/fragment_list_text_balance"
-            android:id="@+id/fragment_list_text_balance" />
+            android:text="@string/fragment_list_text_balance"/>
 
-        <TextView
+        <br.com.tolive.simplewallet.views.CustomTextView
+            app:font="@string/app_font"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
@@ -32,6 +37,68 @@
             android:gravity="right"
             android:paddingRight="10dp"
             android:id="@+id/fragment_list_text_balance_number" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal" android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <br.com.tolive.simplewallet.views.CustomTextView
+                app:font="@string/app_font"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:paddingLeft="12dp"
+                android:singleLine="true"
+                android:textColor="@color/snow"
+                android:layout_gravity="center_vertical"
+                android:text="@string/fragment_list_text_gain"/>
+
+            <br.com.tolive.simplewallet.views.CustomTextView
+                app:font="@string/app_font"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:textColor="@color/snow"
+                android:layout_gravity="center_vertical"
+                android:gravity="right"
+                android:paddingRight="10dp"
+                android:id="@+id/fragment_list_text_gain_number" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal" android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <br.com.tolive.simplewallet.views.CustomTextView
+                app:font="@string/app_font"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:paddingLeft="12dp"
+                android:singleLine="true"
+                android:textColor="@color/snow"
+                android:layout_gravity="center_vertical"
+                android:text="@string/fragment_list_text_expnese"/>
+
+            <br.com.tolive.simplewallet.views.CustomTextView
+                app:font="@string/app_font"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:textColor="@color/snow"
+                android:layout_gravity="center_vertical"
+                android:gravity="right"
+                android:paddingRight="10dp"
+                android:id="@+id/fragment_list_text_expense_number" />
+
+        </LinearLayout>
     </LinearLayout>
 
     <View

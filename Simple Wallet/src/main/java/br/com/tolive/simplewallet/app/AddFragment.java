@@ -98,7 +98,12 @@ public class AddFragment extends Fragment {
     }
 
     private void refreshBalanceText(int month) {
-        Float balance = new Float(dao.getMonthBalance(month));
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constantes.SHARED_PREFERENCES, Context.MODE_PRIVATE);
+        int balanceType = sharedPreferences.getInt(Constantes.SP_KEY_BALANCE_TYPE, Constantes.SP_BALANCE_TYPE_DEFAULT);
+        if (balanceType == Constantes.BALANCE_TYPE_TOTAL) {
+            month = EntryDAO.ALL;
+        }
+        Float balance = dao.getMonthBalance(month);
         Float gain = dao.getGain(month);
         Float expense = dao.getExpense(month);
         textBalance.setText("Saldo: " + String.format("%.2f", balance));

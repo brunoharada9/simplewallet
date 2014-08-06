@@ -28,6 +28,9 @@
     <string name="fragment_settings_text_color_set_green">Bom $$ :)</string>
     <string name="fragment_settings_text_color_set_yellow">Atenção...</string>
     <string name="fragment_settings_text_color_set_red">Quebrado :(</string>
+    <string name="fragment_settings_text_balance_type">Mostrar saldo</string>
+    <string name="fragment_settings_radio_balance_type_total">Total</string>
+    <string name="fragment_settings_radio_balance_type_month">Mês</string>
     <string name="fragment_filtro_text_date">Data</string>
     <string name="fragment_filtro_text_date_month">Mês</string>
     <string name="fragment_filtro_text_date_year">Ano</string>
@@ -46,6 +49,8 @@
     <string name="fragment_list_contextmenu_item_edit">Editar</string>
     <string name="fragment_list_contextmenu_item_delete">Deletar</string>
     <string name="fragment_list_text_balance">Saldo</string>
+    <string name="fragment_list_text_gain">Ganhos</string>
+    <string name="fragment_list_text_expnese">Despesa</string>
     <string name="fragment_add_button">$</string>
 
     <string-array name="nav_drawer_items">

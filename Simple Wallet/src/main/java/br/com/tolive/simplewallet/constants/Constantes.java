@@ -19,6 +19,10 @@ public class Constantes {
     public static final float SP_RED_DEFAULT = 200;
     public static final String SP_KEY_REMOVE_AD = "remove_ad";
     public static final boolean SP_REMOVE_AD_DEFAULT = false;
+    public static final String SP_KEY_BALANCE_TYPE = "balance_type6";
+    public static final int BALANCE_TYPE_TOTAL = 0;
+    public static final int BALANCE_TYPE_MONTH = 1;
+    public static final int SP_BALANCE_TYPE_DEFAULT = BALANCE_TYPE_TOTAL;
 
     public static final String PACKAGE_TOLIVE_HEALTHY = "br.gmob.tolivehealthy";
     public static final String INSTANCE_SAVE_MENUACTIVITY_ACTIONBARICON = "instance_save_menuactivity_actonBarIcon";

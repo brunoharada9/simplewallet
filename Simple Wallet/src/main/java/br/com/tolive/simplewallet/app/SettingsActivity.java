@@ -10,6 +10,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,6 +19,7 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
 import br.com.tolive.simplewallet.constants.Constantes;
+import br.com.tolive.simplewallet.views.CustomRadioButton;
 
 
 public class SettingsActivity extends Activity {
@@ -24,9 +27,12 @@ public class SettingsActivity extends Activity {
     private static final String MSG_ERROR = "O valor amarelo deve ser maior que o vermelho";
     private static final String EMPTY = "";
     private static final String ERROR_INVALID_INPUT = "Valor inválido";
-    EditText editYellow;
-    EditText editRed;
-    TextView textPercentGreen;
+    private EditText editYellow;
+    private EditText editRed;
+    private TextView textPercentGreen;
+    private RadioGroup radioGroupBalanceType;
+    private CustomRadioButton radioButtonBalanceTypeTotal;
+    private CustomRadioButton radioButtonBalanceTypeMonth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +55,18 @@ public class SettingsActivity extends Activity {
         editYellow = (EditText) findViewById(R.id.fragment_settings_edit_yellow);
         editRed = (EditText) findViewById(R.id.fragment_settings_edit_red);
         textPercentGreen = (TextView) findViewById(R.id.fragment_settings_text_color_set_percent_green_number);
+
+        radioGroupBalanceType = (RadioGroup) findViewById(R.id.fragment_settings_radio_group_balance_type);
+        radioButtonBalanceTypeTotal = (CustomRadioButton) findViewById(R.id.fragment_settings_radio_balance_type_total);
+        radioButtonBalanceTypeMonth = (CustomRadioButton) findViewById(R.id.fragment_settings_radio_balance_type_month);
+        int balanceType = sharedPreferences.getInt(Constantes.SP_KEY_BALANCE_TYPE, Constantes.SP_BALANCE_TYPE_DEFAULT);
+        if(balanceType == Constantes.BALANCE_TYPE_MONTH) {
+            radioButtonBalanceTypeMonth.setChecked(true);
+            radioButtonBalanceTypeTotal.setChecked(false);
+        } else if (balanceType == Constantes.BALANCE_TYPE_TOTAL) {
+            radioButtonBalanceTypeTotal.setChecked(true);
+            radioButtonBalanceTypeMonth.setChecked(false);
+        }
 
         float yellow = sharedPreferences.getFloat(Constantes.SP_KEY_YELLOW, Constantes.SP_YELLOW_DEFAULT);
         float red = sharedPreferences.getFloat(Constantes.SP_KEY_RED, Constantes.SP_RED_DEFAULT);
@@ -102,15 +120,27 @@ public class SettingsActivity extends Activity {
             } else {
                 float yellow = Float.valueOf(editYellow.getText().toString());
                 float red = Float.valueOf(editRed.getText().toString());
+                int radioSelectedId = radioGroupBalanceType.getCheckedRadioButtonId();
+                int balanceType = Constantes.SP_BALANCE_TYPE_DEFAULT;
+                switch (radioSelectedId){
+                    case R.id.fragment_settings_radio_balance_type_month:
+                        balanceType = Constantes.BALANCE_TYPE_MONTH;
+                        break;
+                    case R.id.fragment_settings_radio_balance_type_total:
+                        balanceType = Constantes.BALANCE_TYPE_TOTAL;
+                        break;
+                }
                // if ((yellow > 0 && yellow < 100) && (yellow > 0 && yellow < 100)) {
                 if (yellow > red) {
                     SharedPreferences sharedPreferences = getSharedPreferences(Constantes.SHARED_PREFERENCES, MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
 
+                    editor.putInt(Constantes.SP_KEY_BALANCE_TYPE, balanceType);
+
                     editor.putFloat(Constantes.SP_KEY_YELLOW, yellow);
                     editor.putFloat(Constantes.SP_KEY_RED, red);
 
-                    editor.commit();
+                    editor.apply();
 
                     setResult(RESULT_OK);
                     finish();

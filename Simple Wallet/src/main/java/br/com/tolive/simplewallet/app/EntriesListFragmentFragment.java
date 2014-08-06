@@ -28,6 +28,7 @@ import br.com.tolive.simplewallet.constants.Constantes;
 import br.com.tolive.simplewallet.db.EntryDAO;
 import br.com.tolive.simplewallet.model.Entry;
 import br.com.tolive.simplewallet.utils.DialogAddEntryMaker;
+import br.com.tolive.simplewallet.views.CustomTextView;
 
 public class EntriesListFragmentFragment extends Fragment implements MenuActivity.OnFiltroApplyListener{
     private static final int FIRST_ELEMENT = 0;
@@ -41,7 +42,9 @@ public class EntriesListFragmentFragment extends Fragment implements MenuActivit
     EntryDAO dao;
     LinearLayout containerBalance;
     ListView entriesList;
-    TextView textBalanceNumber;
+    CustomTextView textBalanceNumber;
+    CustomTextView textGainNumber;
+    CustomTextView textExpenseNumber;
     int month;
 
     int prevMonth;
@@ -63,14 +66,11 @@ public class EntriesListFragmentFragment extends Fragment implements MenuActivit
 
         View view = inflater.inflate(R.layout.fragment_list, container, false);
 
-        TextView textBalance = (TextView) view.findViewById(R.id.fragment_list_text_balance);
-        textBalanceNumber = (TextView) view.findViewById(R.id.fragment_list_text_balance_number);
+        textBalanceNumber = (CustomTextView) view.findViewById(R.id.fragment_list_text_balance_number);
+        textGainNumber = (CustomTextView) view.findViewById(R.id.fragment_list_text_gain_number);
+        textExpenseNumber = (CustomTextView) view.findViewById(R.id.fragment_list_text_expense_number);
         entriesList = (ListView) view.findViewById(R.id.fragment_list_list_entries);
         containerBalance = (LinearLayout) view.findViewById(R.id.fragment_list_container_balance);
-
-        Typeface tf = Typeface.createFromAsset(getActivity().getAssets(), Constantes.FONT_PATH_ROBOTO_CONDENSED_BOLD);
-        textBalance.setTypeface(tf);
-        textBalanceNumber.setTypeface(tf);
 
         registerForContextMenu(entriesList);
 
@@ -113,6 +113,8 @@ public class EntriesListFragmentFragment extends Fragment implements MenuActivit
         Float expense = dao.getExpense(month);
 
         textBalanceNumber.setText(String.format("%.2f", (gain - expense)));
+        textGainNumber.setText(String.format("%.2f", (gain)));
+        textExpenseNumber.setText(String.format("%.2f", (expense)));
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constantes.SHARED_PREFERENCES, Context.MODE_PRIVATE);
         float yellow = sharedPreferences.getFloat(Constantes.SP_KEY_YELLOW, Constantes.SP_YELLOW_DEFAULT);
         float red = sharedPreferences.getFloat(Constantes.SP_KEY_RED, Constantes.SP_RED_DEFAULT);
