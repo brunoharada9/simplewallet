@@ -55,6 +55,7 @@ public class AboutFragment extends Fragment {
         }
 
         RelativeLayout containerToLiveHealthy = (RelativeLayout) view.findViewById(R.id.fragment_about_tolivehealthy);
+        RelativeLayout containerFbFanpage = (RelativeLayout) view.findViewById(R.id.fragment_about_fb_fanpage);
         final RelativeLayout containerRemoveAd = (RelativeLayout) view.findViewById(R.id.fragment_about_container_remove_ad);
 
 
@@ -93,6 +94,13 @@ public class AboutFragment extends Fragment {
                 } catch (android.content.ActivityNotFoundException anfe) {
                     startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=" + appPackageName)));
                 }
+            }
+        });
+
+        containerFbFanpage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(getOpenFacebookIntent(getActivity()));
             }
         });
 
@@ -245,5 +253,18 @@ public class AboutFragment extends Fragment {
         if (mHelper != null)
             mHelper.dispose();
         mHelper = null;
+    }
+
+    public static Intent getOpenFacebookIntent(Context context) {
+
+        try {
+            context.getPackageManager()
+                    .getPackageInfo(Constantes.PACKAGE_FACEBOOK, 0); //Checks if FB is even installed.
+            return new Intent(Intent.ACTION_VIEW,
+                    Uri.parse(Constantes.FACEBOOK_URI_PROFILE)); //Trys to make intent with FB's URI
+        } catch (Exception e) {
+            return new Intent(Intent.ACTION_VIEW,
+                    Uri.parse(Constantes.FACEBOOK_URL)); //catches and opens a url to the desired page
+        }
     }
 }

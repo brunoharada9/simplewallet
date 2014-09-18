@@ -23,7 +23,7 @@ import java.util.Calendar;
 
 import br.com.tolive.simplewalletpro.R;
 import br.com.tolive.simplewalletpro.adapter.EntriesListAdapter;
-import br.com.tolive.simplewalletpro.constants.Constantes;
+import br.com.tolive.simplewalletpro.constants.Constants;
 import br.com.tolive.simplewalletpro.db.EntryDAO;
 import br.com.tolive.simplewalletpro.model.Entry;
 import br.com.tolive.simplewalletpro.utils.DialogAddEntryMaker;
@@ -105,9 +105,9 @@ public class EntriesListFragmentFragment extends Fragment implements MenuActivit
         Float expense = dao.getExpense(month);
 
         textBalanceNumber.setText(String.format("%.2f", (gain - expense)));
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constantes.SHARED_PREFERENCES, Context.MODE_PRIVATE);
-        float yellow = sharedPreferences.getFloat(Constantes.SP_KEY_YELLOW, Constantes.SP_YELLOW_DEFAULT);
-        float red = sharedPreferences.getFloat(Constantes.SP_KEY_RED, Constantes.SP_RED_DEFAULT);
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.SHARED_PREFERENCES, Context.MODE_PRIVATE);
+        float yellow = sharedPreferences.getFloat(Constants.SP_KEY_YELLOW, Constants.SP_YELLOW_DEFAULT);
+        float red = sharedPreferences.getFloat(Constants.SP_KEY_RED, Constants.SP_RED_DEFAULT);
 
         ActionBar actionBar = getActivity().getActionBar();
 
@@ -139,7 +139,7 @@ public class EntriesListFragmentFragment extends Fragment implements MenuActivit
                 DialogAddEntryMaker dialogAddEntryMaker = new DialogAddEntryMaker(getActivity());
                 dialogAddEntryMaker.setOnClickOkListener(new DialogAddEntryMaker.OnClickOkListener() {
                     @Override
-                    public void onClickOk(Entry entry) {
+                    public void onClickOk(Entry entry, int recurrency) {
                         if (dao.update(entry) > NO_ROWS_AFFECTED) {
                             Toast.makeText(getActivity(), R.string.dialog_edit_sucess, Toast.LENGTH_SHORT).show();
                             if (prevMonth != entry.getMonth() || prevYear != Integer.valueOf(entry.getDate().split("/")[DATE_YEAR])) {

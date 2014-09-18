@@ -11,6 +11,8 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
 import br.com.tolive.simplewalletpro.R;
+import br.com.tolive.simplewalletpro.db.EntryDAO;
+import br.com.tolive.simplewalletpro.model.Category;
 import br.com.tolive.simplewalletpro.model.Entry;
 import br.com.tolive.simplewalletpro.views.CustomTextView;
 
@@ -22,13 +24,6 @@ public class DetailsActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
-
-        AdRequest request = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                .addTestDevice("E6E54B90007CAC7A62F9EC7857F3A989")
-                .build();
-        AdView adView = (AdView) findViewById(R.id.ad_details);
-        adView.loadAd(request);
 
         Intent intent = getIntent();
         this.entry = (Entry) intent.getSerializableExtra(EntriesListFragmentFragment.EXTRA_KEY_ENTRY_DETAILS);
@@ -49,6 +44,13 @@ public class DetailsActivity extends Activity {
 
         CustomTextView txtDate = (CustomTextView) findViewById(R.id.activity_details_text_date);
         txtDate.setText(entry.getDate());
+
+        CustomTextView txtCategory = (CustomTextView) findViewById(R.id.activity_details_text_category);
+        EntryDAO dao = EntryDAO.getInstance(this);
+        Category category = dao.getCategory(entry.getCategory());
+        if(category != null) {
+            txtCategory.setText(category.getName());
+        }
 
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);

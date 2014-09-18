@@ -42,6 +42,8 @@
     <string name="fragment_about_text_remove_ad_removed">Obrigado :)</string>
     <string name="fragment_about_text_remove_ad_price_removed">-</string>
     <string name="fragment_about_toast_remove_ad">Anúncio removido! Obrigado :)</string>
+    <string name="fragment_about_text_fb_fanpage">Social</string>
+    <string name="fragment_about_text_fb">Facebook</string>
     <string name="title_activity_settings">Configurações</string>
     <string name="title_activity_filtro">Filtro</string>
     <string name="title_activity_add">Adicionar</string>

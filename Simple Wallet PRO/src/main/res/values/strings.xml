@@ -7,6 +7,7 @@
     <string name="title_activity_menu">Gastos PRO</string>
     <string name="action_settings">Settings</string>
     <string name="action_filtro">Filtro</string>
+    <string name="action_recurrent">Recorrente</string>
     <string name="action_confirm">Salvar</string>
     <string name="dialog_add_title">Adicionar</string>
     <string name="dialog_add_sucess">Despesa adicionada com sucesso</string>
@@ -15,6 +16,9 @@
     <string name="dialog_add_invalid_value">Valor invalido</string>
     <string name="dialog_add_radiobutton_gain">Ganho</string>
     <string name="dialog_add_radiobutton_expense">Despesa</string>
+    <string name="dialog_add_radiobutton_recurrent_no">Normal</string>
+    <string name="dialog_add_radiobutton_recurrent_daily">Diario</string>
+    <string name="dialog_add_radiobutton_recurrent_monthly">Mensal</string>
     <string name="dialog_add_edittext_value">Valor</string>
     <string name="dialog_add_edittext_description">Descrição</string>
     <string name="dialog_add_text_choose">Programar</string>
@@ -22,12 +26,18 @@
     <string name="dialog_add_text_cancel">Cancelar</string>
     <string name="dialog_edit_sucess">Editado com sucesso</string>
     <string name="dialog_edit_error">Erro na edição</string>
+    <string name="activity_details_text_category_string">Categoria</string>
+    <string name="activity_details_text_category_no_category">Sem categoria</string>
     <string name="activity_details_text_value_string">Quanto?</string>
     <string name="activity_details_text_date_string">Quando?</string>
+    <string name="fragment_settings_text_add_category">Adicionar categoria</string>
     <string name="fragment_settings_text_color_set">Mudar avisos</string>
+    <string name="fragment_settings_text_create_category">Editar Categorias</string>
     <string name="fragment_settings_text_color_set_green">Bom $$ :)</string>
     <string name="fragment_settings_text_color_set_yellow">Atenção...</string>
     <string name="fragment_settings_text_color_set_red">Quebrado :(</string>
+    <string name="fragment_settings_contextmenu_item_edit">Editar</string>
+    <string name="fragment_settings_contextmenu_item_delete">Deletar</string>
     <string name="fragment_filtro_text_date">Data</string>
     <string name="fragment_filtro_text_date_month">Mês</string>
     <string name="fragment_filtro_text_date_year">Ano</string>
@@ -37,23 +47,52 @@
     <string name="title_activity_filtro">Filtro</string>
     <string name="title_activity_add">Adicionar</string>
     <string name="title_activity_details">Detalhes</string>
+    <string name="title_activity_recurrent">Recorrente</string>
     <string name="fragment_list_contextmenu_item_edit">Editar</string>
     <string name="fragment_list_contextmenu_item_delete">Deletar</string>
     <string name="fragment_list_text_balance">Saldo</string>
     <string name="fragment_add_button">$</string>
     <string name="fragment_store_text_options">Opções</string>
-    <string name="fragment_store_text_email">Enviar para email</string>
+    <string name="fragment_store_text_email">Email</string>
+    <string name="fragment_store_text_sdcard">Celular</string>
+    <string name="fragment_store_text_sucess">Gastos salvos no cartão SD</string>
+    <string name="fragment_store_text_fail">Erro ao salvar no cartão SD</string>
+    <string name="fragment_store_text_fail_open_SD">Erro ao abrir cartão SD</string>
+    <string name="fragment_recovery_text_options">Opções</string>
+    <string name="fragment_recovery_text_sdcard">Celular</string>
+    <string name="fragment_recovery_text_sucess">Dados recuperados com sucesso</string>
+    <string name="fragment_recovery_text_fail">Erro ao recuperar dados do cartão SD</string>
+    <string name="fragment_graph_text_empty">Sem dados</string>
+    <string name="fragment_graph_text_gain">Ganhos</string>
+    <string name="fragment_graph_text_expense">Despesas</string>
     <string name="dialog_email_text_email">Email</string>
     <string name="dialog_email_text_date_month">Mês</string>
     <string name="dialog_email_text_date_year">Ano</string>
     <string name="dialog_email_text_ok">Enviar</string>
     <string name="dialog_email_text_cancel">Cancelar</string>
+    <string name="dialog_category_text_cancel">Cancelar</string>
+    <string name="dialog_category_text_ok_1">Criar</string>
+    <string name="dialog_category_text_ok_2">Modificar</string>
+    <string name="dialog_add_category_invalid_name">Nome inválido</string>
+    <string name="dialog_edit_categoty_sucess">Categoria editada</string>
+    <string name="dialog_edit_categoty_fail">Erro ao editar</string>
+    <string name="dialog_add_categoty_sucess">Categoria adicionada</string>
+    <string name="dialog_add_categoty_fail">Erro ao adicionar</string>
+    <string name="activity_recurrent_text">Gastos recorrentes</string>
+    <string name="activity_recurrent_text_daily">Diario</string>
+    <string name="activity_recurrent_text_monthly">Mensal</string>
+    <string name="activity_recurrent_text_edit_sucess_gain">Ganho recorrente editado com sucesso</string>
+    <string name="activity_recurrent_text_remove_sucess_gain">Ganho recorrente removido com sucesso</string>
+    <string name="activity_recurrent_text_edit_sucess_expense">Gasto recorrente editado com sucesso</string>
+    <string name="activity_recurrent_text_remove_sucess_expense">Gasto recorrente removido com sucesso</string>
+    <string name="textView_list_recurrent_name_add">Adicionar</string>
 
     <string-array name="nav_drawer_items">
         <item>Adicionar</item>
         <item>Lista</item>
         <item>Gráficos</item>
         <item>Armazenar</item>
+        <item>Recurperar</item>
         <item>Info</item>
     </string-array>
 
@@ -63,6 +102,7 @@
         <item>@drawable/ic_add</item>
         <item>@drawable/ic_list</item>
         <item>@drawable/ic_graph</item>
+        <item>@drawable/ic_store</item>
         <item>@drawable/ic_store</item>
         <item>@drawable/ic_about</item>
     </array>
@@ -81,7 +121,6 @@
         <item>Nev</item>
         <item>Dez</item>
     </string-array>
-
     <string-array name="spinner_years">
         <item>2012</item>
         <item>2013</item>
@@ -93,7 +132,6 @@
         <item>2019</item>
         <item>2020</item>
     </string-array>
-
     <string-array name="spinner_email_months">
         <item>Todos</item>
         <item>Jan</item>
@@ -109,7 +147,6 @@
         <item>Nev</item>
         <item>Dez</item>
     </string-array>
-
     <string-array name="spinner_email_years">
         <item>Todos</item>
         <item>2012</item>

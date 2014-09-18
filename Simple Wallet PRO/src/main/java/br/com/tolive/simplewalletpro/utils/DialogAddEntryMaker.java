@@ -2,8 +2,12 @@ package br.com.tolive.simplewalletpro.utils;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -12,13 +16,18 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 import br.com.tolive.simplewalletpro.R;
-import br.com.tolive.simplewalletpro.adapter.CustomSpinnerAdapter;
 import br.com.tolive.simplewalletpro.adapter.CustomSpinnerAdapterCategory;
-import br.com.tolive.simplewalletpro.constants.Constantes;
+import br.com.tolive.simplewalletpro.constants.Constants;
 import br.com.tolive.simplewalletpro.db.EntryDAO;
 import br.com.tolive.simplewalletpro.model.Category;
 import br.com.tolive.simplewalletpro.model.Entry;
@@ -35,7 +44,12 @@ public class DialogAddEntryMaker {
 
     private OnClickOkListener mListener;
     private Context context;
-    AlertDialog dialog;
+    private AlertDialog dialog;
+    private int categoryType = Category.TYPE_EXPENSE;
+    private String[] categoriesNames;
+    private CustomSpinnerAdapterCategory adapterCategory;
+    private HashSet<String> recentEntry;
+    private SharedPreferences sharedPreferences;
 
     public DialogAddEntryMaker(Context context){
         this.context = context;
@@ -65,32 +79,73 @@ public class DialogAddEntryMaker {
      */
     private AlertDialog makeCustomAddDialog(final Entry entry) {
         final AlertDialog.Builder dialog = new AlertDialog.Builder(context);
+        final EntryDAO dao = EntryDAO.getInstance(context);
+        final RecurrentsManager recurrentsManager = new RecurrentsManager(context);
+        sharedPreferences = context.getSharedPreferences(Constants.SHARED_PREFERENCES, Context.MODE_PRIVATE);
 
         LayoutInflater inflater = (LayoutInflater)   context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View view = inflater.inflate(R.layout.dialog_add, null);
 
-        final EditText editTextDescription = (EditText) view.findViewById(R.id.dialog_add_edittext_description);
+        ////
+        //Views instantion
+        ////
+        final AutoCompleteTextView editTextDescription = (AutoCompleteTextView) view.findViewById(R.id.dialog_add_edittext_description);
         final EditText editTextValue = (EditText) view.findViewById(R.id.dialog_add_edittext_value);
         final RadioGroup radioGroupType = (RadioGroup) view.findViewById(R.id.dialog_add_radiogroup_type);
         final RadioButton radioGain = (RadioButton) view.findViewById(R.id.dialog_add_radiobutton_gain);
         final RadioButton radioExpense = (RadioButton) view.findViewById(R.id.dialog_add_radiobutton_expense);
         final Spinner categorySpinner = (Spinner) view.findViewById(R.id.dialog_add_spinner_category);
 
-        EntryDAO dao = EntryDAO.getInstance(context);
-        ArrayList<Category> categories = dao.getCategories();
-        String[] categoriesNames = getCategoriesNames(categories);
-        CustomSpinnerAdapterCategory adapterCategory = new CustomSpinnerAdapterCategory(context, R.layout.simple_spinner_item, categoriesNames);
+        ////
+        //Get recent entries saved in SharedPreferences
+        ////
+        recentEntry = RecentEntriesConverter.fromJson(sharedPreferences.getString(Constants.SP_KEY_RECENT_ENTRIES, Constants.SP_RECENT_ENTRIES_DEFAULT));
+        Log.d("TAG", recentEntry.toString());
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_dropdown_item_1line, new ArrayList<String>(recentEntry));
+        editTextDescription.setAdapter(adapter);
+
+        ////
+        //Setting Category
+        ///
+        ArrayList<Category> categories = dao.getCategories(categoryType);
+        categoriesNames = getCategoriesNames(categories);
+
+        if (entry != null) {
+             categoryType = entry.getType();
+        }
+
+        adapterCategory = new CustomSpinnerAdapterCategory(context, R.layout.simple_spinner_item, categoriesNames, categories);
         adapterCategory.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
         categorySpinner.setAdapter(adapterCategory);
+
+        radioGroupType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                int type = i == R.id.dialog_add_radiobutton_expense ? Entry.TYPE_EXPENSE : Entry.TYPE_GAIN;
+                if (categoryType != type) {
+                    categoryType = type;
+                    ArrayList<Category> categories = dao.getCategories(categoryType);
+                    categoriesNames = getCategoriesNames(categories);
+                    adapterCategory = new CustomSpinnerAdapterCategory(context, R.layout.simple_spinner_item, categoriesNames, categories);
+                    categorySpinner.setAdapter(adapterCategory);
+                }
+            }
+        });
+
 
         final LinearLayout containerChooseDate = (LinearLayout) view.findViewById(R.id.dialog_add_container_choose_date);
 
         final DatePicker datePicker = (DatePicker) view.findViewById(R.id.dialog_add_datepicker);
+        final RadioGroup radioGroupRecurrent = (RadioGroup) view.findViewById(R.id.dialog_add_radiogroup_recurrent);
+        final RadioButton radioNormal = (RadioButton) view.findViewById(R.id.dialog_add_radiobutton_recurrent_no);
+        final RadioButton radioDaily = (RadioButton) view.findViewById(R.id.dialog_add_radiobutton_recurrent_daily);
+        final RadioButton radioMonthly = (RadioButton) view.findViewById(R.id.dialog_add_radiobutton_recurrent_monthly);
 
         containerChooseDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 datePicker.setVisibility(View.VISIBLE);
+                radioGroupRecurrent.setVisibility(View.VISIBLE);
                 containerChooseDate.setVisibility(View.GONE);
             }
         });
@@ -110,6 +165,17 @@ public class DialogAddEntryMaker {
             }
             String[] split = entry.getDate().split("/");
             datePicker.updateDate(Integer.valueOf(split[DATE_YEAR]), Integer.valueOf(split[DATE_MONTH]) - 1, Integer.valueOf(split[DATE_DAY]));
+            switch (recurrentsManager.getRecurrency(entry)){
+                case RecurrentsManager.RECURRENT_NORMAL:
+                    radioNormal.setChecked(true);
+                    break;
+                case RecurrentsManager.RECURRENT_DAILY:
+                    radioDaily.setChecked(true);
+                    break;
+                case RecurrentsManager.RECURRENT_MONTHY:
+                    radioMonthly.setChecked(true);
+                    break;
+            }
         }
 
         okButton.setOnClickListener(new View.OnClickListener() {
@@ -118,9 +184,11 @@ public class DialogAddEntryMaker {
                 String description = editTextDescription.getText().toString();
 
                 int typeRadioButtonId = radioGroupType.getCheckedRadioButtonId();
-                int type = typeRadioButtonId == R.id.dialog_add_radiobutton_expense ? Entry.TYPE_EXPENSE : Entry.TYPE_GAIN;
+                    int type = typeRadioButtonId == R.id.dialog_add_radiobutton_expense ? Entry.TYPE_EXPENSE : Entry.TYPE_GAIN;
 
-                int category = categorySpinner.getSelectedItemPosition();
+
+                String categoryName = (String) categorySpinner.getSelectedItem();
+                int category = dao.getCategoryIdByName(categoryName);
 
                 int month;
                 String date;
@@ -134,13 +202,32 @@ public class DialogAddEntryMaker {
                     date = calendar.get(Calendar.DAY_OF_MONTH) + "/" + (month + 1) + "/" + calendar.get(Calendar.YEAR);
                 }
 
+                int recurrentChekedRadioButtonId = radioGroupRecurrent.getCheckedRadioButtonId();
+                int recurrency = RecurrentsManager.RECURRENT_NORMAL;
+                switch (recurrentChekedRadioButtonId){
+                    case R.id.dialog_add_radiobutton_recurrent_no:
+                        recurrency = RecurrentsManager.RECURRENT_NORMAL;
+                        break;
+                    case R.id.dialog_add_radiobutton_recurrent_daily:
+                        recurrency = RecurrentsManager.RECURRENT_DAILY;
+                        break;
+                    case R.id.dialog_add_radiobutton_recurrent_monthly:
+                        recurrency = RecurrentsManager.RECURRENT_MONTHY;
+                        break;
+                }
+
                 if (editTextValue.getText().toString().equals(EMPTY)) {
                     Toast.makeText(context, R.string.dialog_add_invalid_value, Toast.LENGTH_SHORT).show();
                 } else {
-                    Float value = Float.parseFloat(formatToDot(editTextValue.getText().toString()));
+                    Float value = Float.parseFloat(editTextValue.getText().toString().replace(',','.'));
                     if (editTextDescription.getText().toString().equals(EMPTY)){
                         editTextDescription.setText(R.string.dialog_add_no_descripition);
                     }
+
+                    recentEntry.add(description);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString(Constants.SP_KEY_RECENT_ENTRIES, RecentEntriesConverter.toJson(recentEntry));
+                    editor.apply();
 
                     if(entry == null) {
                         Entry newEntry = new Entry();
@@ -152,7 +239,7 @@ public class DialogAddEntryMaker {
                         newEntry.setMonth(month);
 
                         if (mListener != null) {
-                            mListener.onClickOk(newEntry);
+                            mListener.onClickOk(newEntry, recurrency);
                             DialogAddEntryMaker.this.dialog.dismiss();
                         }
                     } else{
@@ -164,7 +251,7 @@ public class DialogAddEntryMaker {
                         entry.setMonth(month);
 
                         if (mListener != null) {
-                            mListener.onClickOk(entry);
+                            mListener.onClickOk(entry, recurrency);
                             DialogAddEntryMaker.this.dialog.dismiss();
                         }
                     }
@@ -192,20 +279,11 @@ public class DialogAddEntryMaker {
         return names.toArray(namesList);
     }
 
-    private String formatToDot(String number) {
-        if(number.contains(",")){
-            return number.split(",")[0] + "." + number.split(",")[1];
-        } else {
-            return  number;
-        }
-    }
-
-
     public void setOnClickOkListener (OnClickOkListener listener){
         mListener = listener;
     }
 
     public interface OnClickOkListener {
-        public void onClickOk(Entry entry);
+        public void onClickOk(Entry entry, int recurrency);
     }
 }

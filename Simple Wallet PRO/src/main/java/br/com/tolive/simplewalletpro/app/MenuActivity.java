@@ -17,15 +17,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 
 import br.com.tolive.simplewalletpro.R;
 import br.com.tolive.simplewalletpro.adapter.NavDrawerListAdapter;
-import br.com.tolive.simplewalletpro.constants.Constantes;
+import br.com.tolive.simplewalletpro.constants.Constants;
 import br.com.tolive.simplewalletpro.db.EntryDAO;
 import br.com.tolive.simplewalletpro.model.Entry;
 import br.com.tolive.simplewalletpro.model.NavDrawerItem;
@@ -41,7 +38,8 @@ public class MenuActivity extends ActionBarActivity {
     public static final int NAV_LIST = 1;
     public static final int NAV_GRAPH = 2;
     public static final int NAV_STORE = 3;
-    public static final int NAV_ABOUT = 4;
+    public static final int NAV_RECOVERY = 4;
+    public static final int NAV_ABOUT = 5;
     public static final int DEFAULT_VALUE = -1;
 
     private DrawerLayout mDrawerLayout;
@@ -70,13 +68,6 @@ public class MenuActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        AdRequest request = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                .addTestDevice("E6E54B90007CAC7A62F9EC7857F3A989")
-                .build();
-        AdView adView = (AdView) findViewById(R.id.ad_main);
-        adView.loadAd(request);
-
         setActionBarIcon();
 
         mTitle = mDrawerTitle = getTitle();
@@ -102,6 +93,8 @@ public class MenuActivity extends ActionBarActivity {
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[NAV_GRAPH], navMenuIcons.getResourceId(NAV_GRAPH, DEFAULT_VALUE)));
         // store
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[NAV_STORE], navMenuIcons.getResourceId(NAV_STORE, DEFAULT_VALUE)));
+        // recovery
+        navDrawerItems.add(new NavDrawerItem(navMenuTitles[NAV_RECOVERY], navMenuIcons.getResourceId(NAV_RECOVERY, DEFAULT_VALUE)));
         // about
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[NAV_ABOUT], navMenuIcons.getResourceId(NAV_ABOUT, DEFAULT_VALUE)));
 
@@ -151,9 +144,9 @@ public class MenuActivity extends ActionBarActivity {
         Float gain = dao.getGain(calendar.get(Calendar.MONTH));
         Float expense = dao.getExpense(calendar.get(Calendar.MONTH));
 
-        SharedPreferences sharedPreferences = getSharedPreferences(Constantes.SHARED_PREFERENCES, Context.MODE_PRIVATE);
-        float yellow = sharedPreferences.getFloat(Constantes.SP_KEY_YELLOW, Constantes.SP_YELLOW_DEFAULT);
-        float red = sharedPreferences.getFloat(Constantes.SP_KEY_RED, Constantes.SP_RED_DEFAULT);
+        SharedPreferences sharedPreferences = getSharedPreferences(Constants.SHARED_PREFERENCES, Context.MODE_PRIVATE);
+        float yellow = sharedPreferences.getFloat(Constants.SP_KEY_YELLOW, Constants.SP_YELLOW_DEFAULT);
+        float red = sharedPreferences.getFloat(Constants.SP_KEY_RED, Constants.SP_RED_DEFAULT);
 
         ActionBar actionBar = getActionBar();
 
@@ -203,6 +196,10 @@ public class MenuActivity extends ActionBarActivity {
                 fragment = new StoreFragment();
                 actionBarIcon = ICON_NONE;
                 break;
+            case NAV_RECOVERY:
+                fragment = new RecoveryFragment();
+                actionBarIcon = ICON_NONE;
+                break;
             case NAV_ABOUT:
                 fragment = new AboutFragment();
                 actionBarIcon = ICON_NONE;
@@ -219,7 +216,11 @@ public class MenuActivity extends ActionBarActivity {
             // update selected item and title, then close the drawer
             mDrawerList.setItemChecked(position, true);
             mDrawerList.setSelection(position);
-            setTitle(navMenuTitles[position]);
+            if(position == NAV_GRAPH){
+                setTitle(getResources().getString(R.string.fragment_graph_text_gain));
+            }else {
+                setTitle(navMenuTitles[position]);
+            }
             mDrawerLayout.closeDrawer(mDrawerList);
         } else {
             // error in creating fragment
@@ -247,6 +248,9 @@ public class MenuActivity extends ActionBarActivity {
             case R.id.action_filtro:
                 openFiltro();
                 return true;
+            case R.id.action_recurrent:
+                openRecurrents();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -260,6 +264,11 @@ public class MenuActivity extends ActionBarActivity {
     private void openFiltro() {
         Intent intent = new Intent(MenuActivity.this, FiltroActivity.class);
         startActivityForResult(intent, REQUEST_FILTRO);
+    }
+
+    private void openRecurrents() {
+        Intent intent = new Intent(MenuActivity.this, RecurrentActivity.class);
+        startActivity(intent);
     }
 
     @Override
@@ -292,18 +301,22 @@ public class MenuActivity extends ActionBarActivity {
             case ICON_SETTINGS:
                 menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
                 menu.findItem(R.id.action_filtro).setVisible(false);
+                menu.findItem(R.id.action_recurrent).setVisible(false);
                 break;
             case ICON_FILTRO:
                 menu.findItem(R.id.action_settings).setVisible(false);
                 menu.findItem(R.id.action_filtro).setVisible(!drawerOpen);
+                menu.findItem(R.id.action_recurrent).setVisible(!drawerOpen);
                 break;
             case ICON_NONE:
                 menu.findItem(R.id.action_settings).setVisible(false);
                 menu.findItem(R.id.action_filtro).setVisible(false);
+                menu.findItem(R.id.action_recurrent).setVisible(false);
                 break;
             default:
                 menu.findItem(R.id.action_settings).setVisible(false);
                 menu.findItem(R.id.action_filtro).setVisible(false);
+                menu.findItem(R.id.action_recurrent).setVisible(false);
                 break;
         }
         return super.onPrepareOptionsMenu(menu);
@@ -336,13 +349,13 @@ public class MenuActivity extends ActionBarActivity {
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        outState.putInt(Constantes.INSTANCE_SAVE_MENUACTIVITY_ACTIONBARICON, actionBarIcon);
+        outState.putInt(Constants.INSTANCE_SAVE_MENUACTIVITY_ACTIONBARICON, actionBarIcon);
         super.onSaveInstanceState(outState);
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        actionBarIcon = savedInstanceState.getInt(Constantes.INSTANCE_SAVE_MENUACTIVITY_ACTIONBARICON);
+        actionBarIcon = savedInstanceState.getInt(Constants.INSTANCE_SAVE_MENUACTIVITY_ACTIONBARICON);
     }
 }

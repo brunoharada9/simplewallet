@@ -25,5 +25,9 @@ public class Constantes {
     public static final int SP_BALANCE_TYPE_DEFAULT = BALANCE_TYPE_TOTAL;
 
     public static final String PACKAGE_TOLIVE_HEALTHY = "br.gmob.tolivehealthy";
+    public static final String PACKAGE_FACEBOOK = "com.facebook.katana";
+    public static final String FACEBOOK_URI_PROFILE = "fb://profile/255458021317315";
+    public static final String FACEBOOK_URL = "https://www.facebook.com/gastossimples";
+
     public static final String INSTANCE_SAVE_MENUACTIVITY_ACTIONBARICON = "instance_save_menuactivity_actonBarIcon";
 }

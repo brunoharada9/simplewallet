@@ -9,10 +9,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import br.com.tolive.simplewalletpro.model.Category;
 import br.com.tolive.simplewalletpro.model.Entry;
@@ -190,14 +188,14 @@ public class EntryDAO {
         return expense;
     }
 
-    public ArrayList<Category> getCategories() {
-        String selection = String.format("SELECT * FROM %s", Category.ENTITY_NAME);
-        String[] selectionArgs = {};
+    public ArrayList<Category> getCategories(int type) {
+        String selection = String.format("SELECT * FROM %s WHERE %s = ?", Category.ENTITY_NAME, Category.TYPE);
+        String[] selectionArgs = { String.valueOf(type) };
 
-        return getCategory(selection, selectionArgs);
+        return getCategories(selection, selectionArgs);
     }
 
-    private ArrayList<Category> getCategory(String selection, String[] selectionArgs) {
+    private synchronized ArrayList<Category> getCategories(String selection, String[] selectionArgs) {
         ArrayList<Category> categories = new ArrayList<Category>();
         SQLiteDatabase db = mHelper.getReadableDatabase();
 
@@ -210,6 +208,7 @@ public class EntryDAO {
 
             category.setId(cursor.getLong(cursor.getColumnIndex(Category.ID)));
             category.setName(cursor.getString(cursor.getColumnIndex(Category.NAME)));
+            category.setType(cursor.getInt(cursor.getColumnIndex(Category.TYPE)));
             category.setColor(cursor.getInt(cursor.getColumnIndex(Category.COLOR)));
 
             categories.add(category);
@@ -219,5 +218,142 @@ public class EntryDAO {
         db.close();
 
         return categories;
+    }
+
+    public int getCategoryIdByName(String categoryName) {
+        String selection = String.format("SELECT * FROM %s WHERE %s = ?", Category.ENTITY_NAME, Category.NAME);
+        String[] selectionArgs = { categoryName };
+
+        return getCategoryIdByName(selection, selectionArgs);
+    }
+
+    public Category getCategory(int id) {
+        String selection = String.format("SELECT * FROM %s WHERE %s = ?", Category.ENTITY_NAME, Category.ID);
+        String[] selectionArgs = { String.valueOf(id) };
+
+        return getCategory(selection, selectionArgs);
+    }
+
+    private synchronized Category getCategory(String selection, String[] selectionArgs) {
+        SQLiteDatabase db = mHelper.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(selection, selectionArgs);
+
+        //Cursor cursor = db.query(Entry.ENTITY_NAME, Entry.ATTRIBUTES, null, null, null, null, null);
+
+        if (cursor.moveToNext()) {
+            Category category = new Category();
+            category.setId(cursor.getLong(cursor.getColumnIndex(Category.ID)));
+            category.setName(cursor.getString(cursor.getColumnIndex(Category.NAME)));
+            category.setType(cursor.getInt(cursor.getColumnIndex(Category.TYPE)));
+            category.setColor(cursor.getInt(cursor.getColumnIndex(Category.COLOR)));
+            return category;
+        } else {
+            return null;
+        }
+    }
+
+    private synchronized int getCategoryIdByName(String selection, String[] selectionArgs) {
+        SQLiteDatabase db = mHelper.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(selection, selectionArgs);
+
+        //Cursor cursor = db.query(Entry.ENTITY_NAME, Entry.ATTRIBUTES, null, null, null, null, null);
+
+        cursor.moveToNext();
+        int id = (int) cursor.getLong(cursor.getColumnIndex(Category.ID));
+
+        cursor.close();
+        db.close();
+
+        return id;
+    }
+
+    public ArrayList<Float> getPercents(ArrayList<Category> categories, int month) {
+        ArrayList<Float> percents = new ArrayList<Float>();
+        Float total = 0f;
+        for (Category category : categories){
+            ArrayList<Entry> entries = getEntriesByCategoryId(category.getId(), month);
+            Float percent = 0f;
+            for(Entry entry : entries){
+                percent += entry.getValue();
+            }
+            total += percent;
+            percents.add(percent);
+        }
+        percents.add(total);
+
+        return percents;
+    }
+
+    private ArrayList<Entry> getEntriesByCategoryId(Long id, int month) {
+        String selection = String.format("SELECT * FROM %s WHERE %s = ? AND %s = ?", Entry.ENTITY_NAME, Entry.CATEGORY, Entry.MONTH);
+        String[] selectionArgs = { String.valueOf(id), String.valueOf(month) };
+
+        return getEntry(selection, selectionArgs);
+    }
+
+    public long insertCategory(Category category) {
+        ContentValues values = new ContentValues();
+
+        values.put(Category.NAME, category.getName());
+        values.put(Category.COLOR, category.getColor());
+        values.put(Category.TYPE, category.getType());
+
+        return insertCategory(values);
+    }
+
+    private synchronized long insertCategory(ContentValues values){
+        SQLiteDatabase db = mHelper.getWritableDatabase();
+
+        long id = db.insert(Category.ENTITY_NAME, null, values);
+
+        db.close();
+
+        return id;
+    }
+
+    public long updateCategory(Category category) {
+        ContentValues values = new ContentValues();
+
+        values.put(Category.NAME, category.getName());
+        values.put(Category.COLOR, category.getColor());
+        values.put(Category.TYPE, category.getType());
+
+        String whereClause = String.format("%s=?", Entry.ID);
+        String[] whereArgs = { String.valueOf(category.getId()) };
+
+        return updateCategory(values, whereClause, whereArgs);
+    }
+
+    private synchronized long updateCategory(ContentValues values, String whereClause,
+                                     String[] whereArgs) {
+        SQLiteDatabase db = mHelper.getReadableDatabase();
+
+        long n = db.update(Category.ENTITY_NAME, values, whereClause, whereArgs);
+
+        db.close();
+
+        return n;
+    }
+
+    public long deleteAll() {
+        return delete(null, null);
+    }
+
+    public long deleteCategory(Long id){
+        String whereClause = String.format("%s=?", Category.ID);
+        String[] whereArgs = { String.valueOf(id) };
+
+        return deleteCategory(whereClause, whereArgs);
+    }
+
+    private long deleteCategory(String whereClause, String[] whereArgs) {
+
+        SQLiteDatabase db = mHelper.getReadableDatabase();
+
+        long id = db.delete(Category.ENTITY_NAME, whereClause, whereArgs);
+
+        return id;
     }
 }
