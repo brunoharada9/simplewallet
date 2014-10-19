@@ -60,7 +60,7 @@ public class AddFragment extends Fragment {
         int month = calendar.get(Calendar.MONTH);
 
         refreshBalanceText(month);
-        refreshBackGround(month);
+        //refreshBackGround(month);
 
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,7 +72,7 @@ public class AddFragment extends Fragment {
                     public void onClickOk(Entry entry) {
                         if (dao.insert(entry) != -1) {
                             Toast.makeText(getActivity(), R.string.dialog_add_sucess, Toast.LENGTH_SHORT).show();
-                            refreshBackGround(entry.getMonth());
+                            //refreshBackGround(entry.getMonth());
                             refreshBalanceText(entry.getMonth());
                         } else {
                             Toast.makeText(getActivity(), R.string.dialog_add_error, Toast.LENGTH_SHORT).show();
@@ -94,7 +94,7 @@ public class AddFragment extends Fragment {
         Calendar calendar = Calendar.getInstance();
         int month = calendar.get(Calendar.MONTH);
         refreshBalanceText(month);
-        refreshBackGround(month);
+        //refreshBackGround(month);
     }
 
     private void refreshBalanceText(int month) {
@@ -103,6 +103,7 @@ public class AddFragment extends Fragment {
         if (balanceType == Constantes.BALANCE_TYPE_TOTAL) {
             month = EntryDAO.ALL;
         }
+        refreshBackGround(month);
         Float balance = dao.getMonthBalance(month);
         Float gain = dao.getGain(month);
         Float expense = dao.getExpense(month);
@@ -112,11 +113,11 @@ public class AddFragment extends Fragment {
     }
 
     private void refreshBackGround(int month){
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constantes.SHARED_PREFERENCES, Context.MODE_PRIVATE);
 
         Float gain = dao.getGain(month);
         Float expense = dao.getExpense(month);
 
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constantes.SHARED_PREFERENCES, Context.MODE_PRIVATE);
         float yellow = sharedPreferences.getFloat(Constantes.SP_KEY_YELLOW, Constantes.SP_YELLOW_DEFAULT);
         float red = sharedPreferences.getFloat(Constantes.SP_KEY_RED, Constantes.SP_RED_DEFAULT);
 

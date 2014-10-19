@@ -83,10 +83,17 @@ public class EntryDAO {
     }
 
     public ArrayList<Entry> getEntry(String month, String year){
-        String selection = String.format("SELECT * FROM %s WHERE %s LIKE ? ", Entry.ENTITY_NAME, Entry.DATE);
-        String[] selectionArgs = { "%" + month + "/" + year };
+        if(month == null && year == null){
+            String selection = String.format("SELECT * FROM %s", Entry.ENTITY_NAME);
+            String[] selectionArgs = null;
 
-        return getEntry(selection, selectionArgs);
+            return getEntry(selection, selectionArgs);
+        }else {
+            String selection = String.format("SELECT * FROM %s WHERE %s LIKE ? ", Entry.ENTITY_NAME, Entry.DATE);
+            String[] selectionArgs = { "%" + month + "/" + year };
+
+            return getEntry(selection, selectionArgs);
+        }
     }
 
     private synchronized ArrayList<Entry> getEntry(String selection, String[] selectionArgs){
@@ -179,5 +186,9 @@ public class EntryDAO {
         }
 
         return expense;
+    }
+
+    public long deleteAll() {
+        return delete(null, null);
     }
 }

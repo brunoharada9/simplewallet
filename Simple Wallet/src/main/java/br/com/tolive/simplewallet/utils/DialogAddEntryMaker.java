@@ -75,6 +75,9 @@ public class DialogAddEntryMaker {
         TextView textChooseDate = (TextView) view.findViewById(R.id.dialog_add_text_choose);
         Typeface tf = Typeface.createFromAsset(context.getAssets(), Constantes.FONT_PATH_ROBOTO_CONDENSED_BOLD);
         textChooseDate.setTypeface(tf);
+        if(entry != null){
+            textChooseDate.setText(context.getResources().getString(R.string.dialog_add_text_choose_edit));
+        }
 
         final DatePicker datePicker = (DatePicker) view.findViewById(R.id.dialog_add_datepicker);
 

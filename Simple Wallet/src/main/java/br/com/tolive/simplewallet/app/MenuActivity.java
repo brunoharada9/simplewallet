@@ -38,7 +38,9 @@ public class MenuActivity extends ActionBarActivity {
     private static final int REQUEST_FILTRO = 1;
     private static final int NAV_ADD = 0;
     private static final int NAV_LIST = 1;
-    private static final int NAV_ABOUT = 2;
+    public static final int NAV_STORE = 2;
+    public static final int NAV_RECOVERY = 3;
+    private static final int NAV_ABOUT = 4;
     private static final int DEFAULT_VALUE = -1;
 
     private DrawerLayout mDrawerLayout;
@@ -68,9 +70,9 @@ public class MenuActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
         SharedPreferences sharedPreferences = getSharedPreferences(Constantes.SHARED_PREFERENCES, Context.MODE_PRIVATE);
-        //SharedPreferences.Editor editor = sharedPreferences.edit();
-        //editor.putBoolean(Constantes.SP_KEY_REMOVE_AD, true);
-        //editor.commit();
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(Constantes.SP_KEY_REMOVE_AD, true);
+        editor.commit();
         boolean removeAd = sharedPreferences.getBoolean(Constantes.SP_KEY_REMOVE_AD, Constantes.SP_REMOVE_AD_DEFAULT);
         if(!removeAd) {
             AdRequest request = new AdRequest.Builder()
@@ -104,6 +106,10 @@ public class MenuActivity extends ActionBarActivity {
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[NAV_ADD], navMenuIcons.getResourceId(NAV_ADD, DEFAULT_VALUE)));
         // list
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[NAV_LIST], navMenuIcons.getResourceId(NAV_LIST, DEFAULT_VALUE)));
+        // store
+        navDrawerItems.add(new NavDrawerItem(navMenuTitles[NAV_STORE], navMenuIcons.getResourceId(NAV_STORE, DEFAULT_VALUE)));
+        // recovery
+        navDrawerItems.add(new NavDrawerItem(navMenuTitles[NAV_RECOVERY], navMenuIcons.getResourceId(NAV_RECOVERY, DEFAULT_VALUE)));
         // about
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[NAV_ABOUT], navMenuIcons.getResourceId(NAV_ABOUT, DEFAULT_VALUE)));
 
@@ -188,16 +194,24 @@ public class MenuActivity extends ActionBarActivity {
         // update the main content by replacing fragments
         Fragment fragment = null;
         switch (position) {
-            case 0:
+            case NAV_ADD:
                 fragment = new AddFragment();
                 actionBarIcon = ICON_SETTINGS;
                 break;
-            case 1:
+            case NAV_LIST:
                 fragment = new EntriesListFragmentFragment();
                 mListener = (OnFiltroApplyListener) fragment;
                 actionBarIcon = ICON_FILTRO;
                 break;
-            case 2:
+            case NAV_STORE:
+                fragment = new StoreFragment();
+                actionBarIcon = ICON_NONE;
+                break;
+            case NAV_RECOVERY:
+                fragment = new RecoveryFragment();
+                actionBarIcon = ICON_NONE;
+                break;
+            case NAV_ABOUT:
                 fragment = new AboutFragment();
                 actionBarIcon = ICON_NONE;
                 break;
