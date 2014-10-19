@@ -1,21 +1,27 @@
 package br.com.tolive.simplewallet.app;
 
 import android.app.ActionBar;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
+import android.net.Uri;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -62,10 +68,14 @@ public class MenuActivity extends ActionBarActivity {
 
     private OnFiltroApplyListener mListener;
 
+    private AlertDialog promoDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        displayPromo();
 
         SharedPreferences sharedPreferences = getSharedPreferences(Constantes.SHARED_PREFERENCES, Context.MODE_PRIVATE);
         //SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -145,6 +155,58 @@ public class MenuActivity extends ActionBarActivity {
             displayView(0);
         }
         mDrawerList.setOnItemClickListener(new SlideMenuClickListener());
+    }
+
+    private void displayPromo() {
+        try {
+            PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+            String version = pInfo.versionName;
+            Log.d("TAG", "dysplayPromo: " + version);
+
+            if(version.equals("1.3.4")){
+                Log.d("TAG", "version: " + version);
+                //Promo: Gastos Simples PRO Release U$ 0.01 \o/
+                SharedPreferences sharedPreferences = getSharedPreferences(Constantes.SHARED_PREFERENCES, Context.MODE_PRIVATE);
+                boolean showPromoDialog = sharedPreferences.getBoolean(Constantes.SP_KEY_PROMO_DIALOG, Constantes.SP_PROMO_DIALOG_DEFAULT);
+                Log.d("TAG", "showPromoDialog: " + showPromoDialog);
+                if(showPromoDialog) {
+                    Log.d("TAG", "if: ");
+                    AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+
+                    LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                    View view = inflater.inflate(R.layout.dialog_promo, null);
+                    TextView okButton = (TextView) view.findViewById(R.id.dialog_promo_text_ok);
+                    TextView cancelButton = (TextView) view.findViewById(R.id.dialog_promo_text_cancel);
+                    okButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View buttonOk) {
+                            final String appPackageName = Constantes.PACKAGE_GASTOS_SIMPLES_PRO;
+                            try {
+                                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+                            } catch (android.content.ActivityNotFoundException anfe) {
+                                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=" + appPackageName)));
+                            }
+                            promoDialog.cancel();
+                        }
+                    });
+                    cancelButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View buttonCancel) {
+                            promoDialog.cancel();
+                        }
+                    });
+                    dialog.setView(view);
+                    promoDialog = dialog.create();
+                    promoDialog.show();
+
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putBoolean(Constantes.SP_KEY_PROMO_DIALOG, false);
+                    editor.apply();
+                }
+            }
+        } catch (Exception e) {
+            //
+        }
     }
 
     private void setActionBarIcon() {

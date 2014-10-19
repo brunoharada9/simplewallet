@@ -55,6 +55,7 @@ public class AboutFragment extends Fragment {
         }
 
         RelativeLayout containerToLiveHealthy = (RelativeLayout) view.findViewById(R.id.fragment_about_tolivehealthy);
+        RelativeLayout containerGSP = (RelativeLayout) view.findViewById(R.id.fragment_about_gastossimplespro);
         RelativeLayout containerFbFanpage = (RelativeLayout) view.findViewById(R.id.fragment_about_fb_fanpage);
         final RelativeLayout containerRemoveAd = (RelativeLayout) view.findViewById(R.id.fragment_about_container_remove_ad);
 
@@ -89,6 +90,18 @@ public class AboutFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 final String appPackageName = Constantes.PACKAGE_TOLIVE_HEALTHY;
+                try {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+                } catch (android.content.ActivityNotFoundException anfe) {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=" + appPackageName)));
+                }
+            }
+        });
+
+        containerGSP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final String appPackageName = Constantes.PACKAGE_GASTOS_SIMPLES_PRO;
                 try {
                     startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
                 } catch (android.content.ActivityNotFoundException anfe) {

@@ -23,8 +23,11 @@ public class Constantes {
     public static final int BALANCE_TYPE_TOTAL = 0;
     public static final int BALANCE_TYPE_MONTH = 1;
     public static final int SP_BALANCE_TYPE_DEFAULT = BALANCE_TYPE_TOTAL;
+    public static final String SP_KEY_PROMO_DIALOG = "promo_dialog";
+    public static final boolean SP_PROMO_DIALOG_DEFAULT = true;
 
     public static final String PACKAGE_TOLIVE_HEALTHY = "br.gmob.tolivehealthy";
+    public static final String PACKAGE_GASTOS_SIMPLES_PRO = "br.com.tolive.simplewalletpro";
     public static final String PACKAGE_FACEBOOK = "com.facebook.katana";
     public static final String FACEBOOK_URI_PROFILE = "fb://profile/255458021317315";
     public static final String FACEBOOK_URL = "https://www.facebook.com/gastossimples";

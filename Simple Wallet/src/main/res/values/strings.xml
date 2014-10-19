@@ -22,6 +22,10 @@
     <string name="dialog_add_text_cancel">Cancelar</string>
     <string name="dialog_edit_sucess">Editado com sucesso</string>
     <string name="dialog_edit_error">Erro na edição</string>
+    <string name="dialog_promo_text">A versão PRO do Gastos Simples já está disponível na GooglePlay. E a forma que encontrei para agradecer você, que usa a versão FREE, foi deixar disponível por U$0,01 (Preço minimo) até sexta-feira dia 24 :)</string>
+    <string name="dialog_promo_text2">Muito obrigado por usar o Aplicativo e, por favor, deixe sua avaliação na loja, isso ajuda muito a melhorar</string>
+    <string name="dialog_promo_text_cancel">Depois</string>
+    <string name="dialog_promo_text_ok">Instalar</string>
     <string name="activity_details_text_value_string">Quanto?</string>
     <string name="activity_details_text_date_string">Quando?</string>
     <string name="fragment_settings_text_color_set">Mudar avisos</string>
@@ -36,6 +40,7 @@
     <string name="fragment_filtro_text_date_year">Ano</string>
     <string name="fragment_about_text_more_apps">Mais aplicativos</string>
     <string name="fragment_about_tolivehealthy_text">ToLive Healthy</string>
+    <string name="fragment_about_gastossimplespro_text">Gastos Simples PRO</string>
     <string name="fragment_about_text_remove_ad_title">Ajudar o desenvolvedor</string>
     <string name="fragment_about_text_remove_ad">Remover anúncios</string>
     <string name="fragment_about_text_remove_ad_price">$0,99</string>
