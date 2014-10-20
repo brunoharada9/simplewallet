@@ -33,4 +33,8 @@ public class Constantes {
     public static final String FACEBOOK_URL = "https://www.facebook.com/gastossimples";
 
     public static final String INSTANCE_SAVE_MENUACTIVITY_ACTIONBARICON = "instance_save_menuactivity_actonBarIcon";
+
+    public static final String STORE_FOLDER_NAME = "Gastos Simples";
+    public static final String STORE_FILE_NAME = "GSP";
+    public static final String STORE_FILE_EXT = ".gsp";
 }

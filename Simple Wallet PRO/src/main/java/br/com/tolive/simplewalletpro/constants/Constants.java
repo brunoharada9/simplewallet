@@ -17,11 +17,15 @@ public class Constants {
     public static final String SP_KEY_RECURRENT_MONTHLY = "recurrent_monthly";
     public static final String SP_RECURRENT_DAILY_DEFAULT = "no_data";
     public static final String SP_RECURRENT_MONTHLY_DEFAULT = "no_data";
+    public static final String SP_KEY_BALANCE_TYPE = "balance_type";
+    public static final int BALANCE_TYPE_TOTAL = 0;
+    public static final int BALANCE_TYPE_MONTH = 1;
+    public static final int SP_BALANCE_TYPE_DEFAULT = BALANCE_TYPE_TOTAL;
 
     public static final String PACKAGE_TOLIVE_HEALTHY = "br.gmob.tolivehealthy";
     public static final String INSTANCE_SAVE_MENUACTIVITY_ACTIONBARICON = "instance_save_menuactivity_actionBarIcon";
 
     public static final String STORE_FOLDER_NAME = "Gastos Simples";
-    public static final String STORE_FILE_NAME = "gastos_simples";
+    public static final String STORE_FILE_NAME = "GSP";
     public static final String STORE_FILE_EXT = ".gsp";
 }

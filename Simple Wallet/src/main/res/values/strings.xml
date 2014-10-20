@@ -18,6 +18,7 @@
     <string name="dialog_add_edittext_value">Valor</string>
     <string name="dialog_add_edittext_description">Descrição</string>
     <string name="dialog_add_text_choose">Programar</string>
+    <string name="dialog_add_text_choose_edit">Data</string>
     <string name="dialog_add_text_ok">Ok</string>
     <string name="dialog_add_text_cancel">Cancelar</string>
     <string name="dialog_edit_sucess">Editado com sucesso</string>
@@ -26,6 +27,9 @@
     <string name="dialog_promo_text2">Muito obrigado por usar o Aplicativo e, por favor, deixe sua avaliação na loja, isso ajuda muito a melhorar</string>
     <string name="dialog_promo_text_cancel">Depois</string>
     <string name="dialog_promo_text_ok">Instalar</string>
+    <string name="dialog_recovery_text">Escolha o arquivo</string>
+    <string name="dialog_recovery_text_ok">Recuperar</string>
+    <string name="dialog_recovery_text_cancel">Cancelar</string>
     <string name="activity_details_text_value_string">Quanto?</string>
     <string name="activity_details_text_date_string">Quando?</string>
     <string name="fragment_settings_text_color_set">Mudar avisos</string>
@@ -49,6 +53,19 @@
     <string name="fragment_about_toast_remove_ad">Anúncio removido! Obrigado :)</string>
     <string name="fragment_about_text_fb_fanpage">Social</string>
     <string name="fragment_about_text_fb">Facebook</string>
+    <string name="fragment_store_text_options">Opções</string>
+    <string name="fragment_store_text_email">Email</string>
+    <string name="fragment_store_text_email_subject">[Gastos PRO] Relatorio de gastos</string>
+    <string name="fragment_store_text_email_instructions">Salve o arquivo no SdCard</string>
+    <string name="fragment_store_text_sdcard">Celular</string>
+    <string name="fragment_store_text_sucess">Gastos salvos no cartão SD</string>
+    <string name="fragment_store_text_fail">Erro ao salvar no cartão SD</string>
+    <string name="fragment_store_text_fail_open_SD">Erro ao abrir cartão SD</string>
+    <string name="fragment_recovery_text_options">Opções</string>
+    <string name="fragment_recovery_text_sdcard">Celular</string>
+    <string name="fragment_recovery_text_sucess">Dados recuperados com sucesso</string>
+    <string name="fragment_recovery_text_fail">Erro ao recuperar dados do cartão SD</string>
+    <string name="fragment_recovery_text_choose">Erro: escolha um arquivo para restaurar os dados</string>
     <string name="title_activity_settings">Configurações</string>
     <string name="title_activity_filtro">Filtro</string>
     <string name="title_activity_add">Adicionar</string>
@@ -63,6 +80,8 @@
     <string-array name="nav_drawer_items">
         <item>Adicionar</item>
         <item>Lista</item>
+        <item>Armazenar</item>
+        <item>Recuperar</item>
         <item>Info</item>
     </string-array>
 
@@ -70,6 +89,8 @@
     <!-- Keep them in order as the titles are in -->
     <array name="nav_drawer_icons">
         <item>@drawable/ic_add</item>
+        <item>@drawable/ic_list</item>
+        <item>@drawable/ic_list</item>
         <item>@drawable/ic_list</item>
         <item>@drawable/ic_about</item>
     </array>

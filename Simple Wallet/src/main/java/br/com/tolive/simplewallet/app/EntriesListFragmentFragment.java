@@ -32,7 +32,6 @@ import br.com.tolive.simplewallet.views.CustomTextView;
 
 public class EntriesListFragmentFragment extends Fragment implements MenuActivity.OnFiltroApplyListener{
     private static final int FIRST_ELEMENT = 0;
-    private static final int EMPTY_BACKSTACK = 0;
     private static final int DATE_YEAR = 2;
     private static final int NO_ROWS_AFFECTED = 0;
     public static final String EXTRA_KEY_ENTRY_DETAILS = "entry_details";
@@ -49,8 +48,6 @@ public class EntriesListFragmentFragment extends Fragment implements MenuActivit
 
     int prevMonth;
     int prevYear;
-
-    int backStackNumber = EMPTY_BACKSTACK;
 
     public EntriesListFragmentFragment() {
     }
