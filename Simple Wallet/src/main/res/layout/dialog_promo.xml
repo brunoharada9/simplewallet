@@ -18,6 +18,8 @@
             android:textColor="@color/gray"
             android:layout_gravity="center_horizontal"
             android:textSize="20sp"
+            android:paddingRight="2dp"
+            android:paddingLeft="2dp"
             android:text="@string/dialog_promo_text" />
 
         <View

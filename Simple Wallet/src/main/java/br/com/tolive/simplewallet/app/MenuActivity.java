@@ -80,9 +80,9 @@ public class MenuActivity extends ActionBarActivity {
         displayPromo();
 
         SharedPreferences sharedPreferences = getSharedPreferences(Constantes.SHARED_PREFERENCES, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean(Constantes.SP_KEY_REMOVE_AD, true);
-        editor.commit();
+        //SharedPreferences.Editor editor = sharedPreferences.edit();
+        //editor.putBoolean(Constantes.SP_KEY_REMOVE_AD, true);
+        //editor.commit();
         boolean removeAd = sharedPreferences.getBoolean(Constantes.SP_KEY_REMOVE_AD, Constantes.SP_REMOVE_AD_DEFAULT);
         if(!removeAd) {
             AdRequest request = new AdRequest.Builder()
@@ -169,10 +169,13 @@ public class MenuActivity extends ActionBarActivity {
             String version = pInfo.versionName;
             Log.d("TAG", "dysplayPromo: " + version);
 
-            if(version.equals("1.3.4")){
+            if(version.startsWith("1.3.")){
                 Log.d("TAG", "version: " + version);
                 //Promo: Gastos Simples PRO Release U$ 0.01 \o/
                 SharedPreferences sharedPreferences = getSharedPreferences(Constantes.SHARED_PREFERENCES, Context.MODE_PRIVATE);
+                //SharedPreferences.Editor editor = sharedPreferences.edit();
+                //editor.putBoolean(Constantes.SP_KEY_PROMO_DIALOG, true);
+                //editor.apply();
                 boolean showPromoDialog = sharedPreferences.getBoolean(Constantes.SP_KEY_PROMO_DIALOG, Constantes.SP_PROMO_DIALOG_DEFAULT);
                 Log.d("TAG", "showPromoDialog: " + showPromoDialog);
                 if(showPromoDialog) {
@@ -202,6 +205,7 @@ public class MenuActivity extends ActionBarActivity {
                         }
                     });
                     dialog.setView(view);
+                    dialog.setCustomTitle(inflater.inflate(R.layout.dialog_promo_title, null));
                     promoDialog = dialog.create();
                     promoDialog.show();
 

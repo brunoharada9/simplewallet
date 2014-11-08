@@ -57,7 +57,16 @@ public class RecoveryFragment extends Fragment{
                     File dir = Environment.getExternalStorageDirectory();
                     //TODO : Option to store more them 1 file
                     File files = new File( dir, Constants.STORE_FOLDER_NAME ) ;
-                    filesList = new ArrayList<File>(Arrays.asList(files.listFiles()));
+
+                    if (!files.exists()) {
+                        files.mkdir();
+                    }
+
+                    if(files == null){
+                        filesList = new ArrayList<File>();
+                    } else {
+                        filesList = new ArrayList<File>(Arrays.asList(files.listFiles()));
+                    }
                     filesList.add(0, null);
                     //File file = new File(dir, Constants.STORE_FOLDER_NAME + "/" + filename);
                     Log.d("TAG",filesList.toString());
@@ -68,11 +77,7 @@ public class RecoveryFragment extends Fragment{
                             if (position > 0) {
                                 try {
                                     Log.d("TAG", filesList.get(position).getName());
-                                    /*
-                                    if(filesList.get(position).getName().contains("GP_")){
-                                        //TODO old version compab.
-                                    }
-                                     */
+
                                     JSONObject json = getJson(filesList.get(position));
                                     JSONArray list = json.getJSONArray(EntryConverter.LIST);
                                     JSONArray entries = list.getJSONObject(0).getJSONArray(Entry.ENTITY_NAME);
@@ -85,7 +90,11 @@ public class RecoveryFragment extends Fragment{
                                         entry.setDescription(jEntry.getString(Entry.DESCRIPTION));
                                         entry.setValue(Float.parseFloat(jEntry.getString(Entry.VALUE).replace(',', '.')));
                                         entry.setType(jEntry.getInt(Entry.TYPE));
-                                        entry.setCategory(jEntry.getInt(Entry.CATEGORY));
+                                        if(filesList.get(position).getName().contains("GP_")){
+                                            entry.setCategory(0);
+                                        } else {
+                                            entry.setCategory(jEntry.getInt(Entry.CATEGORY));
+                                        }
                                         entry.setDate(jEntry.getString(Entry.DATE));
                                         entry.setMonth(jEntry.getInt(Entry.MONTH));
 

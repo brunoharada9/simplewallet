@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="wrap_content" android:padding="5dp"
+    android:background="@color/snow">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/fragment_about_gastossimplespro">
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/ic_launcher"
+            android:contentDescription="@android:string/untitled"
+            android:layout_gravity="start"/>
+
+        <br.com.tolive.simplewallet.views.CustomTextView
+            app:font="@string/app_font"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:textColor="@color/gray"
+            android:gravity="center_vertical"
+            android:layout_toRightOf="@id/image"
+            android:textSize="24sp"
+            android:paddingLeft="2dp"
+            android:text="@string/fragment_about_gastossimplespro_text" />
+
+    </RelativeLayout>
+
+</LinearLayout>

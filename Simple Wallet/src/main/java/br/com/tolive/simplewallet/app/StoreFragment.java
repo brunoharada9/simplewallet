@@ -95,6 +95,7 @@ public class StoreFragment extends Fragment{
     }
 
     private File getFromSdCard(String filename) {
+        Log.d("TAG", "File path: " + Constantes.STORE_FOLDER_NAME + "/" + filename);
         return new File(filename, Constantes.STORE_FOLDER_NAME + "/" + filename);
     }
 

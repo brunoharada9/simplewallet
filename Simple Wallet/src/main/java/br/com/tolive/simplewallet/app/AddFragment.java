@@ -26,14 +26,16 @@ public class AddFragment extends Fragment {
     public static final String EMPTY = "";
     public static final int DIALOG_TITLE_SIZE = 25;
 
-    ImageView buttonAdd;
-    TextView textBalance;
-    TextView textGain;
-    TextView textExpense;
-    RelativeLayout background;
-    EntryDAO dao;
+    private ImageView buttonAdd;
+    private TextView textBalance;
+    private TextView textGain;
+    private TextView textExpense;
+    private RelativeLayout background;
+    private EntryDAO dao;
 
-    AlertDialog dialog;
+    private AlertDialog dialog;
+
+    private int currentMonth;
 
     public AddFragment(){}
 
@@ -57,9 +59,9 @@ public class AddFragment extends Fragment {
         textExpense.setTypeface(tf);
 
         Calendar calendar = Calendar.getInstance();
-        int month = calendar.get(Calendar.MONTH);
+        currentMonth = calendar.get(Calendar.MONTH);
 
-        refreshBalanceText(month);
+        refreshBalanceText(currentMonth);
         //refreshBackGround(month);
 
         buttonAdd.setOnClickListener(new View.OnClickListener() {
@@ -73,7 +75,9 @@ public class AddFragment extends Fragment {
                         if (dao.insert(entry) != -1) {
                             Toast.makeText(getActivity(), R.string.dialog_add_sucess, Toast.LENGTH_SHORT).show();
                             //refreshBackGround(entry.getMonth());
-                            refreshBalanceText(entry.getMonth());
+                            if(entry.getMonth() == currentMonth) {
+                                refreshBalanceText(currentMonth);
+                            }
                         } else {
                             Toast.makeText(getActivity(), R.string.dialog_add_error, Toast.LENGTH_SHORT).show();
                         }
@@ -91,9 +95,7 @@ public class AddFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        Calendar calendar = Calendar.getInstance();
-        int month = calendar.get(Calendar.MONTH);
-        refreshBalanceText(month);
+        refreshBalanceText(currentMonth);
         //refreshBackGround(month);
     }
 

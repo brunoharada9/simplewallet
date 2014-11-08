@@ -23,7 +23,7 @@
     <string name="dialog_add_text_cancel">Cancelar</string>
     <string name="dialog_edit_sucess">Editado com sucesso</string>
     <string name="dialog_edit_error">Erro na edição</string>
-    <string name="dialog_promo_text">A versão PRO do Gastos Simples já está disponível na GooglePlay. E a forma que encontrei para agradecer você, que usa a versão FREE, foi deixar disponível por U$0,01 (Preço minimo) até sexta-feira dia 24 :)</string>
+    <string name="dialog_promo_text">A versão PRO do Gastos Simples já está disponível na GooglePlay. E a forma que encontrei para agradecer você, que usa a versão FREE, foi deixar disponível por U$0,99 (Preço minimo, se deixar grátis não poder mudar :/) até sexta-feira dia 24 :) Ahh, você pode importar seus dados com as novas funcionalidades adicionadas</string>
     <string name="dialog_promo_text2">Muito obrigado por usar o Aplicativo e, por favor, deixe sua avaliação na loja, isso ajuda muito a melhorar</string>
     <string name="dialog_promo_text_cancel">Depois</string>
     <string name="dialog_promo_text_ok">Instalar</string>
@@ -55,8 +55,8 @@
     <string name="fragment_about_text_fb">Facebook</string>
     <string name="fragment_store_text_options">Opções</string>
     <string name="fragment_store_text_email">Email</string>
-    <string name="fragment_store_text_email_subject">[Gastos PRO] Relatorio de gastos</string>
-    <string name="fragment_store_text_email_instructions">Salve o arquivo no SdCard</string>
+    <string name="fragment_store_text_email_subject">[Gastos Simples] Relatorio de gastos</string>
+    <string name="fragment_store_text_email_instructions">Para recuperar salve o arquivo em anexo na pasta "Gastos Simples" do seu celular.</string>
     <string name="fragment_store_text_sdcard">Celular</string>
     <string name="fragment_store_text_sucess">Gastos salvos no cartão SD</string>
     <string name="fragment_store_text_fail">Erro ao salvar no cartão SD</string>
@@ -90,8 +90,8 @@
     <array name="nav_drawer_icons">
         <item>@drawable/ic_add</item>
         <item>@drawable/ic_list</item>
-        <item>@drawable/ic_list</item>
-        <item>@drawable/ic_list</item>
+        <item>@drawable/ic_store</item>
+        <item>@drawable/ic_recover</item>
         <item>@drawable/ic_about</item>
     </array>
 
@@ -106,7 +106,7 @@
         <item>Ago</item>
         <item>Set</item>
         <item>Out</item>
-        <item>Nev</item>
+        <item>Nov</item>
         <item>Dez</item>
     </string-array>
 
