@@ -110,6 +110,8 @@ public class EntriesListFragmentFragment extends Fragment implements MenuActivit
             textExpenseNumber.setText(String.format("%.2f", (MONTH_WITH_NO_ENTRIES)));
             getActivity().getActionBar().setIcon(R.drawable.ic_title_red);
             containerBalance.setBackgroundColor(getActivity().getResources().getColor(R.color.red));
+            EntriesListAdapter adapter = new EntriesListAdapter(entries, getActivity());
+            entriesList.setAdapter(adapter);
             return ;
         }
         EntriesListAdapter adapter = new EntriesListAdapter(entries, getActivity());
