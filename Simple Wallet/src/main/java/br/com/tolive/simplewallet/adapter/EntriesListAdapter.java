@@ -63,9 +63,10 @@ public class EntriesListAdapter extends BaseAdapter {
         txtValue.setText(String.format("%.2f", entry.getValue()));
 
         if(entry.getType() == Entry.TYPE_EXPENSE){
-            convertView.setBackgroundColor(context.getResources().getColor(R.color.expense));
+            //setBackgroundDrawable
+            txtValue.setBackground(context.getResources().getDrawable(R.drawable.txt_value_red));
         } else if (entry.getType() == Entry.TYPE_GAIN){
-            convertView.setBackgroundColor(context.getResources().getColor(R.color.gain));
+            txtValue.setBackground(context.getResources().getDrawable(R.drawable.txt_value_green));
         }
 
         return convertView;

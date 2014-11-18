@@ -42,11 +42,11 @@ public class MenuActivity extends ActionBarActivity {
     private static final int ICON_NONE = 2;
     private static final int REQUEST_SETTINGS = 0;
     private static final int REQUEST_FILTRO = 1;
-    private static final int NAV_ADD = 0;
-    private static final int NAV_LIST = 1;
-    public static final int NAV_STORE = 2;
-    public static final int NAV_RECOVERY = 3;
-    private static final int NAV_ABOUT = 4;
+    //private static final int NAV_ADD = 0;
+    private static final int NAV_LIST = 0;
+    public static final int NAV_STORE = 1;
+    public static final int NAV_RECOVERY = 2;
+    private static final int NAV_ABOUT = 3;
     private static final int DEFAULT_VALUE = -1;
 
     private DrawerLayout mDrawerLayout;
@@ -113,7 +113,7 @@ public class MenuActivity extends ActionBarActivity {
 
         // adding nav drawer items to array
         // add
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[NAV_ADD], navMenuIcons.getResourceId(NAV_ADD, DEFAULT_VALUE)));
+        //navDrawerItems.add(new NavDrawerItem(navMenuTitles[NAV_ADD], navMenuIcons.getResourceId(NAV_ADD, DEFAULT_VALUE)));
         // list
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[NAV_LIST], navMenuIcons.getResourceId(NAV_LIST, DEFAULT_VALUE)));
         // store
@@ -260,10 +260,10 @@ public class MenuActivity extends ActionBarActivity {
         // update the main content by replacing fragments
         Fragment fragment = null;
         switch (position) {
-            case NAV_ADD:
-                fragment = new AddFragment();
-                actionBarIcon = ICON_SETTINGS;
-                break;
+//            case NAV_ADD:
+//                fragment = new AddFragment();
+//                actionBarIcon = ICON_SETTINGS;
+//                break;
             case NAV_LIST:
                 fragment = new EntriesListFragmentFragment();
                 mListener = (OnFiltroApplyListener) fragment;

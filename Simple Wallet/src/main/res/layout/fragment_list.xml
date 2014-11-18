@@ -2,41 +2,42 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fragment_list_container"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/snow">
 
-    <LinearLayout
+    <br.com.tolive.simplewallet.views.CustomViewShadow
         android:orientation="vertical" android:layout_width="match_parent"
-        android:layout_height="90dp" android:id="@+id/fragment_list_container_balance">
+        android:layout_height="130dp" android:id="@+id/fragment_list_container_balance">
 
         <LinearLayout
             android:orientation="horizontal" android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-        <br.com.tolive.simplewallet.views.CustomTextView
-            app:font="@string/app_font"
-            android:layout_width="0dp"
-            android:layout_weight="2"
-            android:layout_height="wrap_content"
-            android:textSize="35sp"
-            android:paddingLeft="10dp"
-            android:singleLine="true"
-            android:textColor="@color/snow"
-            android:layout_gravity="center_vertical"
-            android:text="@string/fragment_list_text_balance"/>
+            <br.com.tolive.simplewallet.views.CustomTextView
+                app:font="@string/app_font"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"
+                android:textSize="35sp"
+                android:paddingLeft="10dp"
+                android:singleLine="true"
+                android:textColor="@color/snow"
+                android:layout_gravity="center_vertical"
+                android:text="@string/fragment_list_text_balance"/>
 
-        <br.com.tolive.simplewallet.views.CustomTextView
-            app:font="@string/app_font"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:textSize="25sp"
-            android:textColor="@color/snow"
-            android:layout_gravity="center_vertical"
-            android:gravity="right"
-            android:paddingRight="10dp"
-            android:id="@+id/fragment_list_text_balance_number" />
+            <br.com.tolive.simplewallet.views.CustomTextView
+                app:font="@string/app_font"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:textSize="25sp"
+                android:textColor="@color/snow"
+                android:layout_gravity="center_vertical"
+                android:gravity="right"
+                android:paddingRight="10dp"
+                android:id="@+id/fragment_list_text_balance_number" />
 
         </LinearLayout>
 
@@ -99,11 +100,11 @@
                 android:id="@+id/fragment_list_text_expense_number" />
 
         </LinearLayout>
-    </LinearLayout>
+    </br.com.tolive.simplewallet.views.CustomViewShadow>
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="2dp"
+        android:layout_height="40dp"
         android:background="@color/snow"
         />
 

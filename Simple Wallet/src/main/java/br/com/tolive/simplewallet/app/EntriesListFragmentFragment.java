@@ -8,7 +8,9 @@ import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.ContextMenu;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,6 +22,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.google.android.gms.internal.en;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -29,32 +33,36 @@ import br.com.tolive.simplewallet.db.EntryDAO;
 import br.com.tolive.simplewallet.model.Entry;
 import br.com.tolive.simplewallet.utils.DialogAddEntryMaker;
 import br.com.tolive.simplewallet.views.CustomTextView;
+import br.com.tolive.simplewallet.views.CustomViewShadow;
+import br.com.tolive.simplewallet.views.FloatingActionButton;
 
-public class EntriesListFragmentFragment extends Fragment implements MenuActivity.OnFiltroApplyListener{
+public class EntriesListFragmentFragment extends Fragment implements MenuActivity.OnFiltroApplyListener, View.OnClickListener {
     private static final int FIRST_ELEMENT = 0;
+    private static final int EMPTY_BACKSTACK = 0;
     private static final int DATE_YEAR = 2;
     private static final int NO_ROWS_AFFECTED = 0;
     public static final String EXTRA_KEY_ENTRY_DETAILS = "entry_details";
-    public static final double MONTH_WITH_NO_ENTRIES = 0.00;
 
-    ArrayList<Entry> entries;
-    Entry entry;
-    EntryDAO dao;
-    LinearLayout containerBalance;
-    ListView entriesList;
-    CustomTextView textBalanceNumber;
-    CustomTextView textGainNumber;
-    CustomTextView textExpenseNumber;
-    int month;
+    private ArrayList<Entry> entries;
+    private Entry entry;
+    private EntryDAO dao;
+    private CustomViewShadow containerBalance;
+    private ListView entriesList;
+    private CustomTextView textBalanceNumber;
+    private CustomTextView textGainNumber;
+    private CustomTextView textExpenseNumber;
+    private FloatingActionButton mFabButton;
+    private AlertDialog dialog;
+    private int month;
 
-    int prevMonth;
-    int prevYear;
+    private int prevMonth;
+    private int prevYear;
 
     public EntriesListFragmentFragment() {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         dao = EntryDAO.getInstance(getActivity());
 
         Calendar calendar = Calendar.getInstance();
@@ -68,11 +76,27 @@ public class EntriesListFragmentFragment extends Fragment implements MenuActivit
         textGainNumber = (CustomTextView) view.findViewById(R.id.fragment_list_text_gain_number);
         textExpenseNumber = (CustomTextView) view.findViewById(R.id.fragment_list_text_expense_number);
         entriesList = (ListView) view.findViewById(R.id.fragment_list_list_entries);
-        containerBalance = (LinearLayout) view.findViewById(R.id.fragment_list_container_balance);
+        containerBalance = (CustomViewShadow) view.findViewById(R.id.fragment_list_container_balance);
+        //container = (LinearLayout) view.findViewById(R.id.fragment_list_container);
+
+        containerBalance.post(new Runnable() {
+            @Override
+            public void run() {
+                // safe to get height and width here
+                mFabButton = new FloatingActionButton.Builder(getActivity())
+                        .withDrawable(
+                                getResources().getDrawable(R.drawable.ic_add))
+                        .withButtonColor(getResources().getColor(R.color.primary_green), getResources().getColor(R.color.bar_green))
+                        .withGravity(Gravity.TOP | Gravity.END)
+                        .withMarginsInPixels(0, containerBalance.getBottom(),
+                                convertToPixels(6), 0).create(container);
+                mFabButton.setOnClickListener(EntriesListFragmentFragment.this);
+                refreshList(entries);
+            }
+
+        });
 
         registerForContextMenu(entriesList);
-
-        refreshList(entries);
 
         entriesList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
@@ -105,16 +129,6 @@ public class EntriesListFragmentFragment extends Fragment implements MenuActivit
     }
 
     private void refreshList(ArrayList<Entry> entries) {
-        if(entries.size() == 0){
-            textBalanceNumber.setText(String.format("%.2f", MONTH_WITH_NO_ENTRIES));
-            textGainNumber.setText(String.format("%.2f", (MONTH_WITH_NO_ENTRIES)));
-            textExpenseNumber.setText(String.format("%.2f", (MONTH_WITH_NO_ENTRIES)));
-            getActivity().getActionBar().setIcon(R.drawable.ic_title_red);
-            containerBalance.setBackgroundColor(getActivity().getResources().getColor(R.color.red));
-            EntriesListAdapter adapter = new EntriesListAdapter(entries, getActivity());
-            entriesList.setAdapter(adapter);
-            return ;
-        }
         EntriesListAdapter adapter = new EntriesListAdapter(entries, getActivity());
         entriesList.setAdapter(adapter);
         Float gain = dao.getGain(month);
@@ -131,16 +145,23 @@ public class EntriesListFragmentFragment extends Fragment implements MenuActivit
 
         int color;
         if((gain - expense) < red){
-            actionBar.setIcon(R.drawable.ic_title_red);
-            color = getActivity().getResources().getColor(R.color.red);
+            //actionBar.setIcon(R.drawable.ic_title_red);
+            actionBar.setBackgroundDrawable(getActivity().getResources().getDrawable(R.drawable.actionbar_background_red));
+            color = getActivity().getResources().getColor(R.color.bar_red);
+            mFabButton.setFloatingActionButtonColor(getActivity().getResources().getColor(R.color.primary_red), getActivity().getResources().getColor(R.color.bar_red));
         } else if((gain - expense) < yellow){
-            actionBar.setIcon(R.drawable.ic_title_yellow);
-            color = getActivity().getResources().getColor(R.color.yellow);
+            //actionBar.setIcon(R.drawable.ic_title_yellow);
+            actionBar.setBackgroundDrawable(getActivity().getResources().getDrawable(R.drawable.actionbar_background_yellow));
+            color = getActivity().getResources().getColor(R.color.bar_yellow);
+            mFabButton.setFloatingActionButtonColor(getActivity().getResources().getColor(R.color.primary_yellow), getActivity().getResources().getColor(R.color.bar_yellow));
         } else{
-            actionBar.setIcon(R.drawable.ic_title_green);
-            color = getActivity().getResources().getColor(R.color.green);
+            //actionBar.setIcon(R.drawable.ic_title_green);
+            actionBar.setBackgroundDrawable(getActivity().getResources().getDrawable(R.drawable.actionbar_background_green));
+            color = getActivity().getResources().getColor(R.color.bar_green);
+            mFabButton.setFloatingActionButtonColor(getActivity().getResources().getColor(R.color.primary_green), getActivity().getResources().getColor(R.color.bar_green));
         }
-        containerBalance.setBackgroundColor(color);
+        containerBalance.setBackgroundColor(getActivity().getResources().getColor(R.color.snow));
+        containerBalance.setColor(color);
     }
 
     @Override
@@ -186,5 +207,39 @@ public class EntriesListFragmentFragment extends Fragment implements MenuActivit
                 return false;
             }
         });
+    }
+
+    @Override
+    public void onClick(View v) {
+        DialogAddEntryMaker dialogAddEntryMaker = new DialogAddEntryMaker(getActivity());
+        dialogAddEntryMaker.setOnClickOkListener(new DialogAddEntryMaker.OnClickOkListener() {
+            @Override
+            public void onClickOk(Entry entry) {
+                prevMonth = entry.getMonth();
+                prevYear = Integer.valueOf(entry.getDate().split("/")[DATE_YEAR]);
+                if (dao.insert(entry) != -1) {
+                    Toast.makeText(getActivity(), R.string.dialog_add_sucess, Toast.LENGTH_SHORT).show();
+                    if (prevMonth != entry.getMonth() || prevYear != Integer.valueOf(entry.getDate().split("/")[DATE_YEAR])) {
+                        entries.remove(entry);
+                    }else {
+                        entries.add(entry);
+                    }
+                    refreshList(entries);
+                } else {
+                    Toast.makeText(getActivity(), R.string.dialog_add_error, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        dialog = dialogAddEntryMaker.makeAddDialog();
+
+        dialog.show();
+    }
+
+    // The calculation (value * scale + 0.5f) is a widely used to convert to dps
+    // to pixel units
+    // based on density scale
+    // see developer.android.com (Supporting Multiple Screen Sizes)
+    private int convertToPixels(int dp) {
+        return (int) (dp * getResources().getDisplayMetrics().density + 0.5f);
     }
 }
