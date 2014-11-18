@@ -3,6 +3,7 @@ package br.com.tolive.simplewallet.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,11 +64,20 @@ public class EntriesListAdapter extends BaseAdapter {
         txtValue.setText(String.format("%.2f", entry.getValue()));
 
         if(entry.getType() == Entry.TYPE_EXPENSE){
-            convertView.setBackgroundColor(context.getResources().getColor(R.color.expense));
+            //setBackgroundDrawable
+            if(Build.VERSION.SDK_INT < 16) {
+                txtValue.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.txt_value_red));
+            } else {
+                txtValue.setBackground(context.getResources().getDrawable(R.drawable.txt_value_red));
+            }
         } else if (entry.getType() == Entry.TYPE_GAIN){
-            convertView.setBackgroundColor(context.getResources().getColor(R.color.gain));
+            if(Build.VERSION.SDK_INT < 16) {
+                txtValue.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.txt_value_green));
+            } else {
+                txtValue.setBackground(context.getResources().getDrawable(R.drawable.txt_value_green));
+            }
         }
-
+        
         return convertView;
     }
 }

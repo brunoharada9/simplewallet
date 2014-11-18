@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="admob_id">ca-app-pub-4943092531167782/7392281355</string>
+    <string name="admob_id">ca-app-pub-2833441527059830/3268354508</string>
     <string name="app_name">Gastos Simples</string>
     <string name="app_font">RobotoCondensed-Bold.ttf</string>
     <string name="title_activity_menu">Gastos</string>
@@ -78,8 +78,8 @@
     <string name="fragment_add_button">$</string>
 
     <string-array name="nav_drawer_items">
-        <item>Adicionar</item>
-        <item>Lista</item>
+        <!--<item>Adicionar</item>-->
+        <item>Gastos</item>
         <item>Armazenar</item>
         <item>Recuperar</item>
         <item>Info</item>
@@ -88,7 +88,7 @@
     <!-- Nav Drawer List Item Icons -->
     <!-- Keep them in order as the titles are in -->
     <array name="nav_drawer_icons">
-        <item>@drawable/ic_add</item>
+        <!--<item>@drawable/ic_add</item>-->
         <item>@drawable/ic_list</item>
         <item>@drawable/ic_store</item>
         <item>@drawable/ic_recover</item>
