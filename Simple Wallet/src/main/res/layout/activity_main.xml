@@ -3,7 +3,7 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:background="@color/snow"
-    xmlns:googleads="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     >
 
@@ -38,7 +38,7 @@
         android:id="@+id/ad_main"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        googleads:adSize="SMART_BANNER"
-        googleads:adUnitId="@string/admob_id"/>
+        app:adSize="SMART_BANNER"
+        app:adUnitId="@string/admob_id"/>
 
 </LinearLayout>

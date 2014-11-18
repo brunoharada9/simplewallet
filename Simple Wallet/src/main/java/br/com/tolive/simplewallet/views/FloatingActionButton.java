@@ -103,7 +103,7 @@ public class FloatingActionButton extends View {
             AnimatorSet animSetXY = new AnimatorSet();
             animSetXY.playTogether(scaleX, scaleY);
             animSetXY.setInterpolator(accelerateInterpolator);
-            animSetXY.setDuration(100);
+            animSetXY.setDuration(10);
             animSetXY.start();
             mHidden = true;
         }
@@ -116,7 +116,7 @@ public class FloatingActionButton extends View {
             AnimatorSet animSetXY = new AnimatorSet();
             animSetXY.playTogether(scaleX, scaleY);
             animSetXY.setInterpolator(overshootInterpolator);
-            animSetXY.setDuration(200);
+            animSetXY.setDuration(10);
             animSetXY.start();
             mHidden = false;
         }

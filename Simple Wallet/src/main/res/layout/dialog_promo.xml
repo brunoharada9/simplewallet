@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+<LinearLayout
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent" android:padding="5dp"
     android:background="@color/snow">
@@ -11,9 +14,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+
         <br.com.tolive.simplewallet.views.CustomTextView
             app:font="@string/app_font"
             android:layout_width="wrap_content"
@@ -24,7 +25,6 @@
             android:paddingRight="2dp"
             android:paddingLeft="2dp"
             android:text="@string/dialog_promo_text" />
-        </ScrollView>
 
         <View
             android:layout_width="match_parent"
@@ -83,3 +83,4 @@
     </LinearLayout>
 
 </LinearLayout>
+</ScrollView>

@@ -85,7 +85,7 @@ public class EntriesListFragmentFragment extends Fragment implements MenuActivit
                 // safe to get height and width here
                 mFabButton = new FloatingActionButton.Builder(getActivity())
                         .withDrawable(
-                                getResources().getDrawable(R.drawable.ic_add))
+                                getResources().getDrawable(R.drawable.ic_create_white_36dp))
                         .withButtonColor(getResources().getColor(R.color.primary_green), getResources().getColor(R.color.bar_green))
                         .withGravity(Gravity.TOP | Gravity.END)
                         .withMarginsInPixels(0, containerBalance.getBottom(),
@@ -215,15 +215,9 @@ public class EntriesListFragmentFragment extends Fragment implements MenuActivit
         dialogAddEntryMaker.setOnClickOkListener(new DialogAddEntryMaker.OnClickOkListener() {
             @Override
             public void onClickOk(Entry entry) {
-                prevMonth = entry.getMonth();
-                prevYear = Integer.valueOf(entry.getDate().split("/")[DATE_YEAR]);
                 if (dao.insert(entry) != -1) {
                     Toast.makeText(getActivity(), R.string.dialog_add_sucess, Toast.LENGTH_SHORT).show();
-                    if (prevMonth != entry.getMonth() || prevYear != Integer.valueOf(entry.getDate().split("/")[DATE_YEAR])) {
-                        entries.remove(entry);
-                    }else {
-                        entries.add(entry);
-                    }
+                    entries = dao.getEntry(month);
                     refreshList(entries);
                 } else {
                     Toast.makeText(getActivity(), R.string.dialog_add_error, Toast.LENGTH_SHORT).show();
@@ -241,5 +235,21 @@ public class EntriesListFragmentFragment extends Fragment implements MenuActivit
     // see developer.android.com (Supporting Multiple Screen Sizes)
     private int convertToPixels(int dp) {
         return (int) (dp * getResources().getDisplayMetrics().density + 0.5f);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if(mFabButton != null) {
+            mFabButton.hideFloatingActionButton();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(mFabButton != null) {
+            mFabButton.showFloatingActionButton();
+        }
     }
 }

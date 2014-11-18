@@ -4,7 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Simple Wallet.iml" filepath="$PROJECT_DIR$/Simple Wallet.iml" />
       <module fileurl="file://$PROJECT_DIR$/Simple Wallet PRO/Simple Wallet PRO.iml" filepath="$PROJECT_DIR$/Simple Wallet PRO/Simple Wallet PRO.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Simple Wallet/Simple Wallet-Simple Wallet.iml" filepath="$PROJECT_DIR$/Simple Wallet/Simple Wallet-Simple Wallet.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SimpleWallet.iml" filepath="$PROJECT_DIR$/SimpleWallet.iml" />
     </modules>
   </component>
 </project>

@@ -2,7 +2,6 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/fragment_list_container"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/snow">
@@ -102,11 +101,11 @@
         </LinearLayout>
     </br.com.tolive.simplewallet.views.CustomViewShadow>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@color/snow"
-        />
+    <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="40dp"-->
+        <!--android:background="@color/snow"-->
+        <!--/>-->
 
     <ListView
         android:layout_width="match_parent"

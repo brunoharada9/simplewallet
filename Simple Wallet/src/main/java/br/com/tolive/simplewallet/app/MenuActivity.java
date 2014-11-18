@@ -9,7 +9,7 @@ import android.content.pm.PackageInfo;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.net.Uri;
-import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
@@ -51,7 +51,7 @@ public class MenuActivity extends ActionBarActivity {
 
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
-    private ActionBarDrawerToggle mDrawerToggle;
+//    private ActionBarDrawerToggle mDrawerToggle;
 
     int actionBarIcon = ICON_SETTINGS;
 
@@ -134,27 +134,27 @@ public class MenuActivity extends ActionBarActivity {
         mDrawerList.setAdapter(adapter);
 
         // enabling action bar app icon and behaving it as toggle button
-        getActionBar().setDisplayHomeAsUpEnabled(true);
+//        getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setHomeButtonEnabled(true);
 
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
-                R.drawable.ic_drawer, //nav menu toggle icon
-                R.string.app_name, // nav drawer open - description for accessibility
-                R.string.app_name // nav drawer close - description for accessibility
-        ){
-            public void onDrawerClosed(View view) {
-                getActionBar().setTitle(mTitle);
-                // calling onPrepareOptionsMenu() to show action bar icons
-                invalidateOptionsMenu();
-            }
-
-            public void onDrawerOpened(View drawerView) {
-                getActionBar().setTitle(mDrawerTitle);
-                // calling onPrepareOptionsMenu() to hide action bar icons
-                invalidateOptionsMenu();
-            }
-        };
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
+//        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
+//                R.drawable.ic_drawer, //nav menu toggle icon
+//                R.string.app_name, // nav drawer open - description for accessibility
+//                R.string.app_name // nav drawer close - description for accessibility
+//        ){
+//            public void onDrawerClosed(View view) {
+//                getActionBar().setTitle(mTitle);
+//                // calling onPrepareOptionsMenu() to show action bar icons
+//                invalidateOptionsMenu();
+//            }
+//
+//            public void onDrawerOpened(View drawerView) {
+//                getActionBar().setTitle(mDrawerTitle);
+//                // calling onPrepareOptionsMenu() to hide action bar icons
+//                invalidateOptionsMenu();
+//            }
+//        };
+//        mDrawerLayout.setDrawerListener(mDrawerToggle);
 
         if (savedInstanceState == null) {
             // on first time display view for first nav item
@@ -220,24 +220,25 @@ public class MenuActivity extends ActionBarActivity {
     }
 
     private void setActionBarIcon() {
-        EntryDAO dao = EntryDAO.getInstance(this);
-        Calendar calendar = Calendar.getInstance();
-        Float gain = dao.getGain(calendar.get(Calendar.MONTH));
-        Float expense = dao.getExpense(calendar.get(Calendar.MONTH));
-
-        SharedPreferences sharedPreferences = getSharedPreferences(Constantes.SHARED_PREFERENCES, Context.MODE_PRIVATE);
-        float yellow = sharedPreferences.getFloat(Constantes.SP_KEY_YELLOW, Constantes.SP_YELLOW_DEFAULT);
-        float red = sharedPreferences.getFloat(Constantes.SP_KEY_RED, Constantes.SP_RED_DEFAULT);
-
-        ActionBar actionBar = getActionBar();
-
-        if((gain - expense) < red){
-            actionBar.setIcon(R.drawable.ic_title_red);
-        } else if((gain - expense) < yellow){
-            actionBar.setIcon(R.drawable.ic_title_yellow);
-        } else{
-            actionBar.setIcon(R.drawable.ic_title_green);
-        }
+//        EntryDAO dao = EntryDAO.getInstance(this);
+//        Calendar calendar = Calendar.getInstance();
+//        Float gain = dao.getGain(calendar.get(Calendar.MONTH));
+//        Float expense = dao.getExpense(calendar.get(Calendar.MONTH));
+//
+//        SharedPreferences sharedPreferences = getSharedPreferences(Constantes.SHARED_PREFERENCES, Context.MODE_PRIVATE);
+//        float yellow = sharedPreferences.getFloat(Constantes.SP_KEY_YELLOW, Constantes.SP_YELLOW_DEFAULT);
+//        float red = sharedPreferences.getFloat(Constantes.SP_KEY_RED, Constantes.SP_RED_DEFAULT);
+//
+//        ActionBar actionBar = getActionBar();
+//
+//        if((gain - expense) < red){
+//            actionBar.setIcon(R.drawable.ic_title_red);
+//        } else if((gain - expense) < yellow){
+//            actionBar.setIcon(R.drawable.ic_title_yellow);
+//        } else{
+//            actionBar.setIcon(R.drawable.ic_title_green);
+//        }
+        getActionBar().setIcon(R.drawable.ic_menu_white_36dp);
     }
 
     /**
@@ -314,14 +315,14 @@ public class MenuActivity extends ActionBarActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // toggle nav drawer on selecting action bar app icon/title
-        if (mDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
+//        if (mDrawerToggle.onOptionsItemSelected(item)) {
+//            return true;
+//        }
         // Handle action bar actions click
         switch (item.getItemId()) {
-            case R.id.action_settings:
-                openSettings();
-                return true;
+//            case R.id.action_settings:
+//                openSettings();
+//                return true;
             case R.id.action_filtro:
                 openFiltro();
                 return true;
@@ -368,19 +369,19 @@ public class MenuActivity extends ActionBarActivity {
         boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
         switch (actionBarIcon){
             case ICON_SETTINGS:
-                menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
+//                menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
                 menu.findItem(R.id.action_filtro).setVisible(false);
                 break;
             case ICON_FILTRO:
-                menu.findItem(R.id.action_settings).setVisible(false);
+//                menu.findItem(R.id.action_settings).setVisible(false);
                 menu.findItem(R.id.action_filtro).setVisible(!drawerOpen);
                 break;
             case ICON_NONE:
-                menu.findItem(R.id.action_settings).setVisible(false);
+//                menu.findItem(R.id.action_settings).setVisible(false);
                 menu.findItem(R.id.action_filtro).setVisible(false);
                 break;
             default:
-                menu.findItem(R.id.action_settings).setVisible(false);
+//                menu.findItem(R.id.action_settings).setVisible(false);
                 menu.findItem(R.id.action_filtro).setVisible(false);
                 break;
         }
@@ -398,19 +399,19 @@ public class MenuActivity extends ActionBarActivity {
      * onPostCreate() and onConfigurationChanged()...
      */
 
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        // Sync the toggle state after onRestoreInstanceState has occurred.
-        mDrawerToggle.syncState();
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        // Pass any configuration change to the drawer toggls
-        mDrawerToggle.onConfigurationChanged(newConfig);
-    }
+//    @Override
+//    protected void onPostCreate(Bundle savedInstanceState) {
+//        super.onPostCreate(savedInstanceState);
+//        // Sync the toggle state after onRestoreInstanceState has occurred.
+//        mDrawerToggle.syncState();
+//    }
+//
+//    @Override
+//    public void onConfigurationChanged(Configuration newConfig) {
+//        super.onConfigurationChanged(newConfig);
+//        // Pass any configuration change to the drawer toggls
+//        mDrawerToggle.onConfigurationChanged(newConfig);
+//    }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {

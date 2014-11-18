@@ -2,34 +2,40 @@
 <pre-dex-items>
 
     <item
-        dex="C:\Users\Bruno\AndroidStudioProjects\Simple Wallet\Simple Wallet PRO\build\intermediates\pre-dexed\debug\support-v4-19.1.0-e311e493b238b75da4095bd5ee7b69d76d73dc42.jar"
-        jar="C:\Program Files (x86)\Android\android-studio\sdk\extras\android\m2repository\com\android\support\support-v4\19.1.0\support-v4-19.1.0.jar"
+        dex="C:\Users\bruno.carvalho.LGE\AndroidStudioProjects\SimpleWallet\Simple Wallet\build\intermediates\pre-dexed\debug\classes-978c0fc751c1b1a7a5ada66c83f6a7ca4b15ee61.jar"
+        jar="C:\Users\bruno.carvalho.LGE\AndroidStudioProjects\SimpleWallet\Simple Wallet\build\intermediates\exploded-aar\com.google.android.gms\play-services\6.1.71\classes.jar"
         jumboMode="false"
         revision="19.1.0"
-        sha1="85f201b380937e61a9dce6ca90ccf6872abbfb67"/>
+        sha1="0f6d5c1ef2e982c3b7858408e3df389cf5d202da"/>
     <item
-        dex="C:\Users\Bruno\AndroidStudioProjects\Simple Wallet\Simple Wallet PRO\build\intermediates\pre-dexed\debug\classes-8101088c79a0af956a9900b061b5c3d8a915fb24.jar"
-        jar="C:\Users\Bruno\AndroidStudioProjects\Simple Wallet\Simple Wallet PRO\build\intermediates\exploded-aar\com.google.android.gms\play-services\5.0.77\classes.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="b6a82434c1eca686607867cd906bcc80ed987837"/>
-    <item
-        dex="C:\Users\Bruno\AndroidStudioProjects\Simple Wallet\Simple Wallet PRO\build\intermediates\pre-dexed\debug\classes-0e7539284386a8c812f4eb7565fded2fbb122fc9.jar"
-        jar="C:\Users\Bruno\AndroidStudioProjects\Simple Wallet\Simple Wallet PRO\build\intermediates\exploded-aar\com.android.support\appcompat-v7\19.1.0\classes.jar"
+        dex="C:\Users\bruno.carvalho.LGE\AndroidStudioProjects\SimpleWallet\Simple Wallet\build\intermediates\pre-dexed\debug\classes-ede81f0d44f3c422ceddf166d26711091bf7872c.jar"
+        jar="C:\Users\bruno.carvalho.LGE\AndroidStudioProjects\SimpleWallet\Simple Wallet\build\intermediates\exploded-aar\com.android.support\appcompat-v7\19.1.0\classes.jar"
         jumboMode="false"
         revision="19.1.0"
         sha1="3499ceba05ca1f6037c6a2fad73df8f636224a28"/>
     <item
-        dex="C:\Users\Bruno\AndroidStudioProjects\Simple Wallet\Simple Wallet\build\intermediates\pre-dexed\release\classes-b2a8775350281fb8a5d00b794ffda403bc3709b1.jar"
-        jar="C:\Users\Bruno\AndroidStudioProjects\Simple Wallet\Simple Wallet\build\intermediates\exploded-aar\com.android.support\appcompat-v7\19.1.0\classes.jar"
+        dex="C:\Users\bruno.carvalho.LGE\AndroidStudioProjects\SimpleWallet\Simple Wallet\build\intermediates\pre-dexed\debug\internal_impl-21.0.0-f92143ab2e0df129148ae91818017ab6c2c70894.jar"
+        jar="C:\Users\bruno.carvalho.LGE\AndroidStudioProjects\SimpleWallet\Simple Wallet\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.0\libs\internal_impl-21.0.0.jar"
         jumboMode="false"
         revision="19.1.0"
-        sha1="3499ceba05ca1f6037c6a2fad73df8f636224a28"/>
+        sha1="1609e6d42d0480b0f4188e2c29f75388fa12a8f0"/>
     <item
-        dex="C:\Users\Bruno\AndroidStudioProjects\Simple Wallet\Simple Wallet\build\intermediates\pre-dexed\release\classes-bed4e6adb8847ee0db59de329098ca918be34a96.jar"
-        jar="C:\Users\Bruno\AndroidStudioProjects\Simple Wallet\Simple Wallet\build\intermediates\exploded-aar\com.google.android.gms\play-services\5.0.77\classes.jar"
+        dex="C:\Users\bruno.carvalho.LGE\AndroidStudioProjects\SimpleWallet\Simple Wallet\build\intermediates\pre-dexed\debug\support-annotations-21.0.0-5236518c2796d6c1f36330b2d089a430f83c57af.jar"
+        jar="C:\Users\bruno.carvalho.LGE\AndroidStudio0.8\sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.0\support-annotations-21.0.0.jar"
         jumboMode="false"
         revision="19.1.0"
-        sha1="b6a82434c1eca686607867cd906bcc80ed987837"/>
+        sha1="1a578b9607b36266c63d43a4fa0ab5664dbe911e"/>
+    <item
+        dex="C:\Users\bruno.carvalho.LGE\AndroidStudioProjects\SimpleWallet\Simple Wallet\build\intermediates\pre-dexed\debug\classes-2865dae27535c6c5367d1fbc333f5e411fbe2f14.jar"
+        jar="C:\Users\bruno.carvalho.LGE\AndroidStudioProjects\SimpleWallet\Simple Wallet\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\21.0.0\classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="efeda77c808750cb670ee9c48d8a1835d89dbcb2"/>
+    <item
+        dex="C:\Users\bruno.carvalho.LGE\AndroidStudioProjects\SimpleWallet\Simple Wallet\build\intermediates\pre-dexed\debug\classes-bd825dc275ede111bc973ad058f39b74b8ac2492.jar"
+        jar="C:\Users\bruno.carvalho.LGE\AndroidStudioProjects\SimpleWallet\Simple Wallet\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.0\classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="686344a780033e4ba22b926cd225f8d4941247e6"/>
 
 </pre-dex-items>

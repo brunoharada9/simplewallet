@@ -3,6 +3,7 @@ package br.com.tolive.simplewallet.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,7 +49,7 @@ public class EntriesListAdapter extends BaseAdapter {
         if (convertView == null) {
             LayoutInflater mInflater = (LayoutInflater)
                     context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-            convertView = mInflater.inflate(R.layout.view_list_entries, null);
+            convertView = mInflater.inflate(R.layout.view_list_entries, parent, false);
         }
         Entry entry = entries.get(position);
 
@@ -64,9 +65,19 @@ public class EntriesListAdapter extends BaseAdapter {
 
         if(entry.getType() == Entry.TYPE_EXPENSE){
             //setBackgroundDrawable
-            txtValue.setBackground(context.getResources().getDrawable(R.drawable.txt_value_red));
+            if(Build.VERSION.SDK_INT < 16){
+                txtValue.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.txt_value_red));
+            } else {
+                txtValue.setBackground(context.getResources().getDrawable(R.drawable.txt_value_red));
+            }
+            txtDescription.setTextColor(context.getResources().getColor(R.color.primary_red));
         } else if (entry.getType() == Entry.TYPE_GAIN){
-            txtValue.setBackground(context.getResources().getDrawable(R.drawable.txt_value_green));
+            if(Build.VERSION.SDK_INT < 16){
+                txtValue.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.txt_value_green));
+            } else {
+                txtValue.setBackground(context.getResources().getDrawable(R.drawable.txt_value_green));
+            }
+            txtDescription.setTextColor(context.getResources().getColor(R.color.primary_green));
         }
 
         return convertView;
