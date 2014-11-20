@@ -64,7 +64,6 @@ public class EntriesListAdapter extends BaseAdapter {
         txtValue.setText(String.format("%.2f", entry.getValue()));
 
         if(entry.getType() == Entry.TYPE_EXPENSE){
-            //setBackgroundDrawable
             if(Build.VERSION.SDK_INT < 16) {
                 txtValue.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.txt_value_red));
             } else {
