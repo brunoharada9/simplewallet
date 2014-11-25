@@ -79,7 +79,7 @@
 
     <string-array name="nav_drawer_items">
         <!--<item>Adicionar</item>-->
-        <item>Lista</item>
+        <item>Gastos</item>
         <item>Armazenar</item>
         <item>Recuperar</item>
         <item>Info</item>

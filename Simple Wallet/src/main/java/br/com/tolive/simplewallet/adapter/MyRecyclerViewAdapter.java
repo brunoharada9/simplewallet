@@ -1,19 +1,14 @@
 package br.com.tolive.simplewallet.adapter;
 
+import br.com.tolive.simplewallet.model.Entry;
 import android.content.Context;
-import android.os.Build;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.Adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-
 import java.util.List;
-
-import br.com.tolive.simplewallet.app.R;
-import br.com.tolive.simplewallet.model.Entry;
 
 public class MyRecyclerViewAdapter extends
 		Adapter<MyRecyclerViewAdapter.ViewHolder> {
@@ -25,13 +20,15 @@ public class MyRecyclerViewAdapter extends
 	// you provide access to all the views for a data item in a view holder
 	public static class ViewHolder extends RecyclerView.ViewHolder {
 		// each data item is just a string in this case
-		public TextView txtDescription;
+		//public CircleView mCircle;
 		public TextView txtValue;
+		public TextView txtDescription;
 
 		public ViewHolder(View v) {
 			super(v);
-			txtDescription = (TextView) v.findViewById(R.id.textView_list_description);
 			txtValue = (TextView) v.findViewById(R.id.textView_list_value);
+			txtDescription = (TextView) v.findViewById(R.id.textView_list_description);
+			//mCircle = (CircleView) v.findViewById(R.id.button);
 		}
 	}
 
@@ -43,7 +40,7 @@ public class MyRecyclerViewAdapter extends
 
 	// Create new views (invoked by the layout manager)
 	@Override
-	public ViewHolder onCreateViewHolder(
+	public MyRecyclerViewAdapter.ViewHolder onCreateViewHolder(
 			ViewGroup parent, int viewType) {
 		// create a new view
 		View v = LayoutInflater.from(parent.getContext()).inflate(
@@ -55,6 +52,7 @@ public class MyRecyclerViewAdapter extends
 	}
 
 	// Replace the contents of a view (invoked by the layout manager)
+	@SuppressLint("DefaultLocale")
 	@Override
 	public void onBindViewHolder(ViewHolder holder, int position) {
 		// - get element from your dataset at this position
