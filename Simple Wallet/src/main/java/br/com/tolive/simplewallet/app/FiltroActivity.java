@@ -1,11 +1,12 @@
 package br.com.tolive.simplewallet.app;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,9 +22,10 @@ import br.com.tolive.simplewallet.adapter.CustomSpinnerAdapter;
 import br.com.tolive.simplewallet.constants.Constantes;
 import br.com.tolive.simplewallet.db.EntryDAO;
 import br.com.tolive.simplewallet.model.Entry;
+import br.com.tolive.simplewallet.utils.ThemeChanger;
 
 
-public class FiltroActivity extends Activity {
+public class FiltroActivity extends ActionBarActivity {
     public static final String EXTRA_KEY_FILTRO_ENTRIES = "entries_filtro";
     Spinner spinnerMonth;
     Spinner spinnerYear;
@@ -65,7 +67,8 @@ public class FiltroActivity extends Activity {
         spinnerYear.setAdapter(adapterYear);
         spinnerYear.setSelection(getYear(calendar.get(Calendar.YEAR), years));
 
-        ActionBar actionBar = getActionBar();
+        ThemeChanger.setThemeColor(this, calendar.get(Calendar.MONTH), null);
+        ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setIcon(R.drawable.ic_back);
     }
@@ -82,7 +85,7 @@ public class FiltroActivity extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        
+
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.filtro, menu);
         return true;

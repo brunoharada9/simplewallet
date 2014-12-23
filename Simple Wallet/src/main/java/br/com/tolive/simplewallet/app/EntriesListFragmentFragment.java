@@ -1,6 +1,7 @@
 package br.com.tolive.simplewallet.app;
 
-import android.app.ActionBar;
+import android.os.Build;
+import android.support.v7.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -8,6 +9,7 @@ import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Gravity;
@@ -32,6 +34,7 @@ import br.com.tolive.simplewallet.constants.Constantes;
 import br.com.tolive.simplewallet.db.EntryDAO;
 import br.com.tolive.simplewallet.model.Entry;
 import br.com.tolive.simplewallet.utils.DialogAddEntryMaker;
+import br.com.tolive.simplewallet.utils.ThemeChanger;
 import br.com.tolive.simplewallet.views.CustomTextView;
 import br.com.tolive.simplewallet.views.CustomViewShadow;
 import br.com.tolive.simplewallet.views.FloatingActionButton;
@@ -131,35 +134,7 @@ public class EntriesListFragmentFragment extends Fragment implements MenuActivit
     private void refreshList(ArrayList<Entry> entries) {
         EntriesListAdapter adapter = new EntriesListAdapter(entries, getActivity());
         entriesList.setAdapter(adapter);
-        Float gain = dao.getGain(month);
-        Float expense = dao.getExpense(month);
-
-        textBalanceNumber.setText(String.format("%.2f", (gain - expense)));
-        textGainNumber.setText(String.format("%.2f", (gain)));
-        textExpenseNumber.setText(String.format("%.2f", (expense)));
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constantes.SHARED_PREFERENCES, Context.MODE_PRIVATE);
-        float yellow = sharedPreferences.getFloat(Constantes.SP_KEY_YELLOW, Constantes.SP_YELLOW_DEFAULT);
-        float red = sharedPreferences.getFloat(Constantes.SP_KEY_RED, Constantes.SP_RED_DEFAULT);
-
-        ActionBar actionBar = getActivity().getActionBar();
-
-        int color;
-        if((gain - expense) < red){
-            //actionBar.setIcon(R.drawable.ic_title_red);
-            actionBar.setBackgroundDrawable(getActivity().getResources().getDrawable(R.drawable.actionbar_background_red));
-            color = getActivity().getResources().getColor(R.color.bar_red);
-            mFabButton.setFloatingActionButtonColor(getActivity().getResources().getColor(R.color.primary_red), getActivity().getResources().getColor(R.color.bar_red));
-        } else if((gain - expense) < yellow){
-            //actionBar.setIcon(R.drawable.ic_title_yellow);
-            actionBar.setBackgroundDrawable(getActivity().getResources().getDrawable(R.drawable.actionbar_background_yellow));
-            color = getActivity().getResources().getColor(R.color.bar_yellow);
-            mFabButton.setFloatingActionButtonColor(getActivity().getResources().getColor(R.color.primary_yellow), getActivity().getResources().getColor(R.color.bar_yellow));
-        } else{
-            //actionBar.setIcon(R.drawable.ic_title_green);
-            actionBar.setBackgroundDrawable(getActivity().getResources().getDrawable(R.drawable.actionbar_background_green));
-            color = getActivity().getResources().getColor(R.color.bar_green);
-            mFabButton.setFloatingActionButtonColor(getActivity().getResources().getColor(R.color.primary_green), getActivity().getResources().getColor(R.color.bar_green));
-        }
+        int color = ThemeChanger.setThemeColor(((ActionBarActivity) getActivity()), month, mFabButton);
         containerBalance.setBackgroundColor(getActivity().getResources().getColor(R.color.snow));
         containerBalance.setColor(color);
     }

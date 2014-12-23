@@ -1,12 +1,12 @@
 package br.com.tolive.simplewallet.app;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.app.ActionBar;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -17,9 +17,11 @@ import com.google.android.gms.ads.AdView;
 
 import br.com.tolive.simplewallet.constants.Constantes;
 import br.com.tolive.simplewallet.model.Entry;
+import br.com.tolive.simplewallet.utils.ThemeChanger;
+import br.com.tolive.simplewallet.views.CustomTextView;
 
 
-public class DetailsActivity extends Activity {
+public class DetailsActivity extends ActionBarActivity {
     private Entry entry;
 
     @Override
@@ -43,31 +45,24 @@ public class DetailsActivity extends Activity {
         Intent intent = getIntent();
         this.entry = (Entry) intent.getSerializableExtra(EntriesListFragmentFragment.EXTRA_KEY_ENTRY_DETAILS);
 
-        RelativeLayout container = (RelativeLayout) findViewById(R.id.activity_details_container);
-
         if(entry.getType() == Entry.TYPE_GAIN){
-            container.setBackgroundColor(getResources().getColor(R.color.green));
+            ThemeChanger.setThemeColor(this, ThemeChanger.THEME_GREEN);
         } else{
-            container.setBackgroundColor(getResources().getColor(R.color.red));
+            ThemeChanger.setThemeColor(this, ThemeChanger.THEME_RED);
         }
 
-        Typeface tf = Typeface.createFromAsset(getAssets(), Constantes.FONT_PATH_ROBOTO_CONDENSED_BOLD);
-
-        TextView txtDescription = (TextView) findViewById(R.id.activity_details_text_description);
-        txtDescription.setTypeface(tf);
+        CustomTextView txtDescription = (CustomTextView) findViewById(R.id.activity_details_text_description);
         txtDescription.setText(entry.getDescription());
 
-        TextView txtValue = (TextView) findViewById(R.id.activity_details_text_value);
-        txtValue.setTypeface(tf);
+        CustomTextView txtValue = (CustomTextView) findViewById(R.id.activity_details_text_value);
         txtValue.setText(String.format("%.2f", entry.getValue()));
 
-        TextView txtDate = (TextView) findViewById(R.id.activity_details_text_date);
-        txtDate.setTypeface(tf);
+        CustomTextView txtDate = (CustomTextView) findViewById(R.id.activity_details_text_date);
         txtDate.setText(entry.getDate());
 
-        ActionBar actionBar = getActionBar();
+        ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setIcon(R.drawable.ic_back);
+        actionBar.setLogo(R.drawable.ic_back);
     }
 
     @Override

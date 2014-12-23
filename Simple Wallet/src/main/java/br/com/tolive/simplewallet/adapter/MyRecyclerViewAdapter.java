@@ -1,7 +1,9 @@
 package br.com.tolive.simplewallet.adapter;
 
+import br.com.tolive.simplewallet.app.R;
 import br.com.tolive.simplewallet.model.Entry;
 import android.content.Context;
+import android.os.Build;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.Adapter;
 import android.view.LayoutInflater;
@@ -52,7 +54,6 @@ public class MyRecyclerViewAdapter extends
 	}
 
 	// Replace the contents of a view (invoked by the layout manager)
-	@SuppressLint("DefaultLocale")
 	@Override
 	public void onBindViewHolder(ViewHolder holder, int position) {
 		// - get element from your dataset at this position

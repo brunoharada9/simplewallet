@@ -1,6 +1,6 @@
 package br.com.tolive.simplewallet.app;
 
-import android.app.ActionBar;
+import android.support.v7.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -53,6 +53,7 @@ public class MenuActivity extends ActionBarActivity {
     private ListView mDrawerList;
 //    private ActionBarDrawerToggle mDrawerToggle;
 
+    //private ActionBar mActionBar;
     int actionBarIcon = ICON_SETTINGS;
 
     // nav drawer title
@@ -135,7 +136,7 @@ public class MenuActivity extends ActionBarActivity {
 
         // enabling action bar app icon and behaving it as toggle button
 //        getActionBar().setDisplayHomeAsUpEnabled(true);
-        getActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
 
 //        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
 //                R.drawable.ic_drawer, //nav menu toggle icon
@@ -238,7 +239,7 @@ public class MenuActivity extends ActionBarActivity {
 //        } else{
 //            actionBar.setIcon(R.drawable.ic_title_green);
 //        }
-        getActionBar().setIcon(R.drawable.ic_menu_white_36dp);
+        getSupportActionBar().setIcon(R.drawable.ic_menu_white_36dp);
     }
 
     /**
@@ -391,7 +392,7 @@ public class MenuActivity extends ActionBarActivity {
     @Override
     public void setTitle(CharSequence title) {
         mTitle = title;
-        getActionBar().setTitle(mTitle);
+        getSupportActionBar().setTitle(mTitle);
     }
 
     /**
