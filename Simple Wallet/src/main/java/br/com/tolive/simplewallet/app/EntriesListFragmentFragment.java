@@ -135,6 +135,7 @@ public class EntriesListFragmentFragment extends Fragment implements MenuActivit
         EntriesListAdapter adapter = new EntriesListAdapter(entries, getActivity());
         entriesList.setAdapter(adapter);
         int color = ThemeChanger.setThemeColor(((ActionBarActivity) getActivity()), month, mFabButton);
+        ThemeChanger.setAllTextViewColor(getActivity(), getActivity().findViewById(R.id.list_slidermenu), color);
         containerBalance.setBackgroundColor(getActivity().getResources().getColor(R.color.snow));
         containerBalance.setColor(color);
     }

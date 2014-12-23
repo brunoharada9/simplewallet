@@ -75,30 +75,10 @@ public class SettingsActivity extends Activity {
         editYellow.setText(String.format("%.0f",yellow));
         editRed.setText(String.format("%.0f",red));
 
-        setTypeFace();
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setIcon(R.drawable.ic_back);
     }
-
-    private void setTypeFace() {
-        Typeface tf = Typeface.createFromAsset(getAssets(), Constantes.FONT_PATH_ROBOTO_CONDENSED_BOLD);
-        editYellow.setTypeface(tf);
-        editRed.setTypeface(tf);
-        textPercentGreen.setTypeface(tf);
-
-        TextView textSet = (TextView) findViewById(R.id.fragment_settings_text_color_set);
-
-        TextView textGreen = (TextView) findViewById(R.id.fragment_settings_text_color_set_green);
-        TextView textYellow = (TextView) findViewById(R.id.fragment_settings_text_color_set_yellow);
-        TextView textRed = (TextView) findViewById(R.id.fragment_settings_text_color_set_red);
-
-        textSet.setTypeface(tf);
-        textGreen.setTypeface(tf);
-        textYellow.setTypeface(tf);
-        textRed.setTypeface(tf);
-    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

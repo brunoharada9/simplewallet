@@ -22,7 +22,7 @@
             android:textSize="35sp"
             android:text="@string/fragment_about_text_more_apps" />
 
-        <View
+        <br.com.tolive.simplewallet.views.CustomView
             android:layout_width="match_parent"
             android:layout_height="4dp"
             android:background="@color/gray"
@@ -56,7 +56,7 @@
 
         </RelativeLayout>
 
-        <View
+        <br.com.tolive.simplewallet.views.CustomView
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:background="@color/snow"
@@ -106,7 +106,7 @@
             android:textSize="35sp"
             android:text="@string/fragment_about_text_fb_fanpage" />
 
-        <View
+        <br.com.tolive.simplewallet.views.CustomView
             android:layout_width="match_parent"
             android:layout_height="4dp"
             android:background="@color/gray"
@@ -149,7 +149,7 @@
             android:textSize="35sp"
             android:text="@string/fragment_about_text_remove_ad_title" />
 
-        <View
+        <br.com.tolive.simplewallet.views.CustomView
             android:layout_width="match_parent"
             android:layout_height="4dp"
             android:background="@color/gray"
@@ -187,7 +187,9 @@
 
         </RelativeLayout>
 
-        <!--<View
+        <!--
+        TODO: Review warnning from this file
+        <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:background="@color/gray"

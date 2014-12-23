@@ -3,6 +3,7 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:background="@color/snow"
+    android:id="@+id/parent"
     xmlns:googleads="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     >
@@ -21,16 +22,16 @@
             android:paddingBottom="10dp"
             android:orientation="vertical">
 
-            <TextView
+            <br.com.tolive.simplewallet.views.CustomTextView
+                googleads:font="@string/app_font"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/gray"
                 android:layout_gravity="center_vertical"
                 android:textSize="35sp"
-                android:id="@+id/fragment_settings_text_color_set"
                 android:text="@string/fragment_filtro_text_date" />
 
-            <View
+            <br.com.tolive.simplewallet.views.CustomView
                 android:layout_width="match_parent"
                 android:layout_height="4dp"
                 android:background="@color/gray"
@@ -41,14 +42,14 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <TextView
+                <br.com.tolive.simplewallet.views.CustomTextView
+                    googleads:font="@string/app_font"
                     android:layout_width="0dp"
                     android:layout_weight="7"
                     android:layout_height="wrap_content"
                     android:textColor="@color/gray"
                     android:layout_gravity="center_vertical"
                     android:textSize="30sp"
-                    android:id="@+id/fragment_filtro_text_date_month"
                     android:text="@string/fragment_filtro_text_date_month" />
 
                 <Spinner
@@ -62,7 +63,7 @@
 
             </LinearLayout>
 
-            <View
+            <br.com.tolive.simplewallet.views.CustomView
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:background="@color/gray"
@@ -73,7 +74,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <TextView
+                <br.com.tolive.simplewallet.views.CustomTextView
+                    googleads:font="@string/app_font"
                     android:layout_width="0dp"
                     android:layout_weight="7"
                     android:layout_height="wrap_content"
@@ -94,7 +96,7 @@
 
             </LinearLayout>
 
-            <View
+            <br.com.tolive.simplewallet.views.CustomView
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:background="@color/gray"

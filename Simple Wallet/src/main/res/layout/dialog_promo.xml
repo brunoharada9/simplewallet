@@ -26,7 +26,7 @@
             android:paddingLeft="2dp"
             android:text="@string/dialog_promo_text" />
 
-        <View
+        <br.com.tolive.simplewallet.views.CustomView
             android:layout_width="match_parent"
             android:layout_height="5dp"
             android:background="@color/snow"
@@ -43,7 +43,7 @@
 
     </LinearLayout>
 
-    <View
+    <br.com.tolive.simplewallet.views.CustomView
         android:layout_width="match_parent"
         android:layout_height="5dp"
         android:background="@color/snow"

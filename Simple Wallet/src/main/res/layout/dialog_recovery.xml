@@ -30,7 +30,7 @@
 
     </LinearLayout>
 
-    <View
+    <br.com.tolive.simplewallet.views.CustomView
         android:layout_width="match_parent"
         android:layout_height="5dp"
         android:background="@color/snow"

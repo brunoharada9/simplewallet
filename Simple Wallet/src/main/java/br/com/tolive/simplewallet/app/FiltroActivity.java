@@ -57,17 +57,19 @@ public class FiltroActivity extends ActionBarActivity {
         spinnerYear = (Spinner) findViewById(R.id.fragment_filtro_spinner_year);
         Calendar calendar = Calendar.getInstance();
 
-        CustomSpinnerAdapter adapterMonth = new CustomSpinnerAdapter(this, R.layout.simple_spinner_item, months);
+        int color = ThemeChanger.setThemeColor(this, calendar.get(Calendar.MONTH), null);
+        ThemeChanger.setAllTextViewColor(this, findViewById(R.id.parent), color);
+
+        CustomSpinnerAdapter adapterMonth = new CustomSpinnerAdapter(this, R.layout.simple_spinner_item, months, color);
         adapterMonth.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
         spinnerMonth.setAdapter(adapterMonth);
         spinnerMonth.setSelection(calendar.get(Calendar.MONTH));
 
-        CustomSpinnerAdapter adapterYear = new CustomSpinnerAdapter(this, R.layout.simple_spinner_item, years);
+        CustomSpinnerAdapter adapterYear = new CustomSpinnerAdapter(this, R.layout.simple_spinner_item, years, color);
         adapterYear.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
         spinnerYear.setAdapter(adapterYear);
         spinnerYear.setSelection(getYear(calendar.get(Calendar.YEAR), years));
 
-        ThemeChanger.setThemeColor(this, calendar.get(Calendar.MONTH), null);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setIcon(R.drawable.ic_back);

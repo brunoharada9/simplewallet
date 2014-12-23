@@ -55,11 +55,6 @@ public class EntriesListAdapter extends BaseAdapter {
 
         TextView txtDescription = (TextView) convertView.findViewById(R.id.textView_list_description);
         TextView txtValue = (TextView) convertView.findViewById(R.id.textView_list_value);
-
-        Typeface tf = Typeface.createFromAsset(context.getAssets(), Constantes.FONT_PATH_ROBOTO_CONDENSED_BOLD);
-        txtDescription.setTypeface(tf);
-        txtValue.setTypeface(tf);
-
         txtDescription.setText(entry.getDescription());
         txtValue.setText(String.format("%.2f", entry.getValue()));
 
@@ -69,7 +64,7 @@ public class EntriesListAdapter extends BaseAdapter {
             } else {
                 txtValue.setBackground(context.getResources().getDrawable(R.drawable.txt_value_red));
             }
-            txtDescription.setTextColor(context.getResources().getColor(R.color.primary_red));
+            txtDescription.setTextColor(context.getResources().getColor(R.color.accent_red));
         } else if (entry.getType() == Entry.TYPE_GAIN){
             if(Build.VERSION.SDK_INT < 16){
                 txtValue.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.txt_value_green));

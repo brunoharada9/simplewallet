@@ -6,10 +6,17 @@ import android.os.Build;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import br.com.tolive.simplewallet.app.R;
 import br.com.tolive.simplewallet.constants.Constantes;
 import br.com.tolive.simplewallet.db.EntryDAO;
+import br.com.tolive.simplewallet.views.CustomTextView;
+import br.com.tolive.simplewallet.views.CustomView;
 import br.com.tolive.simplewallet.views.FloatingActionButton;
 
 /**
@@ -21,10 +28,11 @@ public class ThemeChanger {
     public static final int THEME_YELLOW = 1;
     public static final int THEME_GREEN = 2;
 
-    public static void setThemeColor(ActionBarActivity context, int color){
+    public static int setThemeColor(ActionBarActivity context, int color){
         ActionBar actionBar = context.getSupportActionBar();
         if(color == THEME_RED){
             //actionBar.setIcon(R.drawable.ic_title_red);
+            color = context.getResources().getColor(R.color.bar_red);
             actionBar.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.actionbar_background_red));
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
                 context.getWindow().setStatusBarColor(context.getResources().getColor(R.color.primary_dark_red));
@@ -32,6 +40,7 @@ public class ThemeChanger {
             }
         } else if(color == THEME_YELLOW){
             //actionBar.setIcon(R.drawable.ic_title_yellow);
+            color = context.getResources().getColor(R.color.bar_yellow);
             actionBar.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.actionbar_background_yellow));
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
                 context.getWindow().setStatusBarColor(context.getResources().getColor(R.color.primary_dark_yellow));
@@ -39,12 +48,14 @@ public class ThemeChanger {
             }
         } else {
             //actionBar.setIcon(R.drawable.ic_title_green);
+            color = context.getResources().getColor(R.color.bar_green);
             actionBar.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.actionbar_background_green));
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
                 context.getWindow().setStatusBarColor(context.getResources().getColor(R.color.primary_dark_green));
                 context.getWindow().setNavigationBarColor(context.getResources().getColor(R.color.primary_green));
             }
         }
+        return color;
     }
 
     public static int setThemeColor(ActionBarActivity context, int month, FloatingActionButton mFabButton){
@@ -93,6 +104,34 @@ public class ThemeChanger {
             }
         }
         return color;
+    }
+
+    public static void setAllTextViewColor(Context context, View parent, int color){
+        try {
+            if (parent instanceof ViewGroup) {
+                if(parent.getId() == R.id.drawer_list_item){
+                    if(color == context.getResources().getColor(R.color.bar_red)) {
+                        ((ImageView) ((ViewGroup) parent).getChildAt(0)).setImageDrawable(context.getResources().getDrawable(R.drawable.ic_title_red));
+                    } else if(color == context.getResources().getColor(R.color.bar_yellow)) {
+                        ((ImageView) ((ViewGroup) parent).getChildAt(0)).setImageDrawable(context.getResources().getDrawable(R.drawable.ic_title_yellow));
+                    } else if(color == context.getResources().getColor(R.color.bar_green)) {
+                        ((ImageView) ((ViewGroup) parent).getChildAt(0)).setImageDrawable(context.getResources().getDrawable(R.drawable.ic_title_green));
+                    }
+                    setAllTextViewColor(context, ((ViewGroup) parent).getChildAt(1), color);
+                }
+                ViewGroup vg = (ViewGroup) parent;
+                for (int i = 0; i < vg.getChildCount(); i++) {
+                    View child = vg.getChildAt(i);
+                    setAllTextViewColor(context, child, color);
+                }
+            } else if (parent instanceof CustomTextView || parent instanceof TextView) {
+                ((TextView) parent).setTextColor(color);
+            } else if(parent instanceof CustomView){
+                parent.setBackgroundColor(color);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     //public static int setThemeColor(ActionBarActivity context, int month){

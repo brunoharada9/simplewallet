@@ -17,16 +17,17 @@ import br.com.tolive.simplewallet.constants.Constantes;
 public class CustomSpinnerAdapter extends ArrayAdapter<String> {
     private Context context;
     private String[] data;
+    private int color;
     LayoutInflater inflater;
 
     /*************  CustomAdapter Constructor *****************/
-    public CustomSpinnerAdapter( Context context, int textViewResourceId, String[] objects) {
+    public CustomSpinnerAdapter( Context context, int textViewResourceId, String[] objects, int color) {
         super(context, textViewResourceId, objects);
         /********** Take passed values **********/
         this.context = context;
         this.data     = objects;
+        this.color = color;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
     }
 
     @Override
@@ -42,6 +43,7 @@ public class CustomSpinnerAdapter extends ArrayAdapter<String> {
     public View getCustomView(int position, View convertView, ViewGroup parent) {
 
         View view = inflater.inflate(R.layout.simple_spinner_item, parent, false);
+        view.setBackgroundColor(color);
 
         TextView label        = (TextView) view.findViewById(android.R.id.text1);
         Typeface tf = Typeface.createFromAsset(context.getAssets(), Constantes.FONT_PATH_ROBOTO_CONDENSED_BOLD);
