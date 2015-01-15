@@ -1,16 +1,17 @@
 package br.com.tolive.simplewallet.app;
 
-import android.app.ActionBar;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Typeface;
 import android.os.Bundle;
-import android.view.Menu;
+import android.support.v7.app.ActionBarActivity;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,7 +23,7 @@ import br.com.tolive.simplewallet.constants.Constantes;
 import br.com.tolive.simplewallet.views.CustomRadioButton;
 
 
-public class SettingsActivity extends Activity {
+public class SettingsFragment extends Fragment {
     //private static final String MSG_ERROR_INTERVAL = "Os valores devem estar entre 0 e 99";
     private static final String MSG_ERROR = "O valor amarelo deve ser maior que o vermelho";
     private static final String EMPTY = "";
@@ -34,31 +35,43 @@ public class SettingsActivity extends Activity {
     private CustomRadioButton radioButtonBalanceTypeTotal;
     private CustomRadioButton radioButtonBalanceTypeMonth;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings);
+    public SettingsFragment() {
+        // Required empty public constructor
+    }
 
-        SharedPreferences sharedPreferences = getSharedPreferences(Constantes.SHARED_PREFERENCES, Context.MODE_PRIVATE);
+    @Override
+    public void onStart() {
+        super.onStart();
+        getActivity().invalidateOptionsMenu();
+    }
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        View view = inflater.inflate(R.layout.activity_settings, container, false);
+
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constantes.SHARED_PREFERENCES, Context.MODE_PRIVATE);
         boolean removeAd = sharedPreferences.getBoolean(Constantes.SP_KEY_REMOVE_AD, Constantes.SP_REMOVE_AD_DEFAULT);
         if(!removeAd) {
             AdRequest request = new AdRequest.Builder()
                     .addTestDevice("E6E54B90007CAC7A62F9EC7857F3A989")
                     .build();
-            AdView adView = (AdView) findViewById(R.id.ad_settings);
+            AdView adView = (AdView) view.findViewById(R.id.ad_settings);
             adView.loadAd(request);
         } else{
-            AdView adView = (AdView) findViewById(R.id.ad_settings);
+            AdView adView = (AdView) view.findViewById(R.id.ad_settings);
             adView.setVisibility(View.GONE);
         }
 
-        editYellow = (EditText) findViewById(R.id.fragment_settings_edit_yellow);
-        editRed = (EditText) findViewById(R.id.fragment_settings_edit_red);
-        textPercentGreen = (TextView) findViewById(R.id.fragment_settings_text_color_set_percent_green_number);
+        editYellow = (EditText) view.findViewById(R.id.fragment_settings_edit_yellow);
+        editRed = (EditText) view.findViewById(R.id.fragment_settings_edit_red);
+        textPercentGreen = (TextView) view.findViewById(R.id.fragment_settings_text_color_set_percent_green_number);
 
-        radioGroupBalanceType = (RadioGroup) findViewById(R.id.fragment_settings_radio_group_balance_type);
-        radioButtonBalanceTypeTotal = (CustomRadioButton) findViewById(R.id.fragment_settings_radio_balance_type_total);
-        radioButtonBalanceTypeMonth = (CustomRadioButton) findViewById(R.id.fragment_settings_radio_balance_type_month);
+        radioGroupBalanceType = (RadioGroup) view.findViewById(R.id.fragment_settings_radio_group_balance_type);
+        radioButtonBalanceTypeTotal = (CustomRadioButton) view.findViewById(R.id.fragment_settings_radio_balance_type_total);
+        radioButtonBalanceTypeMonth = (CustomRadioButton) view.findViewById(R.id.fragment_settings_radio_balance_type_month);
         int balanceType = sharedPreferences.getInt(Constantes.SP_KEY_BALANCE_TYPE, Constantes.SP_BALANCE_TYPE_DEFAULT);
         if(balanceType == Constantes.BALANCE_TYPE_MONTH) {
             radioButtonBalanceTypeMonth.setChecked(true);
@@ -75,17 +88,11 @@ public class SettingsActivity extends Activity {
         editYellow.setText(String.format("%.0f",yellow));
         editRed.setText(String.format("%.0f",red));
 
-        ActionBar actionBar = getActionBar();
+        ActionBar actionBar = ((ActionBarActivity) getActivity()).getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setIcon(R.drawable.ic_back);
-    }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.settings, menu);
-        return true;
+        return view;
     }
 
     @Override
@@ -96,7 +103,7 @@ public class SettingsActivity extends Activity {
         int id = item.getItemId();
         if (id == R.id.action_confirm) {
             if(editYellow.getText().toString().equals(EMPTY) || editRed.getText().toString().equals(EMPTY)){
-                Toast.makeText(this, ERROR_INVALID_INPUT, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), ERROR_INVALID_INPUT, Toast.LENGTH_SHORT).show();
             } else {
                 float yellow = Float.valueOf(editYellow.getText().toString());
                 float red = Float.valueOf(editRed.getText().toString());
@@ -112,7 +119,7 @@ public class SettingsActivity extends Activity {
                 }
                // if ((yellow > 0 && yellow < 100) && (yellow > 0 && yellow < 100)) {
                 if (yellow > red) {
-                    SharedPreferences sharedPreferences = getSharedPreferences(Constantes.SHARED_PREFERENCES, MODE_PRIVATE);
+                    SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constantes.SHARED_PREFERENCES, Activity.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
 
                     editor.putInt(Constantes.SP_KEY_BALANCE_TYPE, balanceType);
@@ -122,19 +129,14 @@ public class SettingsActivity extends Activity {
 
                     editor.apply();
 
-                    setResult(RESULT_OK);
-                    finish();
                     return true;
                 } else {
-                    Toast.makeText(this, MSG_ERROR, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), MSG_ERROR, Toast.LENGTH_SHORT).show();
                 }
                // } else {
                     //Toast.makeText(this, MSG_ERROR_INTERVAL, Toast.LENGTH_SHORT).show();
                // }
             }
-        } else if(item.getItemId() == android.R.id.home){
-            finish();
-            return true;
         }
         return super.onOptionsItemSelected(item);
     }

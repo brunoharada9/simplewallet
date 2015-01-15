@@ -2,6 +2,7 @@ package br.com.tolive.simplewallet.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Build;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -28,37 +29,45 @@ public class ThemeChanger {
     public static final int THEME_YELLOW = 1;
     public static final int THEME_GREEN = 2;
 
-    public static int setThemeColor(ActionBarActivity context, int color){
+    public ActionBarActivity context;
+    public Resources resources;
+
+    public ThemeChanger(ActionBarActivity context){
+        this.context = context;
+        this.resources = context.getResources();
+    }
+
+    public int setThemeColor(int color){
         ActionBar actionBar = context.getSupportActionBar();
         if(color == THEME_RED){
             //actionBar.setIcon(R.drawable.ic_title_red);
-            color = context.getResources().getColor(R.color.bar_red);
-            actionBar.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.actionbar_background_red));
+            color = resources.getColor(R.color.bar_red);
+            actionBar.setBackgroundDrawable(resources.getDrawable(R.drawable.actionbar_background_red));
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
-                context.getWindow().setStatusBarColor(context.getResources().getColor(R.color.primary_dark_red));
-                context.getWindow().setNavigationBarColor(context.getResources().getColor(R.color.primary_red));
+                context.getWindow().setStatusBarColor(resources.getColor(R.color.primary_dark_red));
+                context.getWindow().setNavigationBarColor(resources.getColor(R.color.primary_red));
             }
         } else if(color == THEME_YELLOW){
             //actionBar.setIcon(R.drawable.ic_title_yellow);
-            color = context.getResources().getColor(R.color.bar_yellow);
-            actionBar.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.actionbar_background_yellow));
+            color = resources.getColor(R.color.bar_yellow);
+            actionBar.setBackgroundDrawable(resources.getDrawable(R.drawable.actionbar_background_yellow));
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
-                context.getWindow().setStatusBarColor(context.getResources().getColor(R.color.primary_dark_yellow));
-                context.getWindow().setNavigationBarColor(context.getResources().getColor(R.color.primary_yellow));
+                context.getWindow().setStatusBarColor(resources.getColor(R.color.primary_dark_yellow));
+                context.getWindow().setNavigationBarColor(resources.getColor(R.color.primary_yellow));
             }
         } else {
             //actionBar.setIcon(R.drawable.ic_title_green);
-            color = context.getResources().getColor(R.color.bar_green);
-            actionBar.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.actionbar_background_green));
+            color = resources.getColor(R.color.bar_green);
+            actionBar.setBackgroundDrawable(resources.getDrawable(R.drawable.actionbar_background_green));
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
-                context.getWindow().setStatusBarColor(context.getResources().getColor(R.color.primary_dark_green));
-                context.getWindow().setNavigationBarColor(context.getResources().getColor(R.color.primary_green));
+                context.getWindow().setStatusBarColor(resources.getColor(R.color.primary_dark_green));
+                context.getWindow().setNavigationBarColor(resources.getColor(R.color.primary_green));
             }
         }
         return color;
     }
 
-    public static int setThemeColor(ActionBarActivity context, int month, FloatingActionButton mFabButton){
+    public int setThemeColor(int month, FloatingActionButton mFabButton){
         EntryDAO dao = EntryDAO.getInstance(context);
         Float gain = dao.getGain(month);
         Float expense = dao.getExpense(month);
@@ -71,58 +80,58 @@ public class ThemeChanger {
         int color;
         if((gain - expense) < red){
             //actionBar.setIcon(R.drawable.ic_title_red);
-            actionBar.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.actionbar_background_red));
-            color = context.getResources().getColor(R.color.bar_red);
+            actionBar.setBackgroundDrawable(resources.getDrawable(R.drawable.actionbar_background_red));
+            color = resources.getColor(R.color.bar_red);
             if(mFabButton != null) {
-                mFabButton.setFloatingActionButtonColor(context.getResources().getColor(R.color.primary_red), context.getResources().getColor(R.color.bar_red));
+                mFabButton.setFloatingActionButtonColor(resources.getColor(R.color.primary_red), resources.getColor(R.color.bar_red));
             }
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
-                context.getWindow().setStatusBarColor(context.getResources().getColor(R.color.primary_dark_red));
-                context.getWindow().setNavigationBarColor(context.getResources().getColor(R.color.primary_red));
+                context.getWindow().setStatusBarColor(resources.getColor(R.color.primary_dark_red));
+                context.getWindow().setNavigationBarColor(resources.getColor(R.color.primary_red));
             }
         } else if((gain - expense) < yellow){
             //actionBar.setIcon(R.drawable.ic_title_yellow);
-            actionBar.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.actionbar_background_yellow));
-            color = context.getResources().getColor(R.color.bar_yellow);
+            actionBar.setBackgroundDrawable(resources.getDrawable(R.drawable.actionbar_background_yellow));
+            color = resources.getColor(R.color.bar_yellow);
             if(mFabButton != null) {
-                mFabButton.setFloatingActionButtonColor(context.getResources().getColor(R.color.primary_yellow), context.getResources().getColor(R.color.bar_yellow));
+                mFabButton.setFloatingActionButtonColor(resources.getColor(R.color.primary_yellow), resources.getColor(R.color.bar_yellow));
             }
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
-                context.getWindow().setStatusBarColor(context.getResources().getColor(R.color.primary_dark_yellow));
-                context.getWindow().setNavigationBarColor(context.getResources().getColor(R.color.primary_yellow));
+                context.getWindow().setStatusBarColor(resources.getColor(R.color.primary_dark_yellow));
+                context.getWindow().setNavigationBarColor(resources.getColor(R.color.primary_yellow));
             }
         } else{
             //actionBar.setIcon(R.drawable.ic_title_green);
-            actionBar.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.actionbar_background_green));
-            color = context.getResources().getColor(R.color.bar_green);
+            actionBar.setBackgroundDrawable(resources.getDrawable(R.drawable.actionbar_background_green));
+            color = resources.getColor(R.color.bar_green);
             if(mFabButton != null) {
-                mFabButton.setFloatingActionButtonColor(context.getResources().getColor(R.color.primary_green), context.getResources().getColor(R.color.bar_green));
+                mFabButton.setFloatingActionButtonColor(resources.getColor(R.color.primary_green), resources.getColor(R.color.bar_green));
             }
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
-                context.getWindow().setStatusBarColor(context.getResources().getColor(R.color.primary_dark_green));
-                context.getWindow().setNavigationBarColor(context.getResources().getColor(R.color.primary_green));
+                context.getWindow().setStatusBarColor(resources.getColor(R.color.primary_dark_green));
+                context.getWindow().setNavigationBarColor(resources.getColor(R.color.primary_green));
             }
         }
         return color;
     }
 
-    public static void setAllTextViewColor(Context context, View parent, int color){
+    public void setAllTextViewColor(View parent, int color){
         try {
             if (parent instanceof ViewGroup) {
                 if(parent.getId() == R.id.drawer_list_item){
-                    if(color == context.getResources().getColor(R.color.bar_red)) {
-                        ((ImageView) ((ViewGroup) parent).getChildAt(0)).setImageDrawable(context.getResources().getDrawable(R.drawable.ic_title_red));
-                    } else if(color == context.getResources().getColor(R.color.bar_yellow)) {
-                        ((ImageView) ((ViewGroup) parent).getChildAt(0)).setImageDrawable(context.getResources().getDrawable(R.drawable.ic_title_yellow));
-                    } else if(color == context.getResources().getColor(R.color.bar_green)) {
-                        ((ImageView) ((ViewGroup) parent).getChildAt(0)).setImageDrawable(context.getResources().getDrawable(R.drawable.ic_title_green));
+                    if(color == resources.getColor(R.color.bar_red)) {
+                        ((ImageView) ((ViewGroup) parent).getChildAt(0)).setImageDrawable(resources.getDrawable(R.drawable.ic_title_red));
+                    } else if(color == resources.getColor(R.color.bar_yellow)) {
+                        ((ImageView) ((ViewGroup) parent).getChildAt(0)).setImageDrawable(resources.getDrawable(R.drawable.ic_title_yellow));
+                    } else if(color == resources.getColor(R.color.bar_green)) {
+                        ((ImageView) ((ViewGroup) parent).getChildAt(0)).setImageDrawable(resources.getDrawable(R.drawable.ic_title_green));
                     }
-                    setAllTextViewColor(context, ((ViewGroup) parent).getChildAt(1), color);
+                    setAllTextViewColor(((ViewGroup) parent).getChildAt(1), color);
                 }
                 ViewGroup vg = (ViewGroup) parent;
                 for (int i = 0; i < vg.getChildCount(); i++) {
                     View child = vg.getChildAt(i);
-                    setAllTextViewColor(context, child, color);
+                    setAllTextViewColor(child, color);
                 }
             } else if (parent instanceof CustomTextView || parent instanceof TextView) {
                 ((TextView) parent).setTextColor(color);

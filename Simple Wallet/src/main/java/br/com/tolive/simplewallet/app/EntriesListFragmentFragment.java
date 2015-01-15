@@ -65,6 +65,12 @@ public class EntriesListFragmentFragment extends Fragment implements MenuActivit
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        getActivity().invalidateOptionsMenu();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         dao = EntryDAO.getInstance(getActivity());
 
@@ -134,8 +140,9 @@ public class EntriesListFragmentFragment extends Fragment implements MenuActivit
     private void refreshList(ArrayList<Entry> entries) {
         EntriesListAdapter adapter = new EntriesListAdapter(entries, getActivity());
         entriesList.setAdapter(adapter);
-        int color = ThemeChanger.setThemeColor(((ActionBarActivity) getActivity()), month, mFabButton);
-        ThemeChanger.setAllTextViewColor(getActivity(), getActivity().findViewById(R.id.list_slidermenu), color);
+        ThemeChanger themeChanger = new ThemeChanger((ActionBarActivity) getActivity());
+        int color = themeChanger.setThemeColor(month, mFabButton);
+        themeChanger.setAllTextViewColor(getActivity().findViewById(R.id.list_slidermenu), color);
         containerBalance.setBackgroundColor(getActivity().getResources().getColor(R.color.snow));
         containerBalance.setColor(color);
     }

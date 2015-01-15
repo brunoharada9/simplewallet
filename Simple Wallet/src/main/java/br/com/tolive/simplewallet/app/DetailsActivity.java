@@ -45,13 +45,14 @@ public class DetailsActivity extends ActionBarActivity {
         Intent intent = getIntent();
         this.entry = (Entry) intent.getSerializableExtra(EntriesListFragmentFragment.EXTRA_KEY_ENTRY_DETAILS);
 
+        ThemeChanger themeChanger = new ThemeChanger(this);
         int color;
         if(entry.getType() == Entry.TYPE_GAIN){
-            color = ThemeChanger.setThemeColor(this, ThemeChanger.THEME_GREEN);
+            color = themeChanger.setThemeColor(ThemeChanger.THEME_GREEN);
         } else{
-            color = ThemeChanger.setThemeColor(this, ThemeChanger.THEME_RED);
+            color = themeChanger.setThemeColor(ThemeChanger.THEME_RED);
         }
-        ThemeChanger.setAllTextViewColor(this, findViewById(R.id.parent), color);
+        themeChanger.setAllTextViewColor(findViewById(R.id.parent), color);
 
         CustomTextView txtDescription = (CustomTextView) findViewById(R.id.activity_details_text_description);
         txtDescription.setText(entry.getDescription());

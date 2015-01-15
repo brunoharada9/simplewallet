@@ -38,6 +38,11 @@ public class AboutFragment extends Fragment {
         // Required empty public constructor
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        getActivity().invalidateOptionsMenu();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

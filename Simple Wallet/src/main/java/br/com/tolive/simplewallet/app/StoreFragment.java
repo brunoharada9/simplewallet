@@ -35,6 +35,12 @@ public class StoreFragment extends Fragment{
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        getActivity().invalidateOptionsMenu();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment

@@ -1,15 +1,12 @@
 package br.com.tolive.simplewallet.app;
 
-import android.support.v7.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
-import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.net.Uri;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
@@ -27,11 +24,9 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 
 import br.com.tolive.simplewallet.adapter.NavDrawerListAdapter;
 import br.com.tolive.simplewallet.constants.Constantes;
-import br.com.tolive.simplewallet.db.EntryDAO;
 import br.com.tolive.simplewallet.model.Entry;
 import br.com.tolive.simplewallet.model.NavDrawerItem;
 
@@ -46,7 +41,8 @@ public class MenuActivity extends ActionBarActivity {
     private static final int NAV_LIST = 0;
     public static final int NAV_STORE = 1;
     public static final int NAV_RECOVERY = 2;
-    private static final int NAV_ABOUT = 3;
+    public static final int NAV_SETTINGS = 3;
+    private static final int NAV_ABOUT = 4;
     private static final int DEFAULT_VALUE = -1;
 
     private DrawerLayout mDrawerLayout;
@@ -121,6 +117,8 @@ public class MenuActivity extends ActionBarActivity {
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[NAV_STORE], navMenuIcons.getResourceId(NAV_STORE, DEFAULT_VALUE)));
         // recovery
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[NAV_RECOVERY], navMenuIcons.getResourceId(NAV_RECOVERY, DEFAULT_VALUE)));
+        // recovery
+        navDrawerItems.add(new NavDrawerItem(navMenuTitles[NAV_SETTINGS], navMenuIcons.getResourceId(NAV_SETTINGS, DEFAULT_VALUE)));
         // about
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[NAV_ABOUT], navMenuIcons.getResourceId(NAV_ABOUT, DEFAULT_VALUE)));
 
@@ -279,6 +277,10 @@ public class MenuActivity extends ActionBarActivity {
                 fragment = new RecoveryFragment();
                 actionBarIcon = ICON_NONE;
                 break;
+            case NAV_SETTINGS:
+                fragment = new SettingsFragment();
+                actionBarIcon = ICON_NONE;
+                break;
             case NAV_ABOUT:
                 fragment = new AboutFragment();
                 actionBarIcon = ICON_NONE;
@@ -299,7 +301,7 @@ public class MenuActivity extends ActionBarActivity {
             // update selected item and title, then close the drawer
             mDrawerList.setItemChecked(position, true);
             mDrawerList.setSelection(position);
-            setTitle(Constantes.NAV_DRAWER_ITEMS[position]);
+            setTitle(navMenuTitles[position]);
             mDrawerLayout.closeDrawer(mDrawerList);
         } else {
             // error in creating fragment
@@ -333,7 +335,7 @@ public class MenuActivity extends ActionBarActivity {
     }
 
     private void openSettings() {
-        Intent intent = new Intent(MenuActivity.this, SettingsActivity.class);
+        Intent intent = new Intent(MenuActivity.this, SettingsFragment.class);
         startActivityForResult(intent, REQUEST_SETTINGS);
     }
 
@@ -367,7 +369,7 @@ public class MenuActivity extends ActionBarActivity {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         // if nav drawer is opened, hide the action items
-        boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
+
         switch (actionBarIcon){
             case ICON_SETTINGS:
 //                menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
@@ -375,7 +377,7 @@ public class MenuActivity extends ActionBarActivity {
                 break;
             case ICON_FILTRO:
 //                menu.findItem(R.id.action_settings).setVisible(false);
-                menu.findItem(R.id.action_filtro).setVisible(!drawerOpen);
+                menu.findItem(R.id.action_filtro).setVisible(true);
                 break;
             case ICON_NONE:
 //                menu.findItem(R.id.action_settings).setVisible(false);
