@@ -53,13 +53,13 @@ public class NavDrawerListAdapter extends BaseAdapter {
             convertView = mInflater.inflate(R.layout.drawer_list_item, null);
         }
 
-        ImageView imgIcon = (ImageView) convertView.findViewById(R.id.icon);
+        //ImageView imgIcon = (ImageView) convertView.findViewById(R.id.icon);
         TextView txtTitle = (TextView) convertView.findViewById(R.id.title);
 
         Typeface tf = Typeface.createFromAsset(context.getAssets(), Constantes.FONT_PATH_ROBOTO_CONDENSED_BOLD);
         txtTitle.setTypeface(tf);
 
-        imgIcon.setImageResource(navDrawerItems.get(position).getIcon());
+        //imgIcon.setImageResource(navDrawerItems.get(position).getIcon());
         txtTitle.setText(navDrawerItems.get(position).getTitle());
 
         return convertView;

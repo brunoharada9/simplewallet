@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import br.com.tolive.simplewallet.utils.IabHelper;
 import br.com.tolive.simplewallet.utils.IabResult;
 import br.com.tolive.simplewallet.utils.Inventory;
 import br.com.tolive.simplewallet.utils.Purchase;
+import br.com.tolive.simplewallet.utils.ThemeChanger;
 import br.com.tolive.simplewallet.views.CustomTextView;
 
 
@@ -42,6 +44,12 @@ public class AboutFragment extends Fragment {
     public void onStart() {
         super.onStart();
         getActivity().invalidateOptionsMenu();
+
+        ThemeChanger themeChanger = new ThemeChanger((ActionBarActivity) getActivity());
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constantes.SHARED_PREFERENCES, Context.MODE_PRIVATE);
+        int color = themeChanger.setThemeColor(sharedPreferences.getInt(Constantes.SP_KEY_MONTH, Constantes.SP_MONTH_DEFAULT), null);
+        themeChanger.setMenuColor(getActivity().findViewById(R.id.list_slidermenu), color);
+        themeChanger.setAboutColor(getView(), color);
     }
 
     @Override

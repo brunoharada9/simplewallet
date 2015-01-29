@@ -1,9 +1,12 @@
 package br.com.tolive.simplewallet.app;
 
 import android.app.AlertDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +32,7 @@ import br.com.tolive.simplewallet.db.EntryDAO;
 import br.com.tolive.simplewallet.model.Entry;
 import br.com.tolive.simplewallet.utils.DialogRecoveryMaker;
 import br.com.tolive.simplewallet.utils.EntryConverter;
+import br.com.tolive.simplewallet.utils.ThemeChanger;
 
 /**
  * Created by bruno.carvalho on 10/07/2014.
@@ -44,6 +48,12 @@ public class RecoveryFragment extends Fragment{
     public void onStart() {
         super.onStart();
         getActivity().invalidateOptionsMenu();
+
+        ThemeChanger themeChanger = new ThemeChanger((ActionBarActivity) getActivity());
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constantes.SHARED_PREFERENCES, Context.MODE_PRIVATE);
+        int color = themeChanger.setThemeColor(sharedPreferences.getInt(Constantes.SP_KEY_MONTH, Constantes.SP_MONTH_DEFAULT), null);
+        themeChanger.setMenuColor(getActivity().findViewById(R.id.list_slidermenu), color);
+        themeChanger.setAllViewsColor(getView(), color);
     }
 
     @Override

@@ -71,7 +71,7 @@ public class EntriesListAdapter extends BaseAdapter {
             } else {
                 txtValue.setBackground(context.getResources().getDrawable(R.drawable.txt_value_green));
             }
-            txtDescription.setTextColor(context.getResources().getColor(R.color.primary_green));
+            txtDescription.setTextColor(context.getResources().getColor(R.color.accent_green));
         }
         
         return convertView;

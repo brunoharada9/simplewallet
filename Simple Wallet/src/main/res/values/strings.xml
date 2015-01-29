@@ -30,6 +30,11 @@
     <string name="dialog_recovery_text">Escolha o arquivo</string>
     <string name="dialog_recovery_text_ok">Recuperar</string>
     <string name="dialog_recovery_text_cancel">Cancelar</string>
+    <string name="dialog_details_text_description">Descrição</string>
+    <string name="dialog_details_text_value">Quanto?</string>
+    <string name="dialog_details_text_date">Quando?</string>
+    <string name="dialog_details_text_edit">Editar</string>
+    <string name="dialog_details_text_cancel">Fechar</string>
     <string name="activity_details_text_value_string">Quanto?</string>
     <string name="activity_details_text_date_string">Quando?</string>
     <string name="fragment_settings_text_color_set">Mudar avisos</string>
@@ -88,13 +93,29 @@
 
     <!-- Nav Drawer List Item Icons -->
     <!-- Keep them in order as the titles are in -->
-    <array name="nav_drawer_icons">
+    <array name="nav_drawer_icons_green">
         <!--<item>@drawable/ic_add</item>-->
-        <item>@drawable/ic_list</item>
-        <item>@drawable/ic_store</item>
-        <item>@drawable/ic_recover</item>
-        <item>@drawable/ic_settings</item>
-        <item>@drawable/ic_about</item>
+        <item>@drawable/ic_action_maps_local_atm_green</item>
+        <item>@drawable/ic_action_file_file_upload_green</item>
+        <item>@drawable/ic_action_file_file_download_green</item>
+        <item>@drawable/ic_action_action_settings_green</item>
+        <item>@drawable/ic_action_action_info_outline_green</item>
+    </array>
+    <array name="nav_drawer_icons_yellow">
+        <!--<item>@drawable/ic_add</item>-->
+        <item>@drawable/ic_action_maps_local_atm_yellow</item>
+        <item>@drawable/ic_action_file_file_upload_yellow</item>
+        <item>@drawable/ic_action_file_file_download_yellow</item>
+        <item>@drawable/ic_action_action_settings_yellow</item>
+        <item>@drawable/ic_action_action_info_outline_yellow</item>
+    </array>
+    <array name="nav_drawer_icons_red">
+        <!--<item>@drawable/ic_add</item>-->
+        <item>@drawable/ic_action_maps_local_atm_red</item>
+        <item>@drawable/ic_action_file_file_upload_red</item>
+        <item>@drawable/ic_action_file_file_download_red</item>
+        <item>@drawable/ic_action_action_settings_red</item>
+        <item>@drawable/ic_action_action_info_outline_red</item>
     </array>
 
     <string-array name="spinner_months">

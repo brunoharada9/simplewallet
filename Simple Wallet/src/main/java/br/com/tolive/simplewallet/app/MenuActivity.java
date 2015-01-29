@@ -24,11 +24,13 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import br.com.tolive.simplewallet.adapter.NavDrawerListAdapter;
 import br.com.tolive.simplewallet.constants.Constantes;
 import br.com.tolive.simplewallet.model.Entry;
 import br.com.tolive.simplewallet.model.NavDrawerItem;
+import br.com.tolive.simplewallet.utils.ThemeChanger;
 
 
 public class MenuActivity extends ActionBarActivity {
@@ -38,12 +40,12 @@ public class MenuActivity extends ActionBarActivity {
     private static final int REQUEST_SETTINGS = 0;
     private static final int REQUEST_FILTRO = 1;
     //private static final int NAV_ADD = 0;
-    private static final int NAV_LIST = 0;
+    public static final int NAV_LIST = 0;
     public static final int NAV_STORE = 1;
     public static final int NAV_RECOVERY = 2;
     public static final int NAV_SETTINGS = 3;
-    private static final int NAV_ABOUT = 4;
-    private static final int DEFAULT_VALUE = -1;
+    public static final int NAV_ABOUT = 4;
+    public static final int DEFAULT_VALUE = -1;
 
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
@@ -68,6 +70,7 @@ public class MenuActivity extends ActionBarActivity {
     private OnFiltroApplyListener mListener;
 
     private AlertDialog promoDialog;
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +79,7 @@ public class MenuActivity extends ActionBarActivity {
 
         displayPromo();
 
-        SharedPreferences sharedPreferences = getSharedPreferences(Constantes.SHARED_PREFERENCES, Context.MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences(Constantes.SHARED_PREFERENCES, Context.MODE_PRIVATE);
         //SharedPreferences.Editor editor = sharedPreferences.edit();
         //editor.putBoolean(Constantes.SP_KEY_REMOVE_AD, true);
         //editor.commit();
@@ -92,6 +95,11 @@ public class MenuActivity extends ActionBarActivity {
             adView.setVisibility(View.GONE);
         }
 
+        Calendar calendar = Calendar.getInstance();
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(Constantes.SP_KEY_MONTH, calendar.get(Calendar.MONTH));
+        editor.commit();
+
         setActionBarIcon();
 
         mTitle = mDrawerTitle = getTitle();
@@ -106,7 +114,7 @@ public class MenuActivity extends ActionBarActivity {
 
         // nav drawer icons from resources
         navMenuIcons = getResources()
-                .obtainTypedArray(R.array.nav_drawer_icons);
+                .obtainTypedArray(R.array.nav_drawer_icons_red);
 
         // adding nav drawer items to array
         // add
@@ -237,7 +245,7 @@ public class MenuActivity extends ActionBarActivity {
 //        } else{
 //            actionBar.setIcon(R.drawable.ic_title_green);
 //        }
-        getSupportActionBar().setIcon(R.drawable.ic_menu_white_36dp);
+        getSupportActionBar().setIcon(R.drawable.ic_action_content_create);
     }
 
     /**
@@ -353,14 +361,14 @@ public class MenuActivity extends ActionBarActivity {
         } else if(requestCode == REQUEST_FILTRO){
             if(resultCode == RESULT_OK){
                 if (mListener != null) {
-                    mListener.onFiltroApply((ArrayList<Entry>) data.getSerializableExtra(FiltroActivity.EXTRA_KEY_FILTRO_ENTRIES));
+                    mListener.onFiltroApply((ArrayList<Entry>) data.getSerializableExtra(FiltroActivity.EXTRA_KEY_FILTRO_ENTRIES), data.getIntExtra(FiltroActivity.EXTRA_KEY_FILTRO_MONTH, AdapterView.INVALID_POSITION));
                 }
             }
         }
     }
 
     public interface OnFiltroApplyListener {
-        public void onFiltroApply(ArrayList<Entry> entries);
+        public void onFiltroApply(ArrayList<Entry> entries, int month);
     }
 
     /***
@@ -431,5 +439,15 @@ public class MenuActivity extends ActionBarActivity {
     public void removeAd(){
         AdView adView = (AdView) findViewById(R.id.ad_main);
         adView.setVisibility(View.GONE);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Calendar calendar = Calendar.getInstance();
+        SharedPreferences sharedPreferences = getSharedPreferences(Constantes.SHARED_PREFERENCES, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(Constantes.SP_KEY_MONTH, calendar.get(Calendar.MONTH));
+        editor.commit();
     }
 }

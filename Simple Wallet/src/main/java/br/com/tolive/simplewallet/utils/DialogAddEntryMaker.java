@@ -93,6 +93,7 @@ public class DialogAddEntryMaker {
         TextView cancelButton = (TextView) view.findViewById(R.id.dialog_add_text_cancel);
         okButton.setTypeface(tf);
         cancelButton.setTypeface(tf);
+        ThemeChanger.setDialogTheme(context, view, ThemeChanger.THEME_RED);
 
         if(entry != null){
             editTextDescription.setText(entry.getDescription());
@@ -100,9 +101,11 @@ public class DialogAddEntryMaker {
             if (entry.getType() == Entry.TYPE_GAIN) {
                 radioGain.setChecked(true);
                 radioExpense.setChecked(false);
+                ThemeChanger.setDialogTheme(context, view, ThemeChanger.THEME_GREEN);
             } else {
                 radioGain.setChecked(false);
                 radioExpense.setChecked(true);
+                ThemeChanger.setDialogTheme(context, view, ThemeChanger.THEME_RED);
             }
             String[] split = entry.getDate().split("/");
             datePicker.updateDate(Integer.valueOf(split[DATE_YEAR]), Integer.valueOf(split[DATE_MONTH]) - 1, Integer.valueOf(split[DATE_DAY]));
@@ -179,6 +182,20 @@ public class DialogAddEntryMaker {
             @Override
             public void onClick(View buttonCancel) {
                 DialogAddEntryMaker.this.dialog.cancel();
+            }
+        });
+
+        radioGroupType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId){
+                    case R.id.dialog_add_radiobutton_gain:
+                        ThemeChanger.setDialogTheme(context, view, ThemeChanger.THEME_GREEN);
+                        break;
+                    default:
+                        ThemeChanger.setDialogTheme(context, view, ThemeChanger.THEME_RED);
+                        break;
+                }
             }
         });
 

@@ -1,16 +1,11 @@
 package br.com.tolive.simplewallet.app;
 
-import android.os.Build;
-import android.support.v7.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -18,13 +13,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-
-import com.google.android.gms.internal.en;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -34,14 +25,15 @@ import br.com.tolive.simplewallet.constants.Constantes;
 import br.com.tolive.simplewallet.db.EntryDAO;
 import br.com.tolive.simplewallet.model.Entry;
 import br.com.tolive.simplewallet.utils.DialogAddEntryMaker;
+import br.com.tolive.simplewallet.utils.DialogDetailsMaker;
 import br.com.tolive.simplewallet.utils.ThemeChanger;
 import br.com.tolive.simplewallet.views.CustomTextView;
 import br.com.tolive.simplewallet.views.CustomViewShadow;
 import br.com.tolive.simplewallet.views.FloatingActionButton;
 
 public class EntriesListFragmentFragment extends Fragment implements MenuActivity.OnFiltroApplyListener, View.OnClickListener {
+    public static final int EMPTY = -1;
     private static final int FIRST_ELEMENT = 0;
-    private static final int EMPTY_BACKSTACK = 0;
     private static final int DATE_YEAR = 2;
     private static final int NO_ROWS_AFFECTED = 0;
     public static final String EXTRA_KEY_ENTRY_DETAILS = "entry_details";
@@ -61,6 +53,8 @@ public class EntriesListFragmentFragment extends Fragment implements MenuActivit
     private int prevMonth;
     private int prevYear;
 
+    private ThemeChanger themeChanger;
+
     public EntriesListFragmentFragment() {
     }
 
@@ -74,10 +68,12 @@ public class EntriesListFragmentFragment extends Fragment implements MenuActivit
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         dao = EntryDAO.getInstance(getActivity());
 
-        Calendar calendar = Calendar.getInstance();
-        month = calendar.get(Calendar.MONTH);
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constantes.SHARED_PREFERENCES, Context.MODE_PRIVATE);
+        month = sharedPreferences.getInt(Constantes.SP_KEY_MONTH, Constantes.SP_MONTH_DEFAULT);
 
         entries = dao.getEntry(month);
+
+        themeChanger = new ThemeChanger((ActionBarActivity) getActivity());
 
         View view = inflater.inflate(R.layout.fragment_list, container, false);
 
@@ -94,7 +90,7 @@ public class EntriesListFragmentFragment extends Fragment implements MenuActivit
                 // safe to get height and width here
                 mFabButton = new FloatingActionButton.Builder(getActivity())
                         .withDrawable(
-                                getResources().getDrawable(R.drawable.ic_create_white_36dp))
+                                getResources().getDrawable(R.drawable.ic_action_content_create))
                         .withButtonColor(getResources().getColor(R.color.primary_green), getResources().getColor(R.color.bar_green))
                         .withGravity(Gravity.TOP | Gravity.END)
                         .withMarginsInPixels(0, containerBalance.getBottom(),
@@ -118,10 +114,15 @@ public class EntriesListFragmentFragment extends Fragment implements MenuActivit
         entriesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                Intent detailsIntent = new Intent(getActivity(), DetailsActivity.class);
-                detailsIntent.putExtra(EXTRA_KEY_ENTRY_DETAILS, entries.get(position));
-
-                startActivity(detailsIntent);
+                DialogDetailsMaker dialogDetailsMaker = new DialogDetailsMaker(getActivity());
+                dialogDetailsMaker.setOnClickEditListener(new DialogDetailsMaker.OnClickEditListener() {
+                    @Override
+                    public void onClickEdit(Entry entry) {
+                        createEditDialog(entry);
+                    }
+                });
+                AlertDialog dialog = dialogDetailsMaker.makeDetailsDialog(entries.get(position));
+                dialog.show();
             }
         });
 
@@ -129,22 +130,39 @@ public class EntriesListFragmentFragment extends Fragment implements MenuActivit
     }
 
     @Override
-    public void onFiltroApply(ArrayList<Entry> entries) {
+    public void onFiltroApply(ArrayList<Entry> entries, int month) {
         this.entries = entries;
-        if(entries.size() > 0){
-            month = entries.get(FIRST_ELEMENT).getMonth();
-        }
+        this.month = month;
         refreshList(entries);
     }
 
     private void refreshList(ArrayList<Entry> entries) {
         EntriesListAdapter adapter = new EntriesListAdapter(entries, getActivity());
         entriesList.setAdapter(adapter);
-        ThemeChanger themeChanger = new ThemeChanger((ActionBarActivity) getActivity());
         int color = themeChanger.setThemeColor(month, mFabButton);
-        themeChanger.setAllTextViewColor(getActivity().findViewById(R.id.list_slidermenu), color);
+        themeChanger.setMenuColor(getActivity().findViewById(R.id.list_slidermenu), color);
         containerBalance.setBackgroundColor(getActivity().getResources().getColor(R.color.snow));
-        containerBalance.setColor(color);
+        if(color == getResources().getColor(R.color.primary_red)) {
+            containerBalance.setColor(getResources().getColor(R.color.bar_red));
+        } else if(color == getResources().getColor(R.color.primary_yellow)) {
+            containerBalance.setColor(getResources().getColor(R.color.bar_yellow));
+        } else if(color == getResources().getColor(R.color.primary_green)) {
+            containerBalance.setColor(getResources().getColor(R.color.bar_green));
+        }
+        EntryDAO dao = EntryDAO.getInstance(getActivity());
+        Float gain = dao.getGain(month);
+        Float expense = dao.getExpense(month);
+        textBalanceNumber.setText(String.valueOf(gain-expense));
+        textGainNumber.setText(String.valueOf(gain));
+        textExpenseNumber.setText(String.valueOf(expense));
+        saveTheme();
+    }
+
+    private void saveTheme() {
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constantes.SHARED_PREFERENCES, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(Constantes.SP_KEY_MONTH, month);
+        editor.commit();
     }
 
     @Override
@@ -156,25 +174,7 @@ public class EntriesListFragmentFragment extends Fragment implements MenuActivit
             @Override
             public boolean onMenuItemClick(MenuItem item) {
 
-                prevMonth = entry.getMonth();
-                prevYear = Integer.valueOf(entry.getDate().split("/")[DATE_YEAR]);
-                DialogAddEntryMaker dialogAddEntryMaker = new DialogAddEntryMaker(getActivity());
-                dialogAddEntryMaker.setOnClickOkListener(new DialogAddEntryMaker.OnClickOkListener() {
-                    @Override
-                    public void onClickOk(Entry entry) {
-                        if (dao.update(entry) > NO_ROWS_AFFECTED) {
-                            Toast.makeText(getActivity(), R.string.dialog_edit_sucess, Toast.LENGTH_SHORT).show();
-                            if (prevMonth != entry.getMonth() || prevYear != Integer.valueOf(entry.getDate().split("/")[DATE_YEAR])) {
-                                entries.remove(entry);
-                            }
-                            refreshList(entries);
-                        } else {
-                            Toast.makeText(getActivity(), R.string.dialog_edit_error, Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-                AlertDialog dialog = dialogAddEntryMaker.makeAddDialog(entry);
-                dialog.show();
+                createEditDialog(entry);
                 return false;
             }
         });
@@ -190,6 +190,28 @@ public class EntriesListFragmentFragment extends Fragment implements MenuActivit
                 return false;
             }
         });
+    }
+
+    private void createEditDialog(Entry entry) {
+        prevMonth = entry.getMonth();
+        prevYear = Integer.valueOf(entry.getDate().split("/")[DATE_YEAR]);
+        DialogAddEntryMaker dialogAddEntryMaker = new DialogAddEntryMaker(getActivity());
+        dialogAddEntryMaker.setOnClickOkListener(new DialogAddEntryMaker.OnClickOkListener() {
+            @Override
+            public void onClickOk(Entry entry) {
+                if (dao.update(entry) > NO_ROWS_AFFECTED) {
+                    Toast.makeText(getActivity(), R.string.dialog_edit_sucess, Toast.LENGTH_SHORT).show();
+                    if (prevMonth != entry.getMonth() || prevYear != Integer.valueOf(entry.getDate().split("/")[DATE_YEAR])) {
+                        entries.remove(entry);
+                    }
+                    refreshList(entries);
+                } else {
+                    Toast.makeText(getActivity(), R.string.dialog_edit_error, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        AlertDialog dialog = dialogAddEntryMaker.makeAddDialog(entry);
+        dialog.show();
     }
 
     @Override

@@ -1,6 +1,9 @@
 package br.com.tolive.simplewallet.constants;
 
+import java.util.Calendar;
+
 import br.com.tolive.simplewallet.app.R;
+import br.com.tolive.simplewallet.utils.ThemeChanger;
 
 /**
  * Created by bruno.carvalho on 30/06/2014.
@@ -23,6 +26,8 @@ public class Constantes {
     public static final int SP_BALANCE_TYPE_DEFAULT = BALANCE_TYPE_TOTAL;
     public static final String SP_KEY_PROMO_DIALOG = "promo_dialog";
     public static final boolean SP_PROMO_DIALOG_DEFAULT = true;
+    public static final String SP_KEY_MONTH = "month";
+    public static final int SP_MONTH_DEFAULT = Calendar.getInstance().get(Calendar.MONTH);
 
     public static final String PACKAGE_TOLIVE_HEALTHY = "br.gmob.tolivehealthy";
     public static final String PACKAGE_GASTOS_SIMPLES_PRO = "br.com.tolive.simplewalletpro";

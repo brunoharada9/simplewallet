@@ -16,6 +16,7 @@
         android:inputType="textMultiLine"
         android:hint="@string/dialog_add_edittext_description"
         android:ems="10"
+        android:textStyle="bold"
         android:id="@+id/dialog_add_edittext_description"
         android:layout_gravity="center_horizontal" />
 
@@ -24,6 +25,7 @@
         android:layout_height="wrap_content"
         android:inputType="numberDecimal"
         android:ems="10"
+        android:textStyle="bold"
         android:id="@+id/dialog_add_edittext_value"
         android:hint="@string/dialog_add_edittext_value"
         android:layout_gravity="center_horizontal" />
@@ -39,6 +41,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/dialog_add_radiobutton_expense"
+        android:textColor="@color/primary_red"
+        android:textStyle="bold"
         android:id="@+id/dialog_add_radiobutton_expense"
         android:checked="true"
         android:layout_gravity="center_horizontal" />
@@ -47,6 +51,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/dialog_add_radiobutton_gain"
+        android:textColor="@color/primary_green"
+        android:textStyle="bold"
         android:id="@+id/dialog_add_radiobutton_gain"
         android:layout_gravity="center_horizontal" />
 
@@ -80,6 +86,7 @@
             android:layout_weight="4"
             android:layout_height="2dp"
             android:background="@color/gray"
+            android:id="@+id/dialog_add_divisor_choose_date_1"
             android:layout_gravity="center_vertical"
             />
 
@@ -87,10 +94,10 @@
             app:font="@string/app_font"
             android:layout_width="0dp"
             android:layout_weight="2"
-            android:layout_height="20dp"
+            android:layout_height="50dp"
             android:textSize="12sp"
             android:textColor="@color/gray"
-            android:gravity="center_horizontal"
+            android:gravity="center"
             android:id="@+id/dialog_add_text_choose"
             android:text="@string/dialog_add_text_choose"/>
 
@@ -99,6 +106,7 @@
             android:layout_weight="3"
             android:layout_height="2dp"
             android:background="@color/gray"
+            android:id="@+id/dialog_add_divisor_choose_date_2"
             android:layout_gravity="center_vertical"
             />
 
@@ -107,6 +115,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:src="@android:drawable/ic_menu_more"
+            android:id="@+id/dialog_add_image_choose"
             android:contentDescription="@android:string/untitled"/>
     </LinearLayout>
 
@@ -122,11 +131,10 @@
             android:layout_weight="1"
             android:layout_height="60dp"
             android:textSize="20sp"
-            android:textColor="@color/snow"
-            android:background="@color/gray"
             android:gravity="center"
             android:id="@+id/dialog_add_text_cancel"
             android:text="@string/dialog_add_text_cancel"
+            android:textColor="@color/snow"
             android:layout_margin="1dp"/>
 
         <br.com.tolive.simplewallet.views.CustomTextView
@@ -135,11 +143,10 @@
             android:layout_weight="1"
             android:layout_height="60dp"
             android:textSize="20sp"
-            android:textColor="@color/snow"
-            android:background="@color/gray"
             android:gravity="center"
             android:id="@+id/dialog_add_text_ok"
             android:text="@string/dialog_add_text_ok"
+            android:textColor="@color/snow"
             android:layout_margin="1dp"/>
 
     </LinearLayout>

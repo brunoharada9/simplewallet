@@ -1,12 +1,12 @@
 package br.com.tolive.simplewallet.app;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,10 +27,12 @@ import br.com.tolive.simplewallet.utils.ThemeChanger;
 
 public class FiltroActivity extends ActionBarActivity {
     public static final String EXTRA_KEY_FILTRO_ENTRIES = "entries_filtro";
+    public static final String EXTRA_KEY_FILTRO_MONTH = "month_filtro";
     Spinner spinnerMonth;
     Spinner spinnerYear;
     private String[] months;
     private String[] years;
+    int month;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +52,8 @@ public class FiltroActivity extends ActionBarActivity {
             adView.setVisibility(View.GONE);
         }
 
+        month = sharedPreferences.getInt(Constantes.SP_KEY_MONTH, Constantes.SP_MONTH_DEFAULT);
+
         months = getResources().getStringArray(R.array.spinner_months);
         years = getResources().getStringArray(R.array.spinner_years);
 
@@ -58,14 +62,30 @@ public class FiltroActivity extends ActionBarActivity {
         Calendar calendar = Calendar.getInstance();
 
         ThemeChanger themeChanger = new ThemeChanger(this);
-        int color = themeChanger.setThemeColor(calendar.get(Calendar.MONTH), null);
-        themeChanger.setAllTextViewColor(findViewById(R.id.parent), color);
-        themeChanger.setAllTextViewColor(findViewById(R.id.list_slidermenu), color);
+        int color = themeChanger.setThemeColor(month, null);
+        themeChanger.setAllViewsColor(findViewById(R.id.parent), color);
+        themeChanger.setAllViewsColor(findViewById(R.id.list_slidermenu), color);
 
         CustomSpinnerAdapter adapterMonth = new CustomSpinnerAdapter(this, R.layout.simple_spinner_item, months, color);
         adapterMonth.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
         spinnerMonth.setAdapter(adapterMonth);
-        spinnerMonth.setSelection(calendar.get(Calendar.MONTH));
+        Log.d("TAG", "month " + month);
+        spinnerMonth.setSelection(month);
+
+        /*spinnerMonth.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                ThemeChanger themeChanger = new ThemeChanger(FiltroActivity.this);
+                int color = themeChanger.setThemeColor(position, null);
+                themeChanger.setAllViewsColor(findViewById(R.id.parent), color);
+                themeChanger.setAllViewsColor(findViewById(R.id.list_slidermenu), color);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });*/
 
         CustomSpinnerAdapter adapterYear = new CustomSpinnerAdapter(this, R.layout.simple_spinner_item, years, color);
         adapterYear.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
@@ -74,7 +94,7 @@ public class FiltroActivity extends ActionBarActivity {
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setIcon(R.drawable.ic_back);
+        actionBar.setIcon(R.drawable.ic_action_hardware_keyboard_backspace);
     }
 
     private int getYear(int currentYear, String[] years) {
@@ -107,6 +127,7 @@ public class FiltroActivity extends ActionBarActivity {
 
             Intent returnIntent = new Intent();
             returnIntent.putExtra(EXTRA_KEY_FILTRO_ENTRIES, entries);
+            returnIntent.putExtra(EXTRA_KEY_FILTRO_MONTH, spinnerMonth.getSelectedItemPosition());
             setResult(RESULT_OK, returnIntent);
             finish();
             return true;

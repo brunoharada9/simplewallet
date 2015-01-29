@@ -20,6 +20,7 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
 import br.com.tolive.simplewallet.constants.Constantes;
+import br.com.tolive.simplewallet.utils.ThemeChanger;
 import br.com.tolive.simplewallet.views.CustomRadioButton;
 
 
@@ -43,6 +44,13 @@ public class SettingsFragment extends Fragment {
     public void onStart() {
         super.onStart();
         getActivity().invalidateOptionsMenu();
+
+
+        ThemeChanger themeChanger = new ThemeChanger((ActionBarActivity) getActivity());
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constantes.SHARED_PREFERENCES, Context.MODE_PRIVATE);
+        int color = themeChanger.setThemeColor(sharedPreferences.getInt(Constantes.SP_KEY_MONTH, Constantes.SP_MONTH_DEFAULT), null);
+        themeChanger.setMenuColor(getActivity().findViewById(R.id.list_slidermenu), color);
+        themeChanger.setConfigColor(getView(), color);
     }
 
 
@@ -90,7 +98,7 @@ public class SettingsFragment extends Fragment {
 
         ActionBar actionBar = ((ActionBarActivity) getActivity()).getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setIcon(R.drawable.ic_back);
+        actionBar.setIcon(R.drawable.ic_action_hardware_keyboard_backspace);
 
         return view;
     }
