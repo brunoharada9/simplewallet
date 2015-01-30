@@ -3,7 +3,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal" android:layout_width="match_parent"
-    android:layout_height="wrap_content" android:padding="5dp"
+    android:layout_height="wrap_content" android:padding="@dimen/dialog_margin"
     android:background="@color/snow">
 
     <RelativeLayout
@@ -27,7 +27,8 @@
             android:textColor="@color/gray"
             android:gravity="center_vertical"
             android:layout_toRightOf="@id/image"
-            android:textSize="24sp"
+            android:layout_toEndOf="@id/image"
+            android:textSize="@dimen/app_font_title"
             android:paddingLeft="2dp"
             android:text="@string/fragment_about_gastossimplespro_text" />
 

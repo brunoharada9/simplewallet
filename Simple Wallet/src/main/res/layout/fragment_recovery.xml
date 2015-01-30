@@ -7,9 +7,10 @@ android:layout_height="match_parent"
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingRight="10dp"
-    android:paddingLeft="10dp"
-    android:paddingBottom="10dp"
+    android:paddingEnd="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingStart="@dimen/activity_horizontal_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
     android:background="@color/snow"
     android:orientation="vertical">
 
@@ -19,12 +20,12 @@ android:layout_height="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/gray"
         android:layout_gravity="center_vertical"
-        android:textSize="35sp"
+        android:textSize="@dimen/app_font_title"
         android:text="@string/fragment_recovery_text_options" />
 
     <br.com.tolive.simplewallet.views.CustomView
         android:layout_width="match_parent"
-        android:layout_height="4dp"
+        android:layout_height="@dimen/app_divisor_medium"
         android:background="@color/gray"
         />
 
@@ -42,9 +43,9 @@ android:layout_height="match_parent"
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:textSize="30sp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
+            android:textSize="28sp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
             android:text="@string/fragment_recovery_text_sdcard" />
 
         <ImageView
@@ -53,8 +54,8 @@ android:layout_height="match_parent"
             android:layout_height="72dp"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginRight="10dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
             android:contentDescription="@android:string/untitled"
             android:layout_gravity="end"/>
 
@@ -62,7 +63,7 @@ android:layout_height="match_parent"
 
     <br.com.tolive.simplewallet.views.CustomView
         android:layout_width="match_parent"
-        android:layout_height="2dp"
+        android:layout_height="@dimen/app_divisor_small"
         android:background="@color/gray"
         />
 

@@ -21,16 +21,17 @@ import br.com.tolive.simplewallet.app.R;
 public class CustomSpinnerAdapterFile extends ArrayAdapter<File> {
     private Activity context;
     private ArrayList<File> data;
-    LayoutInflater inflater;
+    private LayoutInflater inflater;
+    private int color;
 
     /*************  CustomAdapter Constructor *****************/
-    public CustomSpinnerAdapterFile(Activity context, int textViewResourceId, ArrayList<File> objects) {
+    public CustomSpinnerAdapterFile(Activity context, int textViewResourceId, ArrayList<File> objects, int color) {
         super(context, textViewResourceId, objects);
         /********** Take passed values **********/
         this.context = context;
         this.data     = objects;
-        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
+        this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.color = color;
     }
 
     @Override
@@ -47,16 +48,17 @@ public class CustomSpinnerAdapterFile extends ArrayAdapter<File> {
         if(convertView == null) {
             convertView = inflater.inflate(R.layout.simple_spinner_item, parent, false);
         }
+        convertView.setBackgroundColor(color);
 
         TextView label        = (TextView) convertView.findViewById(android.R.id.text1);
         Typeface tf = Typeface.createFromAsset(context.getAssets(), "fonts/" + context.getResources().getString(R.string.app_font));
         label.setTypeface(tf);
-        label.setTextColor(context.getResources().getColor(R.color.gray));
-        label.setBackgroundColor(context.getResources().getColor(R.color.snow));
+        label.setTextColor(context.getResources().getColor(R.color.snow));
+        //label.setBackgroundColor(color);
         final DisplayMetrics metrics;
         metrics = new DisplayMetrics();
         context.getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        label.setTextSize(getDPI(18, metrics));
+        label.setTextSize(getDPI(8, metrics));
 
         String name;
         File file = data.get(position);

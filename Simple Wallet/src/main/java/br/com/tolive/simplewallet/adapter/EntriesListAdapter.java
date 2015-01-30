@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,7 +57,8 @@ public class EntriesListAdapter extends BaseAdapter {
         TextView txtDescription = (TextView) convertView.findViewById(R.id.textView_list_description);
         TextView txtValue = (TextView) convertView.findViewById(R.id.textView_list_value);
         txtDescription.setText(entry.getDescription());
-        txtValue.setText(String.format("%.2f", entry.getValue()));
+        String formatted = NumberFormat.getCurrencyInstance().format((entry.getValue()));
+        txtValue.setText(String.format(formatted));
 
         if(entry.getType() == Entry.TYPE_EXPENSE){
             if(Build.VERSION.SDK_INT < 16) {

@@ -2,25 +2,30 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/snow">
 
     <br.com.tolive.simplewallet.views.CustomViewShadow
-        android:orientation="vertical" android:layout_width="match_parent"
-        android:layout_height="130dp" android:id="@+id/fragment_list_container_balance">
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:id="@+id/fragment_list_container_balance">
 
         <LinearLayout
-            android:orientation="horizontal" android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <br.com.tolive.simplewallet.views.CustomTextView
                 app:font="@string/app_font"
                 android:layout_width="0dp"
-                android:layout_weight="2"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:textSize="35sp"
-                android:paddingLeft="10dp"
+                android:textSize="36sp"
                 android:singleLine="true"
                 android:textColor="@color/snow"
                 android:layout_gravity="center_vertical"
@@ -29,13 +34,12 @@
             <br.com.tolive.simplewallet.views.CustomTextView
                 app:font="@string/app_font"
                 android:layout_width="0dp"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:layout_height="wrap_content"
-                android:textSize="25sp"
+                android:textSize="24sp"
                 android:textColor="@color/snow"
                 android:layout_gravity="center_vertical"
-                android:gravity="right"
-                android:paddingRight="10dp"
+                android:gravity="end"
                 android:id="@+id/fragment_list_text_balance_number" />
 
         </LinearLayout>
@@ -49,8 +53,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="2"
                 android:layout_height="wrap_content"
-                android:textSize="12sp"
-                android:paddingLeft="12dp"
+                android:textSize="14sp"
                 android:singleLine="true"
                 android:textColor="@color/snow"
                 android:layout_gravity="center_vertical"
@@ -61,11 +64,10 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:textColor="@color/snow"
                 android:layout_gravity="center_vertical"
-                android:gravity="right"
-                android:paddingRight="10dp"
+                android:gravity="end"
                 android:id="@+id/fragment_list_text_gain_number" />
 
         </LinearLayout>
@@ -79,8 +81,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="2"
                 android:layout_height="wrap_content"
-                android:textSize="12sp"
-                android:paddingLeft="12dp"
+                android:textSize="14sp"
                 android:singleLine="true"
                 android:textColor="@color/snow"
                 android:layout_gravity="center_vertical"
@@ -91,11 +92,10 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:textColor="@color/snow"
                 android:layout_gravity="center_vertical"
-                android:gravity="right"
-                android:paddingRight="10dp"
+                android:gravity="end"
                 android:id="@+id/fragment_list_text_expense_number" />
 
         </LinearLayout>
@@ -112,6 +112,10 @@
         android:layout_height="wrap_content"
         android:id="@+id/fragment_list_list_entries"
         android:layout_gravity="center_horizontal"
+        android:paddingEnd="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingStart="@dimen/activity_horizontal_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
         />
 
 </LinearLayout>

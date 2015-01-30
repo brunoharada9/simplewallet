@@ -18,7 +18,7 @@ public class CustomSpinnerAdapter extends ArrayAdapter<String> {
     private Context context;
     private String[] data;
     private int color;
-    LayoutInflater inflater;
+    private LayoutInflater inflater;
 
     /*************  CustomAdapter Constructor *****************/
     public CustomSpinnerAdapter( Context context, int textViewResourceId, String[] objects, int color) {
@@ -27,7 +27,7 @@ public class CustomSpinnerAdapter extends ArrayAdapter<String> {
         this.context = context;
         this.data     = objects;
         this.color = color;
-        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override

@@ -3,6 +3,8 @@ package br.com.tolive.simplewallet.utils;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Spinner;
@@ -12,6 +14,7 @@ import java.util.ArrayList;
 
 import br.com.tolive.simplewallet.adapter.CustomSpinnerAdapterFile;
 import br.com.tolive.simplewallet.app.R;
+import br.com.tolive.simplewallet.constants.Constantes;
 import br.com.tolive.simplewallet.views.CustomTextView;
 
 /**
@@ -52,9 +55,14 @@ public class DialogRecoveryMaker {
         LayoutInflater inflater = (LayoutInflater)   context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View view = inflater.inflate(R.layout.dialog_recovery, null);
 
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Constantes.SHARED_PREFERENCES, Context.MODE_PRIVATE);
+        int month = sharedPreferences.getInt(Constantes.SP_KEY_MONTH, Constantes.SP_MONTH_DEFAULT);
+
+        int color = ThemeChanger.getThemeColor(context, month);
+
         final Spinner spinnerFiles = (Spinner) view.findViewById(R.id.dialog_recovery_spinner_db);
 
-        CustomSpinnerAdapterFile adapterFiles = new CustomSpinnerAdapterFile(context, R.layout.simple_spinner_item, fileList);
+        CustomSpinnerAdapterFile adapterFiles = new CustomSpinnerAdapterFile(context, R.layout.simple_spinner_item, fileList, color);
         adapterFiles.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
         spinnerFiles.setAdapter(adapterFiles);
         spinnerFiles.setSelection(SPINNER_SELECTED_DEFAULT);
@@ -80,6 +88,12 @@ public class DialogRecoveryMaker {
                 DialogRecoveryMaker.this.dialog.cancel();
             }
         });
+
+        if (color == context.getResources().getColor(R.color.primary_green)) {
+            ThemeChanger.setDialogTheme(context, view, ThemeChanger.THEME_GREEN);
+        } else {
+            ThemeChanger.setDialogTheme(context, view, ThemeChanger.THEME_RED);
+        }
 
         dialog.setView(view);
         return dialog.create();

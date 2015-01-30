@@ -17,6 +17,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -94,7 +95,7 @@ public class EntriesListFragmentFragment extends Fragment implements MenuActivit
                         .withButtonColor(getResources().getColor(R.color.primary_green), getResources().getColor(R.color.bar_green))
                         .withGravity(Gravity.TOP | Gravity.END)
                         .withMarginsInPixels(0, containerBalance.getBottom(),
-                                convertToPixels(6), 0).create(container);
+                                convertToPixels(16), 0).create(container);
                 mFabButton.setOnClickListener(EntriesListFragmentFragment.this);
                 refreshList(entries);
             }
@@ -152,9 +153,12 @@ public class EntriesListFragmentFragment extends Fragment implements MenuActivit
         EntryDAO dao = EntryDAO.getInstance(getActivity());
         Float gain = dao.getGain(month);
         Float expense = dao.getExpense(month);
-        textBalanceNumber.setText(String.valueOf(gain-expense));
-        textGainNumber.setText(String.valueOf(gain));
-        textExpenseNumber.setText(String.valueOf(expense));
+        String formatted = NumberFormat.getCurrencyInstance().format((gain-expense));
+        textBalanceNumber.setText(String.valueOf(formatted));
+        formatted = NumberFormat.getCurrencyInstance().format((gain));
+        textGainNumber.setText(String.valueOf(formatted));
+        formatted = NumberFormat.getCurrencyInstance().format((expense));
+        textExpenseNumber.setText(String.valueOf(formatted));
         saveTheme();
     }
 

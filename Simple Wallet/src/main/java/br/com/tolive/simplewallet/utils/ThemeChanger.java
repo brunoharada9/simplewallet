@@ -46,7 +46,19 @@ public class ThemeChanger {
         this.icon_red = resources.getDrawable(R.drawable.ic_action_editor_attach_money_red);
     }
 
-    public static void setDialogTheme(Context context, View view, int theme){
+    public static int setDialogTheme(Context context, View view, int theme){
+        int color;
+        switch (theme){
+            case THEME_GREEN:
+                color = context.getResources().getColor(R.color.primary_green);
+                break;
+            case THEME_YELLOW:
+                color = context.getResources().getColor(R.color.primary_yellow);
+                break;
+            default:
+                color = context.getResources().getColor(R.color.primary_red);
+                break;
+        }
         try {
             if (view instanceof ViewGroup) {
                 ViewGroup vg = (ViewGroup) view;
@@ -55,59 +67,21 @@ public class ThemeChanger {
                     setDialogTheme(context, child, theme);
                 }
             } else if (view instanceof CustomTextView || view instanceof TextView) {
-                if(view.getId() == R.id.dialog_add_text_cancel || view.getId() == R.id.dialog_add_text_ok || view.getId() == R.id.dialog_details_text_edit || view.getId() == R.id.dialog_details_text_cancel){
-                    switch (theme){
-                        case THEME_GREEN:
-                            view.setBackgroundColor(context.getResources().getColor(R.color.primary_green));
-                            break;
-                        case THEME_YELLOW:
-                            view.setBackgroundColor(context.getResources().getColor(R.color.primary_yellow));
-                            break;
-                        default:
-                            view.setBackgroundColor(context.getResources().getColor(R.color.primary_red));
-                            break;
-                    }
+                if(view.getId() == R.id.dialog_add_text_cancel || view.getId() == R.id.dialog_add_text_ok
+                        || view.getId() == R.id.dialog_details_text_edit || view.getId() == R.id.dialog_details_text_cancel
+                        || view.getId() == R.id.dialog_recovery_text_cancel || view.getId() == R.id.dialog_recovery_text_ok){
+                    view.setBackgroundColor(color);
                 } else if( view.getId() == R.id.dialog_details_text_description || view.getId() == R.id.dialog_details_value || view.getId() == R.id.dialog_details_date
                         || view.getId() == R.id.dialog_add_text_choose || view.getId() == R.id.dialog_add_edittext_value || view.getId() == R.id.dialog_add_edittext_description){
-                    switch (theme){
-                        case THEME_GREEN:
-                            ((TextView) view).setTextColor(context.getResources().getColor(R.color.primary_green));
-                            break;
-                        case THEME_YELLOW:
-                            ((TextView) view).setTextColor(context.getResources().getColor(R.color.primary_yellow));
-                            break;
-                        default:
-                            ((TextView) view).setTextColor(context.getResources().getColor(R.color.primary_red));
-                            break;
-                    }
+                    ((TextView) view).setTextColor(color);
                 } else if(view.getId() == R.id.dialog_details_description || view.getId() == R.id.dialog_details_text_value || view.getId() == R.id.dialog_details_text_date){
-                    switch (theme){
-                        case THEME_GREEN:
-                            ((TextView) view).setTextColor(context.getResources().getColor(R.color.accent_green));
-                            break;
-                        case THEME_YELLOW:
-                            ((TextView) view).setTextColor(context.getResources().getColor(R.color.accent_yellow));
-                            break;
-                        default:
-                            ((TextView) view).setTextColor(context.getResources().getColor(R.color.accent_red));
-                            break;
-                    }
+                    ((TextView) view).setTextColor(color);
                 }
             } else if (view instanceof CustomView) {
                 if(view.getId() == R.id.dialog_details_divisor_1 || view.getId() == R.id.dialog_details_divisor_2
                         || view.getId() == R.id.dialog_details_divisor_3 || view.getId() == R.id.dialog_details_divisor_4
                         || view.getId() == R.id.dialog_add_divisor_choose_date_1 || view.getId() == R.id.dialog_add_divisor_choose_date_2) {
-                    switch (theme) {
-                        case THEME_GREEN:
-                            view.setBackgroundColor(context.getResources().getColor(R.color.primary_green));
-                            break;
-                        case THEME_YELLOW:
-                            view.setBackgroundColor(context.getResources().getColor(R.color.primary_yellow));
-                            break;
-                        default:
-                            view.setBackgroundColor(context.getResources().getColor(R.color.primary_red));
-                            break;
-                    }
+                     view.setBackgroundColor(color);
                 }
             } else if (view instanceof ImageView){
                 ImageView image = (ImageView) view;
@@ -126,36 +100,27 @@ public class ThemeChanger {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+        return color;
     }
 
-    public int setThemeColor(int color){
-        ActionBar actionBar = context.getSupportActionBar();
-        if(color == THEME_RED){
-            //actionBar.setIcon(R.drawable.ic_title_red);
-            color = resources.getColor(R.color.bar_red);
-            actionBar.setBackgroundDrawable(resources.getDrawable(R.drawable.actionbar_background_red));
-            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
-                context.getWindow().setStatusBarColor(resources.getColor(R.color.primary_dark_red));
-                context.getWindow().setNavigationBarColor(resources.getColor(R.color.primary_red));
-            }
-        } else if(color == THEME_YELLOW){
-            //actionBar.setIcon(R.drawable.ic_title_yellow);
-            color = resources.getColor(R.color.bar_yellow);
-            actionBar.setBackgroundDrawable(resources.getDrawable(R.drawable.actionbar_background_yellow));
-            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
-                context.getWindow().setStatusBarColor(resources.getColor(R.color.primary_dark_yellow));
-                context.getWindow().setNavigationBarColor(resources.getColor(R.color.primary_yellow));
-            }
-        } else {
-            //actionBar.setIcon(R.drawable.ic_title_green);
-            color = resources.getColor(R.color.bar_green);
-            actionBar.setBackgroundDrawable(resources.getDrawable(R.drawable.actionbar_background_green));
-            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
-                context.getWindow().setStatusBarColor(resources.getColor(R.color.primary_dark_green));
-                context.getWindow().setNavigationBarColor(resources.getColor(R.color.primary_green));
-            }
+    public static int getThemeColor(Context context, int month){
+        EntryDAO dao = EntryDAO.getInstance(context);
+        Float gain = dao.getGain(month);
+        Float expense = dao.getExpense(month);
+
+        Resources resources = context.getResources();
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Constantes.SHARED_PREFERENCES, Context.MODE_PRIVATE);
+        float yellow = sharedPreferences.getFloat(Constantes.SP_KEY_YELLOW, Constantes.SP_YELLOW_DEFAULT);
+        float red = sharedPreferences.getFloat(Constantes.SP_KEY_RED, Constantes.SP_RED_DEFAULT);
+
+        if((gain - expense) < red){
+            return resources.getColor(R.color.primary_red);
+        } else if((gain - expense) < yellow){
+            return resources.getColor(R.color.primary_yellow);
+        } else{
+            return resources.getColor(R.color.primary_green);
         }
-        return color;
     }
 
     public int setThemeColor(int month, FloatingActionButton mFabButton){

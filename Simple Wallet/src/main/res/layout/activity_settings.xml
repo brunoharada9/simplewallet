@@ -1,198 +1,179 @@
-<LinearLayout
-    android:orientation="vertical"
-    android:layout_height="match_parent"
+<ScrollView
     android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/snow"
     xmlns:googleads="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     >
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        >
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingEnd="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingStart="@dimen/activity_horizontal_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:orientation="vertical">
+
+        <br.com.tolive.simplewallet.views.CustomTextView
+            googleads:font="@string/app_font"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/gray"
+            android:layout_gravity="center_vertical"
+            android:textSize="@dimen/app_font_title"
+            android:text="@string/fragment_settings_text_color_set" />
+
+        <br.com.tolive.simplewallet.views.CustomView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/app_divisor_medium"
+            android:background="@color/gray"
+            />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingRight="10dp"
-            android:paddingLeft="10dp"
-            android:paddingBottom="10dp"
-            android:orientation="vertical">
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="1dp"
+            android:id="@+id/fragment_settings_container_set_warning_green"
+            android:orientation="horizontal">
 
             <br.com.tolive.simplewallet.views.CustomTextView
                 googleads:font="@string/app_font"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="7"
                 android:layout_height="wrap_content"
-                android:textColor="@color/gray"
-                android:layout_gravity="center_vertical"
-                android:textSize="35sp"
-                android:text="@string/fragment_settings_text_color_set" />
-
-            <br.com.tolive.simplewallet.views.CustomView
-                android:layout_width="match_parent"
-                android:layout_height="4dp"
-                android:background="@color/gray"
-                />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:layout_marginBottom="1dp"
-                android:id="@+id/fragment_settings_container_set_warning_green"
-                android:orientation="horizontal">
-
-                <br.com.tolive.simplewallet.views.CustomTextView
-                    googleads:font="@string/app_font"
-                    android:layout_width="0dp"
-                    android:layout_weight="7"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/snow"
-                    android:background="@color/green"
-                    android:layout_gravity=""
-                    android:textSize="30sp"
-                    android:paddingLeft="5dp"
-                    android:text="@string/fragment_settings_text_color_set_green" />
-
-                <br.com.tolive.simplewallet.views.CustomTextView
-                    googleads:font="@string/app_font"
-                    android:layout_width="0dp"
-                    android:layout_weight="3"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/snow"
-                    android:background="@color/green"
-                    android:layout_gravity="center_vertical"
-                    android:textSize="30sp"
-                    android:gravity="end"
-                    android:paddingRight="10dp"
-                    android:id="@+id/fragment_settings_text_color_set_percent_green_number"
-                    />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
-                android:layout_marginBottom="1dp"
-                android:id="@+id/fragment_settings_container_set_warning_yellow"
-                android:orientation="horizontal">
-
-                <br.com.tolive.simplewallet.views.CustomTextView
-                    googleads:font="@string/app_font"
-                    android:layout_width="0dp"
-                    android:layout_weight="7"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/snow"
-                    android:background="@color/yellow"
-                    android:layout_gravity="center_vertical"
-                    android:textSize="30sp"
-                    android:paddingLeft="5dp"
-                    android:text="@string/fragment_settings_text_color_set_yellow" />
-
-                <EditText
-                    android:id="@+id/fragment_settings_edit_yellow"
-                    android:inputType="number"
-                    android:layout_width="0dp"
-                    android:layout_weight="3"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
-                android:layout_marginBottom="2dp"
-                android:id="@+id/fragment_settings_container_set_warning_red"
-                android:orientation="horizontal">
-
-                <br.com.tolive.simplewallet.views.CustomTextView
-                    googleads:font="@string/app_font"
-                    android:layout_width="0dp"
-                    android:layout_weight="7"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/snow"
-                    android:background="@color/red"
-                    android:layout_gravity="center_vertical"
-                    android:textSize="30sp"
-                    android:paddingLeft="5dp"
-                    android:text="@string/fragment_settings_text_color_set_red" />
-
-                <EditText
-                    android:id="@+id/fragment_settings_edit_red"
-                    android:inputType="number"
-                    android:layout_width="0dp"
-                    android:layout_weight="3"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    />
-
-            </LinearLayout>
-
-            <br.com.tolive.simplewallet.views.CustomView
-                android:layout_width="match_parent"
-                android:layout_height="5dp"
-                android:background="@color/snow"
-                />
+                android:textColor="@color/snow"
+                android:background="@color/green"
+                android:layout_gravity=""
+                android:textSize="@dimen/app_font_item_big"
+                android:paddingLeft="@dimen/app_padding_small"
+                android:text="@string/fragment_settings_text_color_set_green" />
 
             <br.com.tolive.simplewallet.views.CustomTextView
                 googleads:font="@string/app_font"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="3"
                 android:layout_height="wrap_content"
-                android:textColor="@color/gray"
+                android:textColor="@color/snow"
+                android:background="@color/green"
                 android:layout_gravity="center_vertical"
-                android:textSize="35sp"
-                android:text="@string/fragment_settings_text_balance_type"/>
-
-            <br.com.tolive.simplewallet.views.CustomView
-                android:layout_width="match_parent"
-                android:layout_height="4dp"
-                android:background="@color/gray"
+                android:textSize="@dimen/app_font_item_big"
+                android:gravity="end"
+                android:paddingRight="@dimen/app_padding_small"
+                android:id="@+id/fragment_settings_text_color_set_percent_green_number"
                 />
-
-            <RadioGroup
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:id="@+id/fragment_settings_radio_group_balance_type"
-                android:gravity="left">
-
-                <br.com.tolive.simplewallet.views.CustomRadioButton
-                    googleads:font="@string/app_font"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/fragment_settings_radio_balance_type_total"
-                    android:id="@+id/fragment_settings_radio_balance_type_total"
-                    android:textSize="30sp"
-                    android:textColor="@color/gray"
-                    android:layout_gravity="left" />
-
-                <br.com.tolive.simplewallet.views.CustomRadioButton
-                    googleads:font="@string/app_font"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/fragment_settings_radio_balance_type_month"
-                    android:id="@+id/fragment_settings_radio_balance_type_month"
-                    android:textSize="30sp"
-                    android:checked="true"
-                    android:textColor="@color/gray"
-                    android:layout_gravity="left" />
-
-            </RadioGroup>
 
         </LinearLayout>
-    </ScrollView>
 
-    <com.google.android.gms.ads.AdView
-        android:id="@+id/ad_settings"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        googleads:adSize="SMART_BANNER"
-        googleads:adUnitId="@string/admob_id"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:layout_marginBottom="1dp"
+            android:id="@+id/fragment_settings_container_set_warning_yellow"
+            android:orientation="horizontal">
 
-</LinearLayout>
+            <br.com.tolive.simplewallet.views.CustomTextView
+                googleads:font="@string/app_font"
+                android:layout_width="0dp"
+                android:layout_weight="7"
+                android:layout_height="wrap_content"
+                android:textColor="@color/snow"
+                android:background="@color/yellow"
+                android:layout_gravity="center_vertical"
+                android:textSize="@dimen/app_font_item_big"
+                android:paddingLeft="@dimen/app_padding_small"
+                android:text="@string/fragment_settings_text_color_set_yellow" />
+
+            <EditText
+                android:id="@+id/fragment_settings_edit_yellow"
+                android:inputType="number"
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:layout_marginBottom="2dp"
+            android:id="@+id/fragment_settings_container_set_warning_red"
+            android:orientation="horizontal">
+
+            <br.com.tolive.simplewallet.views.CustomTextView
+                googleads:font="@string/app_font"
+                android:layout_width="0dp"
+                android:layout_weight="7"
+                android:layout_height="wrap_content"
+                android:textColor="@color/snow"
+                android:background="@color/red"
+                android:layout_gravity="center_vertical"
+                android:textSize="@dimen/app_font_item_big"
+                android:paddingLeft="@dimen/app_padding_small"
+                android:text="@string/fragment_settings_text_color_set_red" />
+
+            <EditText
+                android:id="@+id/fragment_settings_edit_red"
+                android:inputType="number"
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                />
+
+        </LinearLayout>
+
+        <br.com.tolive.simplewallet.views.CustomTextView
+            googleads:font="@string/app_font"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/gray"
+            android:paddingTop="@dimen/app_padding_small"
+            android:layout_gravity="center_vertical"
+            android:textSize="@dimen/app_font_title"
+            android:text="@string/fragment_settings_text_balance_type"/>
+
+        <br.com.tolive.simplewallet.views.CustomView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/app_divisor_medium"
+            android:background="@color/gray"
+            />
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/fragment_settings_radio_group_balance_type"
+            android:gravity="start">
+
+            <br.com.tolive.simplewallet.views.CustomRadioButton
+                googleads:font="@string/app_font"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fragment_settings_radio_balance_type_total"
+                android:id="@+id/fragment_settings_radio_balance_type_total"
+                android:textSize="@dimen/app_font_item_big"
+                android:textColor="@color/gray"
+                android:layout_gravity="start" />
+
+            <br.com.tolive.simplewallet.views.CustomRadioButton
+                googleads:font="@string/app_font"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fragment_settings_radio_balance_type_month"
+                android:id="@+id/fragment_settings_radio_balance_type_month"
+                android:textSize="@dimen/app_font_item_big"
+                android:checked="true"
+                android:textColor="@color/gray"
+                android:layout_gravity="start" />
+
+        </RadioGroup>
+
+    </LinearLayout>
+</ScrollView>
+

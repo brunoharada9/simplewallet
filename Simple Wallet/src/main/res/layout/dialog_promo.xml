@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 <LinearLayout
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:padding="5dp"
+    android:layout_height="wrap_content" android:padding="@dimen/dialog_margin"
     android:background="@color/snow">
 
     <LinearLayout
@@ -21,19 +21,14 @@
             android:layout_height="wrap_content"
             android:textColor="@color/gray"
             android:layout_gravity="center_horizontal"
-            android:textSize="20sp"
+            android:textSize="@dimen/app_font_regular"
             android:paddingRight="2dp"
             android:paddingLeft="2dp"
             android:text="@string/dialog_promo_text" />
 
-        <br.com.tolive.simplewallet.views.CustomView
-            android:layout_width="match_parent"
-            android:layout_height="5dp"
-            android:background="@color/snow"
-            />
-
         <br.com.tolive.simplewallet.views.CustomTextView
             app:font="@string/app_font"
+            android:paddingTop="@dimen/dialog_margin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/gray"
@@ -43,15 +38,10 @@
 
     </LinearLayout>
 
-    <br.com.tolive.simplewallet.views.CustomView
-        android:layout_width="match_parent"
-        android:layout_height="5dp"
-        android:background="@color/snow"
-        />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="@dimen/dialog_margin"
         android:orientation="horizontal"
         android:background="@color/snow">
 
@@ -60,26 +50,28 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="60dp"
-            android:textSize="20sp"
+            android:textSize="@dimen/app_font_regular"
             android:textColor="@color/snow"
             android:background="@color/gray"
             android:gravity="center"
             android:id="@+id/dialog_promo_text_cancel"
             android:text="@string/dialog_promo_text_cancel"
-            android:layout_margin="1dp"/>
+            android:paddingRight="@dimen/dialog_margin_small"
+            />
 
         <br.com.tolive.simplewallet.views.CustomTextView
             app:font="@string/app_font"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="60dp"
-            android:textSize="20sp"
+            android:textSize="@dimen/app_font_regular"
             android:textColor="@color/snow"
             android:background="@color/gray"
             android:gravity="center"
             android:id="@+id/dialog_promo_text_ok"
             android:text="@string/dialog_promo_text_ok"
-            android:layout_margin="1dp"/>
+            android:paddingLeft="@dimen/dialog_margin_small"
+            />
     </LinearLayout>
 
 </LinearLayout>

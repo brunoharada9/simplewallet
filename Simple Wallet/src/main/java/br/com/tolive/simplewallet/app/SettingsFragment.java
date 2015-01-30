@@ -61,17 +61,6 @@ public class SettingsFragment extends Fragment {
         View view = inflater.inflate(R.layout.activity_settings, container, false);
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constantes.SHARED_PREFERENCES, Context.MODE_PRIVATE);
-        boolean removeAd = sharedPreferences.getBoolean(Constantes.SP_KEY_REMOVE_AD, Constantes.SP_REMOVE_AD_DEFAULT);
-        if(!removeAd) {
-            AdRequest request = new AdRequest.Builder()
-                    .addTestDevice("E6E54B90007CAC7A62F9EC7857F3A989")
-                    .build();
-            AdView adView = (AdView) view.findViewById(R.id.ad_settings);
-            adView.loadAd(request);
-        } else{
-            AdView adView = (AdView) view.findViewById(R.id.ad_settings);
-            adView.setVisibility(View.GONE);
-        }
 
         editYellow = (EditText) view.findViewById(R.id.fragment_settings_edit_yellow);
         editRed = (EditText) view.findViewById(R.id.fragment_settings_edit_red);
