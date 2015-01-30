@@ -69,7 +69,6 @@ public class FiltroActivity extends ActionBarActivity {
         CustomSpinnerAdapter adapterMonth = new CustomSpinnerAdapter(this, R.layout.simple_spinner_item, months, color);
         adapterMonth.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
         spinnerMonth.setAdapter(adapterMonth);
-        Log.d("TAG", "month " + month);
         spinnerMonth.setSelection(month);
 
         /*spinnerMonth.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

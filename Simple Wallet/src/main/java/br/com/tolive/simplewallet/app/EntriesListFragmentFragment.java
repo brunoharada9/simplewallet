@@ -153,11 +153,11 @@ public class EntriesListFragmentFragment extends Fragment implements MenuActivit
         EntryDAO dao = EntryDAO.getInstance(getActivity());
         Float gain = dao.getGain(month);
         Float expense = dao.getExpense(month);
-        String formatted = NumberFormat.getCurrencyInstance().format((gain-expense)).replaceAll("[.]", "t").replaceAll("[,]",".").replaceAll("[t]",",");
+        String formatted = NumberFormat.getCurrencyInstance().format((gain-expense));
         textBalanceNumber.setText(String.valueOf(formatted));
-        formatted = NumberFormat.getCurrencyInstance().format((gain)).replaceAll("[.]", "t").replaceAll("[,]",".").replaceAll("[t]",",");
+        formatted = NumberFormat.getCurrencyInstance().format((gain));
         textGainNumber.setText(String.valueOf(formatted));
-        formatted = NumberFormat.getCurrencyInstance().format((expense)).replaceAll("[.]", "t").replaceAll("[,]",".").replaceAll("[t]",",");
+        formatted = NumberFormat.getCurrencyInstance().format((expense));
         textExpenseNumber.setText(String.valueOf(formatted));
         saveTheme();
     }

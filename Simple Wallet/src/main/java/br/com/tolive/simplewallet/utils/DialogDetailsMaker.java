@@ -59,7 +59,7 @@ public class DialogDetailsMaker {
         if(entry != null){
             textDescription.setText(entry.getDescription());
             String formatted = NumberFormat.getCurrencyInstance().format((entry.getValue()));
-            textValue.setText(formatted.replaceAll("[.]", "t").replaceAll("[,]",".").replaceAll("[t]",","));
+            textValue.setText(formatted);
             textDate.setText(entry.getDate());
             if (entry.getType() == Entry.TYPE_GAIN) {
                 ThemeChanger.setDialogTheme(context, view, ThemeChanger.THEME_GREEN);

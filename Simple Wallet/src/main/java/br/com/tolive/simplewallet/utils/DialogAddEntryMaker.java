@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.DatePicker;
@@ -87,13 +88,13 @@ public class DialogAddEntryMaker {
                 if(!s.toString().equals(value)){
                     editTextValue.removeTextChangedListener(this);
 
-                    String cleanString = s.toString().replaceAll("[$,.]", "");
+                    String cleanString = s.toString().replaceAll("\\D+", "");
 
                     double parsed = Double.parseDouble(cleanString);
                     String formatted = NumberFormat.getCurrencyInstance().format((parsed / 100));
 
                     value = formatted;
-                    editTextValue.setText(formatted.replaceAll("[.]", "t").replaceAll("[,]",".").replaceAll("[t]",","));
+                    editTextValue.setText(formatted);
                     editTextValue.setSelection(formatted.length());
 
                     editTextValue.addTextChangedListener(this);
@@ -173,7 +174,8 @@ public class DialogAddEntryMaker {
                     }
                 }
 
-                String cleanValue = editTextValue.getText().toString().replaceAll("[$.]", "").replaceAll("[,]",".");
+                String cleanValue = editTextValue.getText().toString().replaceAll("[\\D+]", "");
+                cleanValue = new StringBuilder(cleanValue).insert(cleanValue.length()-2, ".").toString();
                 if (cleanValue.equals(EMPTY)) {
                     Toast.makeText(context, R.string.dialog_add_invalid_value, Toast.LENGTH_SHORT).show();
                 } else {
