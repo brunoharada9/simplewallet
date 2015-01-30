@@ -58,7 +58,7 @@ public class EntriesListAdapter extends BaseAdapter {
         TextView txtValue = (TextView) convertView.findViewById(R.id.textView_list_value);
         txtDescription.setText(entry.getDescription());
         String formatted = NumberFormat.getCurrencyInstance().format((entry.getValue()));
-        txtValue.setText(String.format(formatted));
+        txtValue.setText(String.format(formatted.replaceAll("[.]", "t").replaceAll("[,]",".").replaceAll("[t]",",")));
 
         if(entry.getType() == Entry.TYPE_EXPENSE){
             if(Build.VERSION.SDK_INT < 16) {

@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
+import java.text.NumberFormat;
+
 import br.com.tolive.simplewallet.app.R;
 import br.com.tolive.simplewallet.model.Entry;
 
@@ -56,7 +58,8 @@ public class DialogDetailsMaker {
 
         if(entry != null){
             textDescription.setText(entry.getDescription());
-            textValue.setText(String.format("%.2f", entry.getValue()));
+            String formatted = NumberFormat.getCurrencyInstance().format((entry.getValue()));
+            textValue.setText(formatted.replaceAll("[.]", "t").replaceAll("[,]",".").replaceAll("[t]",","));
             textDate.setText(entry.getDate());
             if (entry.getType() == Entry.TYPE_GAIN) {
                 ThemeChanger.setDialogTheme(context, view, ThemeChanger.THEME_GREEN);

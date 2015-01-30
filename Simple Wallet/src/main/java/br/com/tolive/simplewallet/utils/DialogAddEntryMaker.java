@@ -3,6 +3,8 @@ package br.com.tolive.simplewallet.utils;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.Typeface;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.DatePicker;
@@ -13,7 +15,9 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.NumberFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 import br.com.tolive.simplewallet.app.R;
 import br.com.tolive.simplewallet.constants.Constantes;
@@ -24,7 +28,7 @@ import br.com.tolive.simplewallet.model.Entry;
  * Created by bruno.carvalho on 04/07/2014.
  */
 public class DialogAddEntryMaker {
-    private static final String EMPTY = "";
+    private static final String EMPTY = "0.00";
     private static final int DATE_YEAR = 2;
     private static final int DATE_MONTH = 1;
     private static final int DATE_DAY = 0;
@@ -53,6 +57,8 @@ public class DialogAddEntryMaker {
         this.dialog = dialog;
     }
 
+    private String value = "";
+
     /**
      * After call this method, call setDialog to update dialog reference
      * so the button don't get NullPointeException.
@@ -70,6 +76,35 @@ public class DialogAddEntryMaker {
         final RadioGroup radioGroupType = (RadioGroup) view.findViewById(R.id.dialog_add_radiogroup_type);
         final RadioButton radioGain = (RadioButton) view.findViewById(R.id.dialog_add_radiobutton_gain);
         final RadioButton radioExpense = (RadioButton) view.findViewById(R.id.dialog_add_radiobutton_expense);
+
+        editTextValue.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(!s.toString().equals(value)){
+                    editTextValue.removeTextChangedListener(this);
+
+                    String cleanString = s.toString().replaceAll("[$,.]", "");
+
+                    double parsed = Double.parseDouble(cleanString);
+                    String formatted = NumberFormat.getCurrencyInstance().format((parsed / 100));
+
+                    value = formatted;
+                    editTextValue.setText(formatted.replaceAll("[.]", "t").replaceAll("[,]",".").replaceAll("[t]",","));
+                    editTextValue.setSelection(formatted.length());
+
+                    editTextValue.addTextChangedListener(this);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+        editTextValue.setText("0");
 
         final LinearLayout containerChooseDate = (LinearLayout) view.findViewById(R.id.dialog_add_container_choose_date);
         TextView textChooseDate = (TextView) view.findViewById(R.id.dialog_add_text_choose);
@@ -138,10 +173,11 @@ public class DialogAddEntryMaker {
                     }
                 }
 
-                if (editTextValue.getText().toString().equals(EMPTY)) {
+                String cleanValue = editTextValue.getText().toString().replaceAll("[$.]", "").replaceAll("[,]",".");
+                if (cleanValue.equals(EMPTY)) {
                     Toast.makeText(context, R.string.dialog_add_invalid_value, Toast.LENGTH_SHORT).show();
                 } else {
-                    Float value = Float.parseFloat(formatToDot(editTextValue.getText().toString()));
+                    Float value = Float.parseFloat(cleanValue);
                     if (editTextDescription.getText().toString().equals(EMPTY)){
                         editTextDescription.setText(R.string.dialog_add_no_descripition);
                     }
