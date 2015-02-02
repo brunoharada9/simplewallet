@@ -17,4 +17,11 @@
         android:visible="false"
         app:showAsAction="always" />
 
+    <item android:id="@+id/action_save_settings"
+        android:title="@string/action_confirm"
+        android:icon="@drawable/ic_action_content_save"
+        android:orderInCategory="100"
+        android:visible="false"
+        app:showAsAction="always" />
+
 </menu>

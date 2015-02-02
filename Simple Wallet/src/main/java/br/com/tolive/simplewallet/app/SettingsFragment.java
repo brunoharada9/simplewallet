@@ -8,6 +8,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +28,8 @@ import br.com.tolive.simplewallet.views.CustomRadioButton;
 
 public class SettingsFragment extends Fragment {
     //private static final String MSG_ERROR_INTERVAL = "Os valores devem estar entre 0 e 99";
-    private static final String MSG_ERROR = "O valor amarelo deve ser maior que o vermelho";
+    private static final String MSG_ERROR = "ERRO - O valor amarelo deve ser maior que o vermelho";
+    private static final String MSG_SUCESS = "Configurações salvas com sucesso";
     private static final String EMPTY = "";
     private static final String ERROR_INVALID_INPUT = "Valor inválido";
     private EditText editYellow;
@@ -53,6 +56,11 @@ public class SettingsFragment extends Fragment {
         themeChanger.setConfigColor(getView(), color);
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -98,7 +106,7 @@ public class SettingsFragment extends Fragment {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_confirm) {
+        if (id == R.id.action_save_settings) {
             if(editYellow.getText().toString().equals(EMPTY) || editRed.getText().toString().equals(EMPTY)){
                 Toast.makeText(getActivity(), ERROR_INVALID_INPUT, Toast.LENGTH_SHORT).show();
             } else {
@@ -125,6 +133,8 @@ public class SettingsFragment extends Fragment {
                     editor.putFloat(Constantes.SP_KEY_RED, red);
 
                     editor.apply();
+
+                    Toast.makeText(getActivity(), MSG_SUCESS, Toast.LENGTH_SHORT).show();
 
                     return true;
                 } else {

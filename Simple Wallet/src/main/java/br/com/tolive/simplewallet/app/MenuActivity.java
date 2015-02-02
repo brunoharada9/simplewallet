@@ -30,7 +30,6 @@ import br.com.tolive.simplewallet.adapter.NavDrawerListAdapter;
 import br.com.tolive.simplewallet.constants.Constantes;
 import br.com.tolive.simplewallet.model.Entry;
 import br.com.tolive.simplewallet.model.NavDrawerItem;
-import br.com.tolive.simplewallet.utils.ThemeChanger;
 
 
 public class MenuActivity extends ActionBarActivity {
@@ -39,7 +38,6 @@ public class MenuActivity extends ActionBarActivity {
     private static final int ICON_NONE = 2;
     private static final int REQUEST_SETTINGS = 0;
     private static final int REQUEST_FILTRO = 1;
-    //private static final int NAV_ADD = 0;
     public static final int NAV_LIST = 0;
     public static final int NAV_STORE = 1;
     public static final int NAV_RECOVERY = 2;
@@ -67,7 +65,7 @@ public class MenuActivity extends ActionBarActivity {
     private ArrayList<NavDrawerItem> navDrawerItems;
     private NavDrawerListAdapter adapter;
 
-    private OnFiltroApplyListener mListener;
+    private OnFiltroApplyListener mFiltroListener;
 
     private AlertDialog promoDialog;
     private SharedPreferences sharedPreferences;
@@ -274,7 +272,7 @@ public class MenuActivity extends ActionBarActivity {
 //                break;
             case NAV_LIST:
                 fragment = new EntriesListFragmentFragment();
-                mListener = (OnFiltroApplyListener) fragment;
+                mFiltroListener = (OnFiltroApplyListener) fragment;
                 actionBarIcon = ICON_FILTRO;
                 break;
             case NAV_STORE:
@@ -287,7 +285,7 @@ public class MenuActivity extends ActionBarActivity {
                 break;
             case NAV_SETTINGS:
                 fragment = new SettingsFragment();
-                actionBarIcon = ICON_NONE;
+                actionBarIcon = ICON_SETTINGS;
                 break;
             case NAV_ABOUT:
                 fragment = new AboutFragment();
@@ -331,20 +329,14 @@ public class MenuActivity extends ActionBarActivity {
 //        }
         // Handle action bar actions click
         switch (item.getItemId()) {
-//            case R.id.action_settings:
-//                openSettings();
-//                return true;
+            case R.id.action_save_settings:
+                return false;
             case R.id.action_filtro:
                 openFiltro();
                 return true;
             default:
-                return super.onOptionsItemSelected(item);
+                return false;
         }
-    }
-
-    private void openSettings() {
-        Intent intent = new Intent(MenuActivity.this, SettingsFragment.class);
-        startActivityForResult(intent, REQUEST_SETTINGS);
     }
 
     private void openFiltro() {
@@ -355,13 +347,11 @@ public class MenuActivity extends ActionBarActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode == REQUEST_SETTINGS){
-            if(resultCode == RESULT_OK){
-                //TODO
-            }
+
         } else if(requestCode == REQUEST_FILTRO){
             if(resultCode == RESULT_OK){
-                if (mListener != null) {
-                    mListener.onFiltroApply((ArrayList<Entry>) data.getSerializableExtra(FiltroActivity.EXTRA_KEY_FILTRO_ENTRIES), data.getIntExtra(FiltroActivity.EXTRA_KEY_FILTRO_MONTH, AdapterView.INVALID_POSITION));
+                if (mFiltroListener != null) {
+                    mFiltroListener.onFiltroApply((ArrayList<Entry>) data.getSerializableExtra(FiltroActivity.EXTRA_KEY_FILTRO_ENTRIES), data.getIntExtra(FiltroActivity.EXTRA_KEY_FILTRO_MONTH, AdapterView.INVALID_POSITION));
                 }
             }
         }
@@ -382,18 +372,22 @@ public class MenuActivity extends ActionBarActivity {
             case ICON_SETTINGS:
 //                menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
                 menu.findItem(R.id.action_filtro).setVisible(false);
+                menu.findItem(R.id.action_save_settings).setVisible(true);
                 break;
             case ICON_FILTRO:
 //                menu.findItem(R.id.action_settings).setVisible(false);
                 menu.findItem(R.id.action_filtro).setVisible(true);
+                menu.findItem(R.id.action_save_settings).setVisible(false);
                 break;
             case ICON_NONE:
 //                menu.findItem(R.id.action_settings).setVisible(false);
                 menu.findItem(R.id.action_filtro).setVisible(false);
+                menu.findItem(R.id.action_save_settings).setVisible(false);
                 break;
             default:
 //                menu.findItem(R.id.action_settings).setVisible(false);
                 menu.findItem(R.id.action_filtro).setVisible(false);
+                menu.findItem(R.id.action_save_settings).setVisible(false);
                 break;
         }
         return super.onPrepareOptionsMenu(menu);
