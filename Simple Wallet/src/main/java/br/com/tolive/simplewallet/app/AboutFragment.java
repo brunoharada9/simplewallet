@@ -48,7 +48,7 @@ public class AboutFragment extends Fragment {
         ThemeChanger themeChanger = new ThemeChanger((ActionBarActivity) getActivity());
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constantes.SHARED_PREFERENCES, Context.MODE_PRIVATE);
         int color = themeChanger.setThemeColor(sharedPreferences.getInt(Constantes.SP_KEY_MONTH, Constantes.SP_MONTH_DEFAULT), null);
-        themeChanger.setMenuColor(getActivity().findViewById(R.id.list_slidermenu), color);
+        themeChanger.setMenuColor(getActivity().findViewById(R.id.fragment_menu_list), color);
         themeChanger.setAboutColor(getView(), color);
     }
 

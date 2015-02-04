@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:paddingEnd="@dimen/app_padding"
+    android:paddingRight="@dimen/app_padding"
+    android:paddingStart="@dimen/app_padding"
+    android:paddingLeft="@dimen/app_padding"
+    android:background="@color/snow"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent_gray"
+        android:id="@+id/fragment_menu_image_content"/>
+
+    <ListView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_marginTop="@dimen/app_padding_small"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:dividerHeight="0dp"
+        android:divider="@null"
+        android:id="@+id/fragment_menu_list"/>
+</LinearLayout>

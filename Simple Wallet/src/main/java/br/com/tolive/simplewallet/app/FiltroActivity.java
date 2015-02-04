@@ -64,7 +64,7 @@ public class FiltroActivity extends ActionBarActivity {
         ThemeChanger themeChanger = new ThemeChanger(this);
         int color = themeChanger.setThemeColor(month, null);
         themeChanger.setAllViewsColor(findViewById(R.id.parent), color);
-        themeChanger.setAllViewsColor(findViewById(R.id.list_slidermenu), color);
+        themeChanger.setAllViewsColor(findViewById(R.id.fragment_menu_list), color);
 
         CustomSpinnerAdapter adapterMonth = new CustomSpinnerAdapter(this, R.layout.simple_spinner_item, months, color);
         adapterMonth.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);

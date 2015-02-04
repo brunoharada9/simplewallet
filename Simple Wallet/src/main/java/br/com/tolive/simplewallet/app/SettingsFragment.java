@@ -52,7 +52,7 @@ public class SettingsFragment extends Fragment {
         ThemeChanger themeChanger = new ThemeChanger((ActionBarActivity) getActivity());
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constantes.SHARED_PREFERENCES, Context.MODE_PRIVATE);
         int color = themeChanger.setThemeColor(sharedPreferences.getInt(Constantes.SP_KEY_MONTH, Constantes.SP_MONTH_DEFAULT), null);
-        themeChanger.setMenuColor(getActivity().findViewById(R.id.list_slidermenu), color);
+        themeChanger.setMenuColor(getActivity().findViewById(R.id.fragment_menu_list), color);
         themeChanger.setConfigColor(getView(), color);
     }
 
@@ -95,7 +95,7 @@ public class SettingsFragment extends Fragment {
 
         ActionBar actionBar = ((ActionBarActivity) getActivity()).getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setIcon(R.drawable.ic_action_hardware_keyboard_backspace);
+        actionBar.setIcon(R.drawable.ic_action_navigation_menu);
 
         return view;
     }

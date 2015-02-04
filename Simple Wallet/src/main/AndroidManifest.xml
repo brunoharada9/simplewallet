@@ -19,7 +19,8 @@
 
         <activity
             android:name=".MenuActivity"
-            android:label="@string/title_activity_menu" >
+            android:label="@string/title_activity_menu"
+            android:icon="@drawable/ic_action_navigation_menu">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -29,10 +30,6 @@
         <activity
             android:name=".FiltroActivity"
             android:label="@string/title_activity_filtro" >
-        </activity>
-        <activity
-            android:name=".DetailsActivity"
-            android:label="@string/title_activity_details" >
         </activity>
         <activity
             android:name="com.google.android.gms.ads.AdActivity"

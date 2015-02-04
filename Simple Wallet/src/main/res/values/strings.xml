@@ -83,7 +83,8 @@
     <string name="fragment_add_button">$</string>
 
     <string-array name="nav_drawer_items">
-        <!--<item>Adicionar</item>-->
+
+        <!-- <item>Adicionar</item> -->
         <item>Gastos</item>
         <item>Armazenar</item>
         <item>Recuperar</item>
@@ -94,7 +95,8 @@
     <!-- Nav Drawer List Item Icons -->
     <!-- Keep them in order as the titles are in -->
     <array name="nav_drawer_icons_green">
-        <!--<item>@drawable/ic_add</item>-->
+
+        <!-- <item>@drawable/ic_add</item> -->
         <item>@drawable/ic_action_maps_local_atm_green</item>
         <item>@drawable/ic_action_file_file_upload_green</item>
         <item>@drawable/ic_action_file_file_download_green</item>
@@ -102,7 +104,8 @@
         <item>@drawable/ic_action_action_info_outline_green</item>
     </array>
     <array name="nav_drawer_icons_yellow">
-        <!--<item>@drawable/ic_add</item>-->
+
+        <!-- <item>@drawable/ic_add</item> -->
         <item>@drawable/ic_action_maps_local_atm_yellow</item>
         <item>@drawable/ic_action_file_file_upload_yellow</item>
         <item>@drawable/ic_action_file_file_download_yellow</item>
@@ -110,7 +113,8 @@
         <item>@drawable/ic_action_action_info_outline_yellow</item>
     </array>
     <array name="nav_drawer_icons_red">
-        <!--<item>@drawable/ic_add</item>-->
+
+        <!-- <item>@drawable/ic_add</item> -->
         <item>@drawable/ic_action_maps_local_atm_red</item>
         <item>@drawable/ic_action_file_file_upload_red</item>
         <item>@drawable/ic_action_file_file_download_red</item>
@@ -132,7 +136,6 @@
         <item>Nov</item>
         <item>Dez</item>
     </string-array>
-
     <string-array name="spinner_years">
         <item>2012</item>
         <item>2013</item>
@@ -145,5 +148,6 @@
         <item>2020</item>
     </string-array>
 
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

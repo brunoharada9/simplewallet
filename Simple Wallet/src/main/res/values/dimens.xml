@@ -12,6 +12,9 @@
     <dimen name="image_menu_width">48dp</dimen>
     <dimen name="image_icon">72dp</dimen>
 
+    <dimen name="menu_height">72dp</dimen>
+    <dimen name="menu_item_height">48dp</dimen>
+
     <dimen name="app_font_title">36sp</dimen>
     <dimen name="app_font_item_big">28sp</dimen>
     <dimen name="app_font_big">24sp</dimen>
@@ -23,5 +26,7 @@
 
     <dimen name="app_divisor_small">2dp</dimen>
     <dimen name="app_divisor_medium">4dp</dimen>
+
+    <dimen name="app_balance_content_height">130dp</dimen>
 
     </resources>

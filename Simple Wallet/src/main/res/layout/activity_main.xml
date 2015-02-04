@@ -1,4 +1,4 @@
-<LinearLayout
+<RelativeLayout
     android:orientation="vertical"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
@@ -7,39 +7,20 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     >
 
-    <android.support.v4.widget.DrawerLayout
-        android:id="@+id/drawer_layout"
+    <FrameLayout
+        android:id="@+id/frame_container"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-
-        <!-- Framelayout to display Fragments -->
-        <FrameLayout
-            android:id="@+id/frame_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-        <!-- Listview to display slider menu -->
-        <ListView
-            android:id="@+id/list_slidermenu"
-            android:layout_width="240dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:choiceMode="singleChoice"
-
-
-            android:divider="@color/list_divider"
-            android:background="@color/list_background"/>
-        <!--android:listSelector="@drawable/btn_nav_list"
-            android:dividerHeight="1dp"-->
-
-    </android.support.v4.widget.DrawerLayout>
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/ad_main"
+        />
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/ad_main"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
         app:adSize="SMART_BANNER"
         app:adUnitId="@string/admob_id"/>
 
-</LinearLayout>
+</RelativeLayout>

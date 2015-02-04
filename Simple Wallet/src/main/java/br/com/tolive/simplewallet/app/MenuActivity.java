@@ -8,13 +8,12 @@ import android.content.pm.PackageInfo;
 import android.content.res.TypedArray;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -26,10 +25,13 @@ import com.google.android.gms.ads.AdView;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import br.com.tolive.simplewallet.adapter.NavDrawerListAdapter;
+import br.com.tolive.simplewallet.adapter.MenuItemListAdapter;
 import br.com.tolive.simplewallet.constants.Constantes;
 import br.com.tolive.simplewallet.model.Entry;
-import br.com.tolive.simplewallet.model.NavDrawerItem;
+import br.com.tolive.simplewallet.model.MenuItem;
+import br.com.tolive.simplewallet.utils.LayoutHelper;
+import br.com.tolive.simplewallet.utils.MenuSlider;
+import br.com.tolive.simplewallet.utils.ThemeChanger;
 
 
 public class MenuActivity extends ActionBarActivity {
@@ -45,15 +47,10 @@ public class MenuActivity extends ActionBarActivity {
     public static final int NAV_ABOUT = 4;
     public static final int DEFAULT_VALUE = -1;
 
-    private DrawerLayout mDrawerLayout;
-    private ListView mDrawerList;
-//    private ActionBarDrawerToggle mDrawerToggle;
-
     //private ActionBar mActionBar;
     int actionBarIcon = ICON_SETTINGS;
 
-    // nav drawer title
-    private CharSequence mDrawerTitle;
+    private MenuSlider menuSlider;
 
     // used to store app title
     private CharSequence mTitle;
@@ -62,8 +59,8 @@ public class MenuActivity extends ActionBarActivity {
     private String[] navMenuTitles;
     private TypedArray navMenuIcons;
 
-    private ArrayList<NavDrawerItem> navDrawerItems;
-    private NavDrawerListAdapter adapter;
+    private ArrayList<MenuItem> menuItems;
+    private MenuItemListAdapter adapter;
 
     private OnFiltroApplyListener mFiltroListener;
 
@@ -98,74 +95,52 @@ public class MenuActivity extends ActionBarActivity {
         editor.putInt(Constantes.SP_KEY_MONTH, calendar.get(Calendar.MONTH));
         editor.commit();
 
-        setActionBarIcon();
-
-        mTitle = mDrawerTitle = getTitle();
-
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerList = (ListView) findViewById(R.id.list_slidermenu);
-
-        navDrawerItems = new ArrayList<NavDrawerItem>();
-
+        mTitle = getTitle();
+        menuItems = new ArrayList<MenuItem>();
         // load slide menu items
         navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);
-
         // nav drawer icons from resources
         navMenuIcons = getResources()
                 .obtainTypedArray(R.array.nav_drawer_icons_red);
-
         // adding nav drawer items to array
         // add
         //navDrawerItems.add(new NavDrawerItem(navMenuTitles[NAV_ADD], navMenuIcons.getResourceId(NAV_ADD, DEFAULT_VALUE)));
         // list
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[NAV_LIST], navMenuIcons.getResourceId(NAV_LIST, DEFAULT_VALUE)));
+        menuItems.add(new MenuItem(navMenuTitles[NAV_LIST], navMenuIcons.getResourceId(NAV_LIST, DEFAULT_VALUE)));
         // store
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[NAV_STORE], navMenuIcons.getResourceId(NAV_STORE, DEFAULT_VALUE)));
+        menuItems.add(new MenuItem(navMenuTitles[NAV_STORE], navMenuIcons.getResourceId(NAV_STORE, DEFAULT_VALUE)));
         // recovery
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[NAV_RECOVERY], navMenuIcons.getResourceId(NAV_RECOVERY, DEFAULT_VALUE)));
+        menuItems.add(new MenuItem(navMenuTitles[NAV_RECOVERY], navMenuIcons.getResourceId(NAV_RECOVERY, DEFAULT_VALUE)));
         // recovery
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[NAV_SETTINGS], navMenuIcons.getResourceId(NAV_SETTINGS, DEFAULT_VALUE)));
+        menuItems.add(new MenuItem(navMenuTitles[NAV_SETTINGS], navMenuIcons.getResourceId(NAV_SETTINGS, DEFAULT_VALUE)));
         // about
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[NAV_ABOUT], navMenuIcons.getResourceId(NAV_ABOUT, DEFAULT_VALUE)));
-
-
+        menuItems.add(new MenuItem(navMenuTitles[NAV_ABOUT], navMenuIcons.getResourceId(NAV_ABOUT, DEFAULT_VALUE)));
+        menuSlider = new MenuSlider(MenuActivity.this);
+        MenuFragment menuFragment = new MenuFragment();
+        Bundle arguments = new Bundle();
+        arguments.putSerializable(MenuFragment.KEY_MENU_ITENS, menuItems);
+        menuFragment.setArguments(arguments);
+        menuFragment.setOnMenuItemClickListener(new MenuFragment.OnMenuItemClickListener() {
+            @Override
+            public void onMenuItemClick(int position, MenuItem menuItem) {
+                menuSlider.hideMenu();
+                setTitle(menuItem.getTitle());
+                displayView(position);
+            }
+        });
+        menuSlider.setMenuFragment(menuFragment);
         // Recycle the typed array
         navMenuIcons.recycle();
 
-
-        // setting the nav drawer list adapter
-        adapter = new NavDrawerListAdapter(getApplicationContext(),
-                navDrawerItems);
-        mDrawerList.setAdapter(adapter);
-
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setLogo(R.drawable.ic_action_navigation_menu);
         // enabling action bar app icon and behaving it as toggle button
-//        getActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
-
-//        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
-//                R.drawable.ic_drawer, //nav menu toggle icon
-//                R.string.app_name, // nav drawer open - description for accessibility
-//                R.string.app_name // nav drawer close - description for accessibility
-//        ){
-//            public void onDrawerClosed(View view) {
-//                getActionBar().setTitle(mTitle);
-//                // calling onPrepareOptionsMenu() to show action bar icons
-//                invalidateOptionsMenu();
-//            }
-//
-//            public void onDrawerOpened(View drawerView) {
-//                getActionBar().setTitle(mDrawerTitle);
-//                // calling onPrepareOptionsMenu() to hide action bar icons
-//                invalidateOptionsMenu();
-//            }
-//        };
-//        mDrawerLayout.setDrawerListener(mDrawerToggle);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeButtonEnabled(true);
 
         if (savedInstanceState == null) {
-            // on first time display view for first nav item
             displayView(0);
         }
-        mDrawerList.setOnItemClickListener(new SlideMenuClickListener());
     }
 
     private void displayPromo() {
@@ -224,41 +199,6 @@ public class MenuActivity extends ActionBarActivity {
         }
     }
 
-    private void setActionBarIcon() {
-//        EntryDAO dao = EntryDAO.getInstance(this);
-//        Calendar calendar = Calendar.getInstance();
-//        Float gain = dao.getGain(calendar.get(Calendar.MONTH));
-//        Float expense = dao.getExpense(calendar.get(Calendar.MONTH));
-//
-//        SharedPreferences sharedPreferences = getSharedPreferences(Constantes.SHARED_PREFERENCES, Context.MODE_PRIVATE);
-//        float yellow = sharedPreferences.getFloat(Constantes.SP_KEY_YELLOW, Constantes.SP_YELLOW_DEFAULT);
-//        float red = sharedPreferences.getFloat(Constantes.SP_KEY_RED, Constantes.SP_RED_DEFAULT);
-//
-//        ActionBar actionBar = getActionBar();
-//
-//        if((gain - expense) < red){
-//            actionBar.setIcon(R.drawable.ic_title_red);
-//        } else if((gain - expense) < yellow){
-//            actionBar.setIcon(R.drawable.ic_title_yellow);
-//        } else{
-//            actionBar.setIcon(R.drawable.ic_title_green);
-//        }
-        getSupportActionBar().setIcon(R.drawable.ic_action_content_create);
-    }
-
-    /**
-     * Slide menu item click listener
-     * */
-    private class SlideMenuClickListener implements
-            ListView.OnItemClickListener {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position,
-                                long id) {
-            // display view for selected nav drawer item
-            displayView(position);
-        }
-    }
-
     /**
      * Diplaying fragment view for selected nav drawer list item
      * */
@@ -303,15 +243,9 @@ public class MenuActivity extends ActionBarActivity {
         if (fragment != null) {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.frame_container, fragment).commit();
-
-            // update selected item and title, then close the drawer
-            mDrawerList.setItemChecked(position, true);
-            mDrawerList.setSelection(position);
-            setTitle(navMenuTitles[position]);
-            mDrawerLayout.closeDrawer(mDrawerList);
         } else {
             // error in creating fragment
-            //Log.e("", "Error in creating fragment");
+            Log.e("", "Error in creating fragment");
         }
     }
 
@@ -322,7 +256,7 @@ public class MenuActivity extends ActionBarActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(android.view.MenuItem item) {
         // toggle nav drawer on selecting action bar app icon/title
 //        if (mDrawerToggle.onOptionsItemSelected(item)) {
 //            return true;
@@ -334,8 +268,24 @@ public class MenuActivity extends ActionBarActivity {
             case R.id.action_filtro:
                 openFiltro();
                 return true;
+            case android.R.id.home:
+                if(menuSlider.isMenuVisible()){
+                    menuSlider.hideMenu();
+                } else {
+                    menuSlider.showMenu();
+                }
+                return true;
             default:
                 return false;
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(menuSlider.isMenuVisible()){
+            menuSlider.hideMenu();
+        } else {
+            super.onBackPressed();
         }
     }
 
@@ -398,25 +348,6 @@ public class MenuActivity extends ActionBarActivity {
         mTitle = title;
         getSupportActionBar().setTitle(mTitle);
     }
-
-    /**
-     * When using the ActionBarDrawerToggle, you must call it during
-     * onPostCreate() and onConfigurationChanged()...
-     */
-
-//    @Override
-//    protected void onPostCreate(Bundle savedInstanceState) {
-//        super.onPostCreate(savedInstanceState);
-//        // Sync the toggle state after onRestoreInstanceState has occurred.
-//        mDrawerToggle.syncState();
-//    }
-//
-//    @Override
-//    public void onConfigurationChanged(Configuration newConfig) {
-//        super.onConfigurationChanged(newConfig);
-//        // Pass any configuration change to the drawer toggls
-//        mDrawerToggle.onConfigurationChanged(newConfig);
-//    }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {

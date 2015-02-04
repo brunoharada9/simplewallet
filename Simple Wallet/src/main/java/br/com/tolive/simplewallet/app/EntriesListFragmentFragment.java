@@ -3,9 +3,12 @@ package br.com.tolive.simplewallet.app;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.util.TypedValue;
 import android.view.ContextMenu;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -85,22 +88,23 @@ public class EntriesListFragmentFragment extends Fragment implements MenuActivit
         containerBalance = (CustomViewShadow) view.findViewById(R.id.fragment_list_container_balance);
         //container = (LinearLayout) view.findViewById(R.id.fragment_list_container);
 
-        containerBalance.post(new Runnable() {
-            @Override
-            public void run() {
+        //containerBalance.post(new Runnable() {
+        //    @Override
+        //    public void run() {
                 // safe to get height and width here
                 mFabButton = new FloatingActionButton.Builder(getActivity())
                         .withDrawable(
                                 getResources().getDrawable(R.drawable.ic_action_content_create))
                         .withButtonColor(getResources().getColor(R.color.primary_green), getResources().getColor(R.color.bar_green))
                         .withGravity(Gravity.TOP | Gravity.END)
-                        .withMarginsInPixels(0, containerBalance.getBottom(),
-                                convertToPixels(16), 0).create(container);
+                        .withMarginsInPixels(0, convertToPixels((int) (getResources().getDimension(R.dimen.app_balance_content_height) / getResources().getDisplayMetrics().density)),
+                                convertToPixels(16), 0).create();
                 mFabButton.setOnClickListener(EntriesListFragmentFragment.this);
+        mFabButton.showFloatingActionButton();
                 refreshList(entries);
-            }
+        //    }
 
-        });
+        //});
 
         registerForContextMenu(entriesList);
 
@@ -127,7 +131,24 @@ public class EntriesListFragmentFragment extends Fragment implements MenuActivit
             }
         });
 
+        ActionBar actionBar = ((ActionBarActivity) getActivity()).getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setIcon(R.drawable.ic_action_navigation_menu);
+
         return view;
+    }
+
+    private int getActionBarHeight() {
+        int actionBarHeight = ((ActionBarActivity)getActivity()).getSupportActionBar().getHeight();
+        if (actionBarHeight != 0)
+            return actionBarHeight;
+        final TypedValue tv = new TypedValue();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            if (getActivity().getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true))
+                actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data, getResources().getDisplayMetrics());
+        } else if (getActivity().getTheme().resolveAttribute(R.attr.actionBarSize, tv, true))
+            actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data, getResources().getDisplayMetrics());
+        return actionBarHeight;
     }
 
     @Override
@@ -141,7 +162,7 @@ public class EntriesListFragmentFragment extends Fragment implements MenuActivit
         EntriesListAdapter adapter = new EntriesListAdapter(entries, getActivity());
         entriesList.setAdapter(adapter);
         int color = themeChanger.setThemeColor(month, mFabButton);
-        themeChanger.setMenuColor(getActivity().findViewById(R.id.list_slidermenu), color);
+        //themeChanger.setMenuColor(getActivity().findViewById(R.id.fragment_menu_list), color);
         containerBalance.setBackgroundColor(getActivity().getResources().getColor(R.color.snow));
         if(color == getResources().getColor(R.color.primary_red)) {
             containerBalance.setColor(getResources().getColor(R.color.bar_red));
@@ -236,6 +257,22 @@ public class EntriesListFragmentFragment extends Fragment implements MenuActivit
         dialog = dialogAddEntryMaker.makeAddDialog();
 
         dialog.show();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        switch (id){
+            case android.R.id.home:
+                Toast.makeText(getActivity(), R.string.dialog_add_error, Toast.LENGTH_SHORT).show();
+                break;
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     // The calculation (value * scale + 0.5f) is a widely used to convert to dps

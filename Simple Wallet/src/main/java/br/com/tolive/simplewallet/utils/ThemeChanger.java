@@ -12,8 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import br.com.tolive.simplewallet.adapter.MenuItemListAdapter;
 import br.com.tolive.simplewallet.app.R;
 import br.com.tolive.simplewallet.constants.Constantes;
 import br.com.tolive.simplewallet.db.EntryDAO;
@@ -212,7 +214,7 @@ public class ThemeChanger {
     }
 
     public void setMenuColor(View parent, int color){
-        ViewGroup menu = (ViewGroup) parent;
+        ListView menuList = (ListView) parent;
         TypedArray navMenuIcons = null;
         if (color == resources.getColor(R.color.primary_red)) {
             navMenuIcons = context.getResources().obtainTypedArray(R.array.nav_drawer_icons_red);
@@ -222,8 +224,10 @@ public class ThemeChanger {
             navMenuIcons = context.getResources().obtainTypedArray(R.array.nav_drawer_icons_green);
         }
 
-        for (int i = 0; i < menu.getChildCount(); i++) {
-            LinearLayout linear = (LinearLayout) menu.getChildAt(i);
+        MenuItemListAdapter adapter = (MenuItemListAdapter) menuList.getAdapter();
+        int count = adapter.getCount();
+        for (int i = 0; i < count; i++) {
+            LinearLayout linear = (LinearLayout) menuList.getChildAt(i);
             for (int j = 0; j < linear.getChildCount(); j++) {
                 View child = linear.getChildAt(j);
                 if (j % 2 == 0) {
