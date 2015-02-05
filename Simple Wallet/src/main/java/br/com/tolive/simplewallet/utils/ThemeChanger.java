@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import br.com.tolive.simplewallet.adapter.MenuItemListAdapter;
@@ -214,26 +215,39 @@ public class ThemeChanger {
     }
 
     public void setMenuColor(View parent, int color){
-        ListView menuList = (ListView) parent;
+        ImageView imageContent = (ImageView) ((ViewGroup)parent).getChildAt(0);
+        ListView menuList = (ListView) ((ViewGroup)parent).getChildAt(1);
+
         TypedArray navMenuIcons = null;
+        Drawable imageArrow = null;
         if (color == resources.getColor(R.color.primary_red)) {
             navMenuIcons = context.getResources().obtainTypedArray(R.array.nav_drawer_icons_red);
+            imageContent.setBackgroundColor(context.getResources().getColor(R.color.accent_red));
+            imageArrow = context.getResources().getDrawable(R.drawable.ic_action_hardware_keyboard_arrow_right_red);
         } else if (color == resources.getColor(R.color.primary_yellow)) {
             navMenuIcons = context.getResources().obtainTypedArray(R.array.nav_drawer_icons_yellow);
+            imageContent.setBackgroundColor(context.getResources().getColor(R.color.accent_yellow));
+            imageArrow = context.getResources().getDrawable(R.drawable.ic_action_hardware_keyboard_arrow_right_yellow);
         } else if (color == resources.getColor(R.color.primary_green)) {
             navMenuIcons = context.getResources().obtainTypedArray(R.array.nav_drawer_icons_green);
+            imageContent.setBackgroundColor(context.getResources().getColor(R.color.accent_green));
+            imageArrow = context.getResources().getDrawable(R.drawable.ic_action_hardware_keyboard_arrow_right_green);
         }
 
         MenuItemListAdapter adapter = (MenuItemListAdapter) menuList.getAdapter();
         int count = adapter.getCount();
         for (int i = 0; i < count; i++) {
-            LinearLayout linear = (LinearLayout) menuList.getChildAt(i);
-            for (int j = 0; j < linear.getChildCount(); j++) {
-                View child = linear.getChildAt(j);
-                if (j % 2 == 0) {
-                    ((ImageView) child).setImageDrawable(navMenuIcons.getDrawable(i));
-                } else {
-                    ((TextView) child).setTextColor(color);
+            RelativeLayout layout = (RelativeLayout) menuList.getChildAt(i);
+            if(layout != null) {
+                for (int j = 0; j < layout.getChildCount(); j++) {
+                    View child = layout.getChildAt(j);
+                    if (j % 3 == 0) {
+                        ((ImageView) child).setImageDrawable(navMenuIcons.getDrawable(i));
+                    } else if (j % 3 == 1){
+                        ((TextView) child).setTextColor(color);
+                    } else {
+                        ((ImageView) child).setImageDrawable(imageArrow);
+                    }
                 }
             }
         }

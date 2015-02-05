@@ -13,6 +13,8 @@
         android:layout_height="@dimen/app_balance_content_height"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:background="@color/transparent_black"
+        app:orientationShadow="vertical"
         android:id="@+id/fragment_list_container_balance">
 
         <LinearLayout

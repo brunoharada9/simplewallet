@@ -1,5 +1,7 @@
 package br.com.tolive.simplewallet.utils;
 
+import android.animation.ArgbEvaluator;
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Rect;
@@ -21,10 +23,12 @@ import br.com.tolive.simplewallet.constants.Constantes;
 
 public class MenuSlider {
 
+    public static final int DURATION = 500;
     private final ActionBarActivity activity;
     private final View content;
     private final FrameLayout menuContainer;
     private final boolean removeAd;
+    private View menuShadow;
 
     public MenuSlider(ActionBarActivity activity) {
         this.activity = activity;
@@ -41,6 +45,24 @@ public class MenuSlider {
 
         // We set visibility to GONE because the menu is initially hidden
         this.menuContainer.setVisibility(View.GONE);
+        this.menuContainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
+
+        // Create view to be a shadow
+        this.menuShadow = new View(this.activity);
+        this.menuShadow.setVisibility(View.GONE);
+        this.menuShadow.setBackgroundColor(this.activity.getResources().getColor(R.color.transparent));
+        this.menuShadow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hideMenu();
+            }
+        });
+
+        parent.addView(this.menuShadow);
         parent.addView(this.menuContainer);
 
         SharedPreferences sharedPreferences = activity.getSharedPreferences(Constantes.SHARED_PREFERENCES, Context.MODE_PRIVATE);
@@ -86,27 +108,38 @@ public class MenuSlider {
 
         // These are the LayoutParams for the menu Fragment
         FrameLayout.LayoutParams fragmentParams;
+        FrameLayout.LayoutParams shadowParams;
         if(removeAd) {
             fragmentParams = new FrameLayout.LayoutParams(menuWidth, ViewGroup.LayoutParams.MATCH_PARENT);
+            shadowParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
         } else {
             float height = displayMetrics.heightPixels;
             fragmentParams = new FrameLayout.LayoutParams(menuWidth, (int) (height - LayoutHelper.dpToPixel(activity,50) - statusBarHeight));
+            shadowParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, (int) (height - LayoutHelper.dpToPixel(activity,50) - statusBarHeight));
         }
 
         // We put a top margin on the menu Fragment container which is equal to the status bar height
-        fragmentParams.setMargins(0, 0, 0, 0);
+        //fragmentParams.setMargins(0, 0, 0, 0);
         this.menuContainer.setLayoutParams(fragmentParams);
+        this.menuShadow.setLayoutParams(shadowParams);
 
         // Perform the animation only if the menu is not visible
         if(!isMenuVisible()) {
 
             // Visibility of the menu container View is set to VISIBLE
             this.menuContainer.setVisibility(View.VISIBLE);
-            this.content.setFocusable(false);
+            this.menuShadow.setVisibility(View.VISIBLE);
+            final ObjectAnimator backgroundColorAnimator = ObjectAnimator.ofObject(this.menuShadow,
+                    "backgroundColor",
+                    new ArgbEvaluator(),
+                    this.activity.getResources().getColor(R.color.transparent),
+                    this.activity.getResources().getColor(R.color.transparent_black));
+            backgroundColorAnimator.setDuration(DURATION);
+            backgroundColorAnimator.start();
 
             // The menu slides in from the right
             TranslateAnimation animation = new TranslateAnimation(-menuWidth, 0, 0, 0);
-            animation.setDuration(500);
+            animation.setDuration(DURATION);
             this.menuContainer.startAnimation(animation);
         }
     }
@@ -124,7 +157,16 @@ public class MenuSlider {
 
             // Now we need an extra animation for the menu fragment container
             TranslateAnimation menuAnimation = new TranslateAnimation(0, -menuWidth, 0, 0);
-            menuAnimation.setDuration(500);
+            menuAnimation.setDuration(DURATION);
+
+            final ObjectAnimator backgroundColorAnimator = ObjectAnimator.ofObject(menuShadow,
+                    "backgroundColor",
+                    new ArgbEvaluator(),
+                    activity.getResources().getColor(R.color.transparent_black),
+                    activity.getResources().getColor(R.color.transparent));
+            backgroundColorAnimator.setDuration(DURATION);
+            backgroundColorAnimator.start();
+
             menuAnimation.setAnimationListener(new Animation.AnimationListener() {
                 @Override
                 public void onAnimationStart(Animation animation) {
@@ -135,7 +177,7 @@ public class MenuSlider {
                 public void onAnimationEnd(Animation animation) {
                     // As soon as the hide animation is finished we set the visibility of the fragment container back to GONE
                     menuContainer.setVisibility(View.GONE);
-                    MenuSlider.this.content.setFocusable(true);
+                    menuShadow.setVisibility(View.GONE);
                 }
 
                 @Override
@@ -158,7 +200,7 @@ public class MenuSlider {
 
         // We animate the Activity to slide from its previous position to its new position
         TranslateAnimation animation = new TranslateAnimation(currentX - x, 0, currentY - y, 0);
-        animation.setDuration(500);
+        animation.setDuration(DURATION);
         this.content.startAnimation(animation);
     }
 

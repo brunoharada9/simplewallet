@@ -30,7 +30,6 @@
         parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
         <item name="android:background">@color/primary_green</item>
         <item name="android:titleTextStyle">@style/MyActionBarTitleText</item>
-        <item name="android:actionOverflowButtonStyle">@style/MyActionButtonOverflow</item>
     </style>
 
     <!-- ActionBar title text -->
@@ -45,11 +44,6 @@
         parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
         <item name="android:textColor">@color/snow</item>
         <item name="android:textSize">24sp</item>
-    </style>
-
-    <!-- ActionBar Button styles -->
-    <style name="MyActionButtonOverflow" parent="android:style/Widget.Holo.ActionButton.Overflow">
-        <item name="android:src">@drawable/ic_action_navigation_menu</item>
     </style>
 
     <!-- Spinner styles -->

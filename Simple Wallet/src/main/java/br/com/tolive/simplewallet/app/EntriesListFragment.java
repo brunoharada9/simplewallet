@@ -3,12 +3,10 @@ package br.com.tolive.simplewallet.app;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.util.TypedValue;
 import android.view.ContextMenu;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -22,7 +20,6 @@ import android.widget.Toast;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 import br.com.tolive.simplewallet.adapter.EntriesListAdapter;
 import br.com.tolive.simplewallet.constants.Constantes;
@@ -35,7 +32,7 @@ import br.com.tolive.simplewallet.views.CustomTextView;
 import br.com.tolive.simplewallet.views.CustomViewShadow;
 import br.com.tolive.simplewallet.views.FloatingActionButton;
 
-public class EntriesListFragmentFragment extends Fragment implements MenuActivity.OnFiltroApplyListener, View.OnClickListener {
+public class EntriesListFragment extends Fragment implements MenuActivity.OnFiltroApplyListener, View.OnClickListener {
     public static final int EMPTY = -1;
     private static final int FIRST_ELEMENT = 0;
     private static final int DATE_YEAR = 2;
@@ -59,13 +56,7 @@ public class EntriesListFragmentFragment extends Fragment implements MenuActivit
 
     private ThemeChanger themeChanger;
 
-    public EntriesListFragmentFragment() {
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        getActivity().invalidateOptionsMenu();
+    public EntriesListFragment() {
     }
 
     @Override
@@ -98,10 +89,9 @@ public class EntriesListFragmentFragment extends Fragment implements MenuActivit
                         .withButtonColor(getResources().getColor(R.color.primary_green), getResources().getColor(R.color.bar_green))
                         .withGravity(Gravity.TOP | Gravity.END)
                         .withMarginsInPixels(0, convertToPixels((int) (getResources().getDimension(R.dimen.app_balance_content_height) / getResources().getDisplayMetrics().density)),
-                                convertToPixels(16), 0).create();
-                mFabButton.setOnClickListener(EntriesListFragmentFragment.this);
+                                convertToPixels((int) (getResources().getDimension(R.dimen.app_balance_content_height) / getResources().getDisplayMetrics().density)), 0).create();
+                mFabButton.setOnClickListener(EntriesListFragment.this);
         mFabButton.showFloatingActionButton();
-                refreshList(entries);
         //    }
 
         //});
@@ -135,20 +125,9 @@ public class EntriesListFragmentFragment extends Fragment implements MenuActivit
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setIcon(R.drawable.ic_action_navigation_menu);
 
-        return view;
-    }
 
-    private int getActionBarHeight() {
-        int actionBarHeight = ((ActionBarActivity)getActivity()).getSupportActionBar().getHeight();
-        if (actionBarHeight != 0)
-            return actionBarHeight;
-        final TypedValue tv = new TypedValue();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            if (getActivity().getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true))
-                actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data, getResources().getDisplayMetrics());
-        } else if (getActivity().getTheme().resolveAttribute(R.attr.actionBarSize, tv, true))
-            actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data, getResources().getDisplayMetrics());
-        return actionBarHeight;
+
+        return view;
     }
 
     @Override
@@ -162,7 +141,7 @@ public class EntriesListFragmentFragment extends Fragment implements MenuActivit
         EntriesListAdapter adapter = new EntriesListAdapter(entries, getActivity());
         entriesList.setAdapter(adapter);
         int color = themeChanger.setThemeColor(month, mFabButton);
-        //themeChanger.setMenuColor(getActivity().findViewById(R.id.fragment_menu_list), color);
+        themeChanger.setMenuColor(getActivity().findViewById(R.id.fragment_menu), color);
         containerBalance.setBackgroundColor(getActivity().getResources().getColor(R.color.snow));
         if(color == getResources().getColor(R.color.primary_red)) {
             containerBalance.setColor(getResources().getColor(R.color.bar_red));
@@ -241,22 +220,24 @@ public class EntriesListFragmentFragment extends Fragment implements MenuActivit
 
     @Override
     public void onClick(View v) {
-        DialogAddEntryMaker dialogAddEntryMaker = new DialogAddEntryMaker(getActivity());
-        dialogAddEntryMaker.setOnClickOkListener(new DialogAddEntryMaker.OnClickOkListener() {
-            @Override
-            public void onClickOk(Entry entry) {
-                if (dao.insert(entry) != -1) {
-                    Toast.makeText(getActivity(), R.string.dialog_add_sucess, Toast.LENGTH_SHORT).show();
-                    entries = dao.getEntry(month);
-                    refreshList(entries);
-                } else {
-                    Toast.makeText(getActivity(), R.string.dialog_add_error, Toast.LENGTH_SHORT).show();
+        if(!mFabButton.isHidden()) {
+            DialogAddEntryMaker dialogAddEntryMaker = new DialogAddEntryMaker(getActivity());
+            dialogAddEntryMaker.setOnClickOkListener(new DialogAddEntryMaker.OnClickOkListener() {
+                @Override
+                public void onClickOk(Entry entry) {
+                    if (dao.insert(entry) != -1) {
+                        Toast.makeText(getActivity(), R.string.dialog_add_sucess, Toast.LENGTH_SHORT).show();
+                        entries = dao.getEntry(month);
+                        refreshList(entries);
+                    } else {
+                        Toast.makeText(getActivity(), R.string.dialog_add_error, Toast.LENGTH_SHORT).show();
+                    }
                 }
-            }
-        });
-        dialog = dialogAddEntryMaker.makeAddDialog();
+            });
+            dialog = dialogAddEntryMaker.makeAddDialog();
 
-        dialog.show();
+            dialog.show();
+        }
     }
 
     @Override
@@ -297,5 +278,7 @@ public class EntriesListFragmentFragment extends Fragment implements MenuActivit
         if(mFabButton != null) {
             mFabButton.showFloatingActionButton();
         }
+        getActivity().invalidateOptionsMenu();
+        refreshList(entries);
     }
 }

@@ -46,6 +46,11 @@ public class MenuFragment extends Fragment {
         listItens.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                int count = parent.getChildCount();
+                for (int i = 0; i < count; i++){
+                    parent.getChildAt(i).setBackgroundColor(getActivity().getResources().getColor(R.color.snow));
+                }
+                view.setBackgroundColor(getActivity().getResources().getColor(R.color.clicked));
                 if (mMenuItemClickListener != null) {
                     mMenuItemClickListener.onMenuItemClick(position, (MenuItem) adapter.getItem(position));
                 }

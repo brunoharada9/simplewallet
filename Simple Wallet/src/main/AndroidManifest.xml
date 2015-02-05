@@ -19,8 +19,7 @@
 
         <activity
             android:name=".MenuActivity"
-            android:label="@string/title_activity_menu"
-            android:icon="@drawable/ic_action_navigation_menu">
+            android:label="@string/title_activity_menu">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

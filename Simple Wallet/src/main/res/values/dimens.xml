@@ -10,6 +10,8 @@
 
     <dimen name="image_menu_height">48dp</dimen>
     <dimen name="image_menu_width">48dp</dimen>
+    <dimen name="image_menu_spacing_icons">12dp</dimen>
+    <dimen name="image_menu_spacing_icons_double">24dp</dimen>
     <dimen name="image_icon">72dp</dimen>
 
     <dimen name="menu_height">72dp</dimen>

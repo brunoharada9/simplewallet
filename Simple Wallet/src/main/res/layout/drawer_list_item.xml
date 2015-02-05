@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="48dp"
-    android:background="@drawable/btn_nav_list"
     android:orientation="horizontal"
     android:id="@+id/drawer_list_item"
     >
@@ -12,8 +11,16 @@
         android:id="@+id/icon"
         android:layout_width="@dimen/image_menu_width"
         android:layout_height="@dimen/image_menu_height"
+        android:paddingTop="@dimen/image_menu_spacing_icons"
+        android:paddingBottom="@dimen/image_menu_spacing_icons"
+        android:paddingRight="@dimen/image_menu_spacing_icons_double"
+        android:paddingEnd="@dimen/image_menu_spacing_icons_double"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
         android:contentDescription="@android:string/untitled"
         />
 
@@ -21,10 +28,24 @@
     <br.com.tolive.simplewallet.views.CustomTextView
         app:font="@string/app_font"
         android:id="@+id/title"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:gravity="center_vertical"
         android:textSize="14sp"
-        android:textColor="@color/list_item_title"/>
+        android:layout_toEndOf="@id/icon"
+        android:layout_toRightOf="@id/icon"/>
 
-</LinearLayout>
+    <ImageView
+        android:id="@+id/arrow"
+        android:layout_width="@dimen/image_menu_width"
+        android:layout_height="@dimen/image_menu_height"
+        android:paddingTop="@dimen/image_menu_spacing_icons"
+        android:paddingBottom="@dimen/image_menu_spacing_icons"
+        android:paddingLeft="@dimen/image_menu_spacing_icons_double"
+        android:layout_marginRight="14dp"
+        android:layout_marginEnd="14dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:contentDescription="@android:string/untitled"/>
+
+</RelativeLayout>

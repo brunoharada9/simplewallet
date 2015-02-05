@@ -93,7 +93,7 @@ public class FiltroActivity extends ActionBarActivity {
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setIcon(R.drawable.ic_action_hardware_keyboard_backspace);
+        //actionBar.setIcon(R.drawable.ic_action_hardware_keyboard_backspace);
     }
 
     private int getYear(int currentYear, String[] years) {

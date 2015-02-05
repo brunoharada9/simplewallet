@@ -60,8 +60,13 @@ public class MenuItemListAdapter extends BaseAdapter {
             convertView = mInflater.inflate(R.layout.drawer_list_item, null);
         }
 
+        if(position == 0){
+            convertView.setBackgroundColor(context.getResources().getColor(R.color.clicked));
+        }
+
         ImageView imgIcon = (ImageView) convertView.findViewById(R.id.icon);
         TextView txtTitle = (TextView) convertView.findViewById(R.id.title);
+        ImageView imgArrow = (ImageView) convertView.findViewById(R.id.arrow);
 
         Typeface tf = Typeface.createFromAsset(context.getAssets(), Constantes.FONT_PATH_ROBOTO_CONDENSED_BOLD);
         txtTitle.setTypeface(tf);
@@ -76,10 +81,13 @@ public class MenuItemListAdapter extends BaseAdapter {
         TypedArray navMenuIcons = null;
         if (color == resources.getColor(R.color.primary_red)) {
             navMenuIcons = context.getResources().obtainTypedArray(R.array.nav_drawer_icons_red);
+            imgArrow.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_action_hardware_keyboard_arrow_right_red));
         } else if (color == resources.getColor(R.color.primary_yellow)) {
             navMenuIcons = context.getResources().obtainTypedArray(R.array.nav_drawer_icons_yellow);
+            imgArrow.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_action_hardware_keyboard_arrow_right_yellow));
         } else if (color == resources.getColor(R.color.primary_green)) {
             navMenuIcons = context.getResources().obtainTypedArray(R.array.nav_drawer_icons_green);
+            imgArrow.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_action_hardware_keyboard_arrow_right_green));
         }
         imgIcon.setImageDrawable(navMenuIcons.getDrawable(position));
         txtTitle.setTextColor(color);

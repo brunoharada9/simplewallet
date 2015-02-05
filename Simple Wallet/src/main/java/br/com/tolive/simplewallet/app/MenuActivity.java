@@ -16,7 +16,6 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
@@ -25,13 +24,10 @@ import com.google.android.gms.ads.AdView;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import br.com.tolive.simplewallet.adapter.MenuItemListAdapter;
 import br.com.tolive.simplewallet.constants.Constantes;
 import br.com.tolive.simplewallet.model.Entry;
 import br.com.tolive.simplewallet.model.MenuItem;
-import br.com.tolive.simplewallet.utils.LayoutHelper;
 import br.com.tolive.simplewallet.utils.MenuSlider;
-import br.com.tolive.simplewallet.utils.ThemeChanger;
 
 
 public class MenuActivity extends ActionBarActivity {
@@ -60,7 +56,6 @@ public class MenuActivity extends ActionBarActivity {
     private TypedArray navMenuIcons;
 
     private ArrayList<MenuItem> menuItems;
-    private MenuItemListAdapter adapter;
 
     private OnFiltroApplyListener mFiltroListener;
 
@@ -133,7 +128,7 @@ public class MenuActivity extends ActionBarActivity {
         navMenuIcons.recycle();
 
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setLogo(R.drawable.ic_action_navigation_menu);
+        actionBar.setIcon(R.drawable.ic_action_navigation_menu);
         // enabling action bar app icon and behaving it as toggle button
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
@@ -211,7 +206,7 @@ public class MenuActivity extends ActionBarActivity {
 //                actionBarIcon = ICON_SETTINGS;
 //                break;
             case NAV_LIST:
-                fragment = new EntriesListFragmentFragment();
+                fragment = new EntriesListFragment();
                 mFiltroListener = (OnFiltroApplyListener) fragment;
                 actionBarIcon = ICON_FILTRO;
                 break;
