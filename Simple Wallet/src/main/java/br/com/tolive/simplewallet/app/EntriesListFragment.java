@@ -89,7 +89,7 @@ public class EntriesListFragment extends Fragment implements MenuActivity.OnFilt
                         .withButtonColor(getResources().getColor(R.color.primary_green), getResources().getColor(R.color.bar_green))
                         .withGravity(Gravity.TOP | Gravity.END)
                         .withMarginsInPixels(0, convertToPixels((int) (getResources().getDimension(R.dimen.app_balance_content_height) / getResources().getDisplayMetrics().density)),
-                                convertToPixels((int) (getResources().getDimension(R.dimen.app_balance_content_height) / getResources().getDisplayMetrics().density)), 0).create();
+                                convertToPixels((int) (getResources().getDimension(R.dimen.app_padding) / getResources().getDisplayMetrics().density)), 0).create();
                 mFabButton.setOnClickListener(EntriesListFragment.this);
         mFabButton.showFloatingActionButton();
         //    }

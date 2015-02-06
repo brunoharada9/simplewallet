@@ -6,17 +6,22 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Rect;
 import android.os.Build;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.animation.Animation;
+import android.view.animation.Interpolator;
 import android.view.animation.TranslateAnimation;
 import android.widget.FrameLayout;
+import android.widget.Scroller;
 
 import br.com.tolive.simplewallet.app.R;
 import br.com.tolive.simplewallet.constants.Constantes;
@@ -24,13 +29,36 @@ import br.com.tolive.simplewallet.constants.Constantes;
 public class MenuSlider {
 
     public static final int DURATION = 500;
+    // Query Scroller every 16 miliseconds
+    private static final int QUERY_INTERVAL = 16;
+
     private final ActionBarActivity activity;
     private final View content;
     private final FrameLayout menuContainer;
     private final boolean removeAd;
     private View menuShadow;
 
-    public MenuSlider(ActionBarActivity activity) {
+    private boolean isDragging = false;
+    private int prevX = 0;
+    private int menuPosition = 0;
+    private int lastDiffX = 0;
+    private Scroller menuScroller;
+    private Runnable menuRunnable = new MenuRunnable();
+    private Handler menuHandler = new Handler();
+    private final float width;
+    private final float height;
+    private final int menuSize;
+    // The state of menu
+    private enum MenuState {
+        HIDING,
+        HIDDEN,
+        SHOWING,
+        SHOWN,
+    };
+
+    private MenuState currentMenuState = MenuState.HIDDEN;
+
+    public MenuSlider(final ActionBarActivity activity) {
         this.activity = activity;
 
         // We get the View of the Activity
@@ -70,6 +98,206 @@ public class MenuSlider {
         //editor.putBoolean(Constantes.SP_KEY_REMOVE_AD, true);
         //editor.commit();
         removeAd = sharedPreferences.getBoolean(Constantes.SP_KEY_REMOVE_AD, Constantes.SP_REMOVE_AD_DEFAULT);
+
+        // Scroller is used to facilitate animation
+        menuScroller = new Scroller(activity,
+                new EaseInInterpolator());
+
+
+        DisplayMetrics displayMetrics = activity.getResources().getDisplayMetrics();
+
+        width = displayMetrics.widthPixels;
+        height = displayMetrics.heightPixels;
+        Log.d("TAG", "width" + width);
+        menuSize = ((int) (width - LayoutHelper.dpToPixel(activity, 56)));
+
+        this.content.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                // Do nothing if sliding is in progress
+                if(currentMenuState == MenuState.HIDING || currentMenuState == MenuState.SHOWING)
+                    return false;
+
+                // getRawX returns X touch point corresponding to screen
+                // getX sometimes returns screen X, sometimes returns content View X
+                int curX = (int)event.getRawX();
+                Log.d("TAG", "curX " + curX);
+                if(!isMenuVisible()) {
+                    if (curX > LayoutHelper.dpToPixel(activity, 40) && !isDragging) {
+                        Log.d("TAG", "curX > " + LayoutHelper.dpToPixel(activity, 40));
+                        return false;
+                    }
+                } else {
+                    if (curX < menuSize && !isDragging) {
+                        Log.d("TAG", "curX < " + menuSize);
+                        return false;
+                    }
+                }
+
+                int diffX = 0;
+
+                switch(event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        Log.d("TAG", "Down x " + curX);
+                        //menuContainer.offsetLeftAndRight(-menuSize);
+
+                        prevX = curX;
+                        return true;
+
+                    case MotionEvent.ACTION_MOVE:
+                        Log.d("TAG", "Move x " + curX);
+
+                        // Set menu to Visible when user start dragging the content View
+                        if(!isDragging) {
+                            isDragging = true;
+                            if(!isMenuVisible()) {
+                                FrameLayout.LayoutParams fragmentParams;
+                                Rect rectangle = new Rect();
+                                Window window = activity.getWindow();
+                                window.getDecorView().getWindowVisibleDisplayFrame(rectangle);
+                                final int statusBarHeight = rectangle.top;
+                                if (removeAd) {
+                                    fragmentParams = new FrameLayout.LayoutParams(menuSize, ViewGroup.LayoutParams.MATCH_PARENT);
+                                    //shadowParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
+                                } else {
+                                    fragmentParams = new FrameLayout.LayoutParams(menuSize, (int) (height - LayoutHelper.dpToPixel(activity, 50) - statusBarHeight));
+                                    //shadowParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, (int) (height - LayoutHelper.dpToPixel(activity,50) - statusBarHeight));
+                                }
+                                menuContainer.setLayoutParams(fragmentParams);
+                                menuContainer.setTranslationX(-menuSize);
+                                menuContainer.setVisibility(View.VISIBLE);
+                            }
+                        }
+
+                        // How far we have moved since the last position
+                        diffX = curX - prevX ;
+                        Log.d("TAG", "diffX " + diffX);
+
+                        // Prevent user from dragging beyond border
+                        if(menuPosition + diffX <= 0) {
+                            // Don't allow dragging beyond left border
+                            // Use diffX will make content cross the border, so only translate by -menuPosition
+                            diffX = 0;
+                            Log.d("TAG", "menuPosition + diffX <= 0");
+                        } else if(menuPosition + diffX > menuSize) {
+                            // Don't allow dragging beyond menu width
+                            diffX = 0;
+                            Log.d("TAG", "menuPosition + diffX (" + (menuPosition + diffX) + ") > menuSize" +
+                                    " (" + menuSize + ")");
+                        }
+
+                        // Translate content View accordingly
+                        menuContainer.offsetLeftAndRight(diffX);
+
+                        menuPosition += diffX;
+                        Log.d("TAG", "menuPosition " + menuPosition);
+
+                        // Invalite this whole MainLayout, causing onLayout() to be called
+                        //content.invalidate();
+
+                        prevX = curX;
+                        lastDiffX = diffX;
+                        return true;
+
+                    case MotionEvent.ACTION_UP:
+                        Log.d("TAG", "lastDiffX " + lastDiffX);
+
+                        // Start scrolling
+                        // Remember that when content has a chance to cross left border, lastDiffX is set to 0
+                        if(lastDiffX >= 0 && menuPosition > menuSize/2) {
+                            // User wants to show menu
+                            currentMenuState = MenuState.SHOWING;
+
+                            // No need to set to Visible, because we have set to Visible in ACTION_MOVE
+                            //menu.setVisibility(View.VISIBLE);
+
+                            Log.d("TAG", "Up menuPosition " + menuPosition);
+
+                            // Start scrolling from menuPosition
+                            menuScroller.startScroll(menuPosition, 0, menuSize - menuPosition,
+                                    0, DURATION);
+                        } else{
+                            // User wants to hide menu
+                            currentMenuState = MenuState.HIDING;
+                            menuScroller.startScroll(menuPosition, 0, -menuPosition,
+                                    0, DURATION);
+                        }
+
+
+                        // Begin querying
+                        menuHandler.postDelayed(menuRunnable, QUERY_INTERVAL);
+
+                        // Done dragging
+                        isDragging = false;
+                        prevX = 0;
+                        lastDiffX = 0;
+                        //menuPosition = 0;
+                        return true;
+
+                    default:
+                        break;
+                }
+
+                return false;
+            }
+        });
+    }
+
+    // Make scrolling more natural. Move more quickly at the end
+    // See the formula here http://cyrilmottier.com/2012/05/22/the-making-of-prixing-fly-in-app-menu-part-1/
+    protected class EaseInInterpolator implements Interpolator {
+        @Override
+        public float getInterpolation(float t) {
+            return (float)Math.pow(t-1, 5) + 1;
+        }
+
+    }
+
+
+    // Query Scroller
+    protected class MenuRunnable implements Runnable {
+        @Override
+        public void run() {
+            boolean isScrolling = menuScroller.computeScrollOffset();
+            adjustContentPosition(isScrolling);
+        }
+    }
+
+    // Adjust content View position to match sliding animation
+    private void adjustContentPosition(boolean isScrolling) {
+        int scrollerXOffset = menuScroller.getCurrX();
+
+        Log.d("TAG", "scrollerOffset " + scrollerXOffset);
+        Log.d("TAG", "menuPosition " + menuPosition);
+
+        // Translate content View accordingly
+        menuContainer.offsetLeftAndRight(scrollerXOffset - menuPosition);
+
+        menuPosition = scrollerXOffset;
+
+        // Check if animation is in progress
+        if (isScrolling)
+            menuHandler.postDelayed(menuRunnable, QUERY_INTERVAL);
+        else
+            this.onMenuSlidingComplete();
+    }
+
+    // Called when sliding is complete
+    private void onMenuSlidingComplete() {
+        //menuPosition = 0;
+        switch (currentMenuState) {
+            case SHOWING:
+                currentMenuState = MenuState.SHOWN;
+                menuPosition = (int) (this.width - LayoutHelper.dpToPixel(activity, 56));
+                break;
+            case HIDING:
+                currentMenuState = MenuState.HIDDEN;
+                menuContainer.setVisibility(View.GONE);
+                menuPosition = 0;
+                break;
+            default:
+                return;
+        }
     }
 
     public <T extends Fragment> void setMenuFragment(Class<T> cls) {
@@ -122,6 +350,7 @@ public class MenuSlider {
         //fragmentParams.setMargins(0, 0, 0, 0);
         this.menuContainer.setLayoutParams(fragmentParams);
         this.menuShadow.setLayoutParams(shadowParams);
+        menuContainer.setTranslationX(-menuSize);
 
         // Perform the animation only if the menu is not visible
         if(!isMenuVisible()) {
@@ -138,9 +367,11 @@ public class MenuSlider {
             backgroundColorAnimator.start();
 
             // The menu slides in from the right
+            menuContainer.setTranslationX(0);
             TranslateAnimation animation = new TranslateAnimation(-menuWidth, 0, 0, 0);
             animation.setDuration(DURATION);
             this.menuContainer.startAnimation(animation);
+            this.menuPosition = menuSize;
         }
     }
 
@@ -186,6 +417,7 @@ public class MenuSlider {
                 }
             });
             this.menuContainer.startAnimation(menuAnimation);
+            this.menuPosition = 0;
         }
     }
 
