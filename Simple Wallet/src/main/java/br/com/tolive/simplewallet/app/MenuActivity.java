@@ -7,9 +7,6 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.res.TypedArray;
 import android.net.Uri;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,6 +14,10 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.TextView;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -30,7 +31,7 @@ import br.com.tolive.simplewallet.model.MenuItem;
 import br.com.tolive.simplewallet.utils.MenuSlider;
 
 
-public class MenuActivity extends ActionBarActivity {
+public class MenuActivity extends AppCompatActivity {
     private static final int ICON_SETTINGS = 0;
     private static final int ICON_FILTRO = 1;
     private static final int ICON_NONE = 2;
@@ -79,7 +80,7 @@ public class MenuActivity extends ActionBarActivity {
                     .addTestDevice("E6E54B90007CAC7A62F9EC7857F3A989")
                     .build();
             AdView adView = (AdView) findViewById(R.id.ad_main);
-            adView.loadAd(request);
+            //adView.loadAd(request);
         } else{
             AdView adView = (AdView) findViewById(R.id.ad_main);
             adView.setVisibility(View.GONE);
@@ -291,10 +292,11 @@ public class MenuActivity extends ActionBarActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == REQUEST_SETTINGS){
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_SETTINGS) {
 
-        } else if(requestCode == REQUEST_FILTRO){
-            if(resultCode == RESULT_OK){
+        } else if (requestCode == REQUEST_FILTRO) {
+            if (resultCode == RESULT_OK) {
                 if (mFiltroListener != null) {
                     mFiltroListener.onFiltroApply((ArrayList<Entry>) data.getSerializableExtra(FiltroActivity.EXTRA_KEY_FILTRO_ENTRIES), data.getIntExtra(FiltroActivity.EXTRA_KEY_FILTRO_MONTH, AdapterView.INVALID_POSITION));
                 }

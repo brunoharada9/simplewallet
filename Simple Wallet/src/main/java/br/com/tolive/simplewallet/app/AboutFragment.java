@@ -7,13 +7,14 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import br.com.tolive.simplewallet.constants.Constantes;
 import br.com.tolive.simplewallet.utils.IabHelper;
@@ -25,7 +26,7 @@ import br.com.tolive.simplewallet.views.CustomTextView;
 
 
 /**
- * A simple {@link android.support.v4.app.Fragment} subclass.
+ * A simple {@link androidx.fragment.app.Fragment} subclass.
  *
  */
 public class AboutFragment extends Fragment {
@@ -45,7 +46,7 @@ public class AboutFragment extends Fragment {
         super.onResume();
         getActivity().invalidateOptionsMenu();
 
-        ThemeChanger themeChanger = new ThemeChanger((ActionBarActivity) getActivity());
+        ThemeChanger themeChanger = new ThemeChanger((AppCompatActivity) getActivity());
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constantes.SHARED_PREFERENCES, Context.MODE_PRIVATE);
         int color = themeChanger.setThemeColor(sharedPreferences.getInt(Constantes.SP_KEY_MONTH, Constantes.SP_MONTH_DEFAULT), null);
         themeChanger.setMenuColor(getActivity().findViewById(R.id.fragment_menu), color);

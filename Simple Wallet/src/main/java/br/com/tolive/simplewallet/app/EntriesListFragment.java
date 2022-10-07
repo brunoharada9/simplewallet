@@ -4,9 +4,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
 import android.view.ContextMenu;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -17,6 +14,10 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -68,7 +69,7 @@ public class EntriesListFragment extends Fragment implements MenuActivity.OnFilt
 
         entries = dao.getEntry(month);
 
-        themeChanger = new ThemeChanger((ActionBarActivity) getActivity());
+        themeChanger = new ThemeChanger((AppCompatActivity) getActivity());
 
         View view = inflater.inflate(R.layout.fragment_list, container, false);
 
@@ -121,7 +122,7 @@ public class EntriesListFragment extends Fragment implements MenuActivity.OnFilt
             }
         });
 
-        ActionBar actionBar = ((ActionBarActivity) getActivity()).getSupportActionBar();
+        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setIcon(R.drawable.ic_action_navigation_menu);
 

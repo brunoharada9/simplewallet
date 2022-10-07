@@ -4,14 +4,15 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
-import android.widget.RadioButton;
+
+import androidx.appcompat.widget.AppCompatRadioButton;
 
 import br.com.tolive.simplewallet.app.R;
 
 /**
  * Created by Bruno on 05/08/2014.
  */
-public class CustomRadioButton extends RadioButton {
+public class CustomRadioButton extends AppCompatRadioButton {
     public CustomRadioButton(Context context) {
         super(context);
         init(null);
@@ -30,7 +31,7 @@ public class CustomRadioButton extends RadioButton {
     private void init(AttributeSet attrs) {
         if (attrs!=null) {
             TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.CustomTextView);
-            String font = a.getString(R.styleable.CustomTextView_font);
+            String font = a.getString(R.styleable.CustomTextView_fonttest);
             if (font!=null) {
                 Typeface myTypeface = Typeface.createFromAsset(getContext().getAssets(), "fonts/" + font);
                 setTypeface(myTypeface);
