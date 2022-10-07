@@ -19,7 +19,8 @@
 
         <activity
             android:name=".MenuActivity"
-            android:label="@string/title_activity_menu">
+            android:label="@string/title_activity_menu"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

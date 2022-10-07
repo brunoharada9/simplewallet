@@ -6,15 +6,15 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 
 import br.com.tolive.simplewallet.adapter.MenuItemListAdapter;
 import br.com.tolive.simplewallet.app.R;
@@ -33,14 +33,14 @@ public class ThemeChanger {
     public static final int THEME_YELLOW = 1;
     public static final int THEME_GREEN = 2;
 
-    private ActionBarActivity context;
+    private AppCompatActivity context;
     private Resources resources;
 
     private Drawable icon_green;
     private Drawable icon_yellow;
     private Drawable icon_red;
 
-    public ThemeChanger(ActionBarActivity context){
+    public ThemeChanger(AppCompatActivity context){
         this.context = context;
         this.resources = context.getResources();
 

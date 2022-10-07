@@ -2,9 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Simple Wallet.iml" filepath="$PROJECT_DIR$/Simple Wallet.iml" />
-      <module fileurl="file://$PROJECT_DIR$/SimpleWallet.iml" filepath="$PROJECT_DIR$/SimpleWallet.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/simplewallet.iml" filepath="$PROJECT_DIR$/.idea/modules/simplewallet.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Simple Wallet/simplewallet.Simple_Wallet.iml" filepath="$PROJECT_DIR$/.idea/modules/Simple Wallet/simplewallet.Simple_Wallet.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Simple Wallet/simplewallet.Simple_Wallet.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/Simple Wallet/simplewallet.Simple_Wallet.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Simple Wallet/simplewallet.Simple_Wallet.main.iml" filepath="$PROJECT_DIR$/.idea/modules/Simple Wallet/simplewallet.Simple_Wallet.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Simple Wallet/simplewallet.Simple_Wallet.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/Simple Wallet/simplewallet.Simple_Wallet.unitTest.iml" />
     </modules>
   </component>
 </project>
-

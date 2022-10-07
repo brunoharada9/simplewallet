@@ -1,14 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 21
-    buildToolsVersion '21.1.1'
+    compileSdkVersion 33
+    buildToolsVersion '33.0.0'
 
     defaultConfig {
-        minSdkVersion 14
-        targetSdkVersion 21
-        versionCode 17
-        versionName "2.0"
+        minSdkVersion  21
+        targetSdkVersion 33
+        versionCode 18
+        versionName '3.0'
     }
     buildTypes {
         release {
@@ -19,10 +19,9 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:21.0.3'
-    compile 'com.android.support:support-v4:21.0.3'
-    compile 'com.google.android.gms:play-services:6.5.87'
-    compile 'com.android.support:recyclerview-v7:21.0.0'
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-
+    implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'com.google.android.gms:play-services:12.0.1'
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
 }

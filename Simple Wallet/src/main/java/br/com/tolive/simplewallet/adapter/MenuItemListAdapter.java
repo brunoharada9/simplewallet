@@ -6,15 +6,14 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
-import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
@@ -74,7 +73,7 @@ public class MenuItemListAdapter extends BaseAdapter {
         //imgIcon.setImageResource(navDrawerItems.get(position).getIcon());
         txtTitle.setText(menuItems.get(position).getTitle());
 
-        ThemeChanger themeChanger = new ThemeChanger((ActionBarActivity) context);
+        ThemeChanger themeChanger = new ThemeChanger((AppCompatActivity) context);
         SharedPreferences sharedPreferences = context.getSharedPreferences(Constantes.SHARED_PREFERENCES, Context.MODE_PRIVATE);
         int color = themeChanger.setThemeColor(sharedPreferences.getInt(Constantes.SP_KEY_MONTH, Constantes.SP_MONTH_DEFAULT), null);
         Resources resources = context.getResources();

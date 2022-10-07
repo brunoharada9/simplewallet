@@ -5,14 +5,15 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,7 +38,7 @@ import br.com.tolive.simplewallet.utils.ThemeChanger;
 /**
  * Created by bruno.carvalho on 10/07/2014.
  */
-public class RecoveryFragment extends Fragment{
+public class RecoveryFragment extends Fragment {
     private ArrayList<File> filesList;
 
     public RecoveryFragment() {
@@ -49,7 +50,7 @@ public class RecoveryFragment extends Fragment{
         super.onResume();
         getActivity().invalidateOptionsMenu();
 
-        ThemeChanger themeChanger = new ThemeChanger((ActionBarActivity) getActivity());
+        ThemeChanger themeChanger = new ThemeChanger((AppCompatActivity) getActivity());
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constantes.SHARED_PREFERENCES, Context.MODE_PRIVATE);
         int color = themeChanger.setThemeColor(sharedPreferences.getInt(Constantes.SP_KEY_MONTH, Constantes.SP_MONTH_DEFAULT), null);
         themeChanger.setMenuColor(getActivity().findViewById(R.id.fragment_menu), color);

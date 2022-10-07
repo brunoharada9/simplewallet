@@ -19,7 +19,7 @@
     <string name="dialog_add_edittext_description">Descrição</string>
     <string name="dialog_add_text_choose">Programar</string>
     <string name="dialog_add_text_choose_edit">Data</string>
-    <string name="dialog_add_text_ok">Ok</string>
+    <string name="dialog_add_text_ok">OK</string>
     <string name="dialog_add_text_cancel">Cancelar</string>
     <string name="dialog_edit_sucess">Editado com sucesso</string>
     <string name="dialog_edit_error">Erro na edição</string>
@@ -39,7 +39,7 @@
     <string name="activity_details_text_date_string">Quando?</string>
     <string name="fragment_settings_text_color_set">Mudar avisos</string>
     <string name="fragment_settings_text_color_set_green">Bom $$ :)</string>
-    <string name="fragment_settings_text_color_set_yellow">Atenção...</string>
+    <string name="fragment_settings_text_color_set_yellow">Atenção</string>
     <string name="fragment_settings_text_color_set_red">Quebrado :(</string>
     <string name="fragment_settings_text_balance_type">Mostrar saldo</string>
     <string name="fragment_settings_radio_balance_type_total">Total</string>
@@ -61,7 +61,7 @@
     <string name="fragment_store_text_options">Opções</string>
     <string name="fragment_store_text_email">Email</string>
     <string name="fragment_store_text_email_subject">[Gastos Simples] Relatorio de gastos</string>
-    <string name="fragment_store_text_email_instructions">Para recuperar salve o arquivo em anexo na pasta "Gastos Simples" do seu celular.</string>
+    <string name="fragment_store_text_email_instructions">Para recuperar salve o arquivo em anexo na pasta Gastos Simples do seu celular.</string>
     <string name="fragment_store_text_sdcard">Celular</string>
     <string name="fragment_store_text_sucess">Gastos salvos no cartão SD</string>
     <string name="fragment_store_text_fail">Erro ao salvar no cartão SD</string>

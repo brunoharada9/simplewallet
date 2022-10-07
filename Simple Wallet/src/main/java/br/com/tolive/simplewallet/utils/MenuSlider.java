@@ -7,10 +7,6 @@ import android.content.SharedPreferences;
 import android.graphics.Rect;
 import android.os.Build;
 import android.os.Handler;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBarActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -23,6 +19,11 @@ import android.view.animation.TranslateAnimation;
 import android.widget.FrameLayout;
 import android.widget.Scroller;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 import br.com.tolive.simplewallet.app.R;
 import br.com.tolive.simplewallet.constants.Constantes;
 
@@ -32,7 +33,7 @@ public class MenuSlider {
     // Query Scroller every 16 miliseconds
     private static final int QUERY_INTERVAL = 16;
 
-    private final ActionBarActivity activity;
+    private final AppCompatActivity activity;
     private final View content;
     private final FrameLayout menuContainer;
     private final boolean removeAd;
@@ -58,7 +59,7 @@ public class MenuSlider {
 
     private MenuState currentMenuState = MenuState.HIDDEN;
 
-    public MenuSlider(final ActionBarActivity activity) {
+    public MenuSlider(final AppCompatActivity activity) {
         this.activity = activity;
 
         // We get the View of the Activity

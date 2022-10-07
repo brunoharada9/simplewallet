@@ -4,13 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Spinner;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -25,7 +25,7 @@ import br.com.tolive.simplewallet.model.Entry;
 import br.com.tolive.simplewallet.utils.ThemeChanger;
 
 
-public class FiltroActivity extends ActionBarActivity {
+public class FiltroActivity extends AppCompatActivity {
     public static final String EXTRA_KEY_FILTRO_ENTRIES = "entries_filtro";
     public static final String EXTRA_KEY_FILTRO_MONTH = "month_filtro";
     Spinner spinnerMonth;
@@ -46,7 +46,7 @@ public class FiltroActivity extends ActionBarActivity {
                     .addTestDevice("E6E54B90007CAC7A62F9EC7857F3A989")
                     .build();
             AdView adView = (AdView) findViewById(R.id.ad_filtro);
-            adView.loadAd(request);
+            //adView.loadAd(request);
         } else{
             AdView adView = (AdView) findViewById(R.id.ad_filtro);
             adView.setVisibility(View.GONE);

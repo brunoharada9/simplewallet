@@ -1,15 +1,10 @@
 package br.com.tolive.simplewallet.app;
 
-import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,8 +13,9 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import br.com.tolive.simplewallet.constants.Constantes;
 import br.com.tolive.simplewallet.utils.ThemeChanger;
@@ -49,7 +45,7 @@ public class SettingsFragment extends Fragment {
         getActivity().invalidateOptionsMenu();
 
 
-        ThemeChanger themeChanger = new ThemeChanger((ActionBarActivity) getActivity());
+        ThemeChanger themeChanger = new ThemeChanger((AppCompatActivity) getActivity());
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constantes.SHARED_PREFERENCES, Context.MODE_PRIVATE);
         int color = themeChanger.setThemeColor(sharedPreferences.getInt(Constantes.SP_KEY_MONTH, Constantes.SP_MONTH_DEFAULT), null);
         themeChanger.setMenuColor(getActivity().findViewById(R.id.fragment_menu), color);
@@ -93,7 +89,7 @@ public class SettingsFragment extends Fragment {
         editYellow.setText(String.format("%.0f",yellow));
         editRed.setText(String.format("%.0f",red));
 
-        ActionBar actionBar = ((ActionBarActivity) getActivity()).getSupportActionBar();
+        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setIcon(R.drawable.ic_action_navigation_menu);
 
